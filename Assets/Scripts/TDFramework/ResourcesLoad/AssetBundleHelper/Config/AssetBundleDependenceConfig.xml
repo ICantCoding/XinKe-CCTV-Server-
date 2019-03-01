@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AssetBundleConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ABList Path="Assets/TDFramework/ResourcesLoad/AssetBundleHelper/Config/AssetBundleConfig.asset" Crc="2721599888" ABName="assetbundleconfig" AssetName="AssetBundleConfig.asset" />
+  <ABList Path="Assets/TDFramework/ResourcesLoad/AssetBundleHelper/Config/AssetBundleDependenceConfig.bytes" Crc="2390658496" ABName="assetbundleconfig" AssetName="AssetBundleDependenceConfig.bytes" />
+  <ABList Path="Assets/TDFramework/ResourcesLoad/AssetBundleHelper/Config/AssetBundleDependenceConfig.xml" Crc="2445625552" ABName="assetbundleconfig" AssetName="AssetBundleDependenceConfig.xml" />
+  <ABList Path="Assets/Res/Prefab/DarkDragon.prefab" Crc="555725018" ABName="darkdragon" AssetName="DarkDragon.prefab" />
+  <ABList Path="Assets/Res/Prefab/Robot_Blue.prefab" Crc="4006316529" ABName="robot_blue" AssetName="Robot_Blue.prefab" />
+  <ABList Path="Assets/Res/Prefab/Robot_Gray.prefab" Crc="2093196273" ABName="robot_gray" AssetName="Robot_Gray.prefab">
+    <DependABList>robot_blue</DependABList>
+  </ABList>
+  <ABList Path="Assets/Res/Prefab/Robot_Red.prefab" Crc="3793135142" ABName="robot_red" AssetName="Robot_Red.prefab">
+    <DependABList>robot_blue</DependABList>
+  </ABList>
+</AssetBundleConfig>

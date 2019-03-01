@@ -43,7 +43,7 @@ using PureMVC.Interfaces;
 public class UIMainPanel : UIPanel
 {
     #region 字段
-    private Text m_text;
+
     #endregion
 
     #region Unity生命周期
@@ -59,7 +59,7 @@ public class UIMainPanel : UIPanel
         RegisterProxy(new Template_Proxy());    //注册Proxy
 
         //获取UI
-        m_text = transform.Find("Text").GetComponent<Text>();
+        
     }
     protected void OnDestroy()
     {
@@ -81,8 +81,8 @@ public class UIMainPanel : UIPanel
     {
         if (notification.Name == EventID_Cmd.U3DClientOnLine)
         {
-            Packet packet = (Packet)notification.Body;
-            m_text.text = packet.m_sendId.ToString();  
+            U3DClientLogin packet = (U3DClientLogin)notification.Body;
+            
         }
     }
     public override void OnRegister()
