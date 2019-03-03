@@ -45,7 +45,7 @@ namespace TDFramework
             abConfig.directoryABPathList.Add(new ABConfig.DirectoryAB()
             {
                 ABName = "assetbundleconfig",
-                DirectoryPath = "Assets/TDFramework/ResourcesLoad/AssetBundleHelper/Config"
+                DirectoryPath = "Assets/Scripts/TDFramework/ResourcesLoad/AssetBundleHelper/Config"
             });
             UnityEditor.AssetDatabase.CreateAsset(abConfig, ABPathConfig.AssetBundleConfigPath);
             UnityEditor.AssetDatabase.SaveAssets();
@@ -141,8 +141,8 @@ namespace TDFramework
                 AssetDatabase.RemoveAssetBundleName(assetBundleName, true);
             }
 
-            //生成Md5文件
-            CreateMd5File4AssetBundleFiles();
+            //生成Md5文件, 目前, 我先把Md5File文件生成关闭了. 
+            // CreateMd5File4AssetBundleFiles();
 
             //刷新Project面板
             AssetDatabase.Refresh();

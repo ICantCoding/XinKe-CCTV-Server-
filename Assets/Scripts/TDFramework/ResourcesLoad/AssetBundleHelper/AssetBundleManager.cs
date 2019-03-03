@@ -101,7 +101,7 @@ namespace TDFramework
          new Dictionary<uint, ResourceItem>();
         protected Dictionary<uint, AssetBundleItem> m_assetBundleItemDict =
          new Dictionary<uint, AssetBundleItem>();
-        //AssetBundleItem的类对象池
+        //AssetBundleItem的类对象池, 先分配500个AssetBundleItem的类对象池
         protected ClassObjectPool<AssetBundleItem> m_assetBundleItemPool =
          ObjectManager.Instance.GetOrCreateClassObjectPool<AssetBundleItem>(500);
         #endregion	
@@ -109,7 +109,7 @@ namespace TDFramework
         #region 构造函数
         public AssetBundleManager()
         {
-            LoadAssetBundleConfig(); //初始化
+            LoadAssetBundleConfig(); //初始化, AssetBundleManager一定要先初始化,把依赖文件读取出来
         }
         #endregion
 

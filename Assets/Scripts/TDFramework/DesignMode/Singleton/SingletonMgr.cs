@@ -11,5 +11,7 @@ namespace TDFramework
         public static NetworkEngine NetworkEngine = NetworkEngine.Instance;
         public static ModuleMgr ModuleMgr = ModuleMgr.Instance;
         public static SceneInfoMgr SceneInfoMgr = SceneInfoMgr.Instance;
+        public static AssetBundleManager AssetBundleManager = AssetBundleManager.Instance;
+        public static ResourceMgr ResourceMgr = ResourceMgr.Instance;
     }
 }

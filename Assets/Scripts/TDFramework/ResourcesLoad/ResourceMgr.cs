@@ -125,7 +125,7 @@ namespace TDFramework
         #endregion
 
         #region 公有方法
-        public void Init(MonoBehaviour mono)
+        public void Init(MonoBehaviour mono) //异步加载必须要先调用Init方法.
         {
             if (m_isInit == false)
             {
@@ -559,7 +559,7 @@ namespace TDFramework
             }
             if (destroyCache == false)
             {
-                m_noReferenceResourceItemMapList.Insert(item);
+                m_noReferenceResourceItemMapList.Insert(item); //如果不销毁该资源,我们就把该资源放入到一个缓存空间中, 当时该资源也并没有从AssetCacheDict中移除
                 return;
             }
             if (!AssetCacheDict.Remove(item.Crc))

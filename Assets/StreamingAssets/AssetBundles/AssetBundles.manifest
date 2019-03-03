@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 811794805
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: assetbundleconfig
+      Dependencies: {}
+    Info_1:
+      Name: clientonlineitem
+      Dependencies: {}
