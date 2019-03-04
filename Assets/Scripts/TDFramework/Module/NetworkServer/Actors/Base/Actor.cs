@@ -86,6 +86,10 @@ public class Actor
     {
         m_isStop = true;
     }
+    public void Resume()
+    {
+        m_isStop = false;
+    }
     #endregion
 
     #region Actor之间通信
@@ -172,7 +176,6 @@ public class ActorManager
     }
     public void RemoveActor(int actorId)
     {
-        // RemoveActor的时候是否需要关闭协程. 我想是有必要关闭协程的. 
         lock (m_actorDict)
         {
             if (m_actorDict.ContainsKey(actorId))
@@ -183,8 +186,11 @@ public class ActorManager
                     Actor actor2 = m_actorType[actor.GetType()];
                     if (actor2 == actor)
                     {
+                        actor.Stop(); 
                         m_actorType.Remove(actor.GetType());
-                        actor.Momo.StopAllCoroutines(); //关闭该Actor的协程.
+                        //关闭该Actor的协程, 这里关闭All协程的话，会把其他Actor的协程也关掉
+                        //因为所有的Actor的协程都绑定在一个MonoBheaviour上
+                        // actor.Momo.StopAllCoroutines(); 
                     }
                 }
                 m_actorDict.Remove(actorId);

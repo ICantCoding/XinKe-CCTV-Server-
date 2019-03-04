@@ -44,18 +44,20 @@ public class ServerActor : Actor
         }
         catch (System.Exception exception)
         {
-            Debug.LogError("服务器TcpListener Start失败, Reason: " + exception.Message);
+            Debug.Log("服务器TcpListener Start失败, Reason: " + exception.Message);
             return false;
         }
         m_thread = new Thread(new ThreadStart(ListenClientConnectedThreadFunction));
         m_thread.IsBackground = true;
         m_thread.Start(); //开启一个子线程专门用于监听客户端的连接
+        SendNotification(EventID_Cmd.ServerStart, null, null); //发送一个Cmd事件，表示服务器已经开启
         return true;
     }
-    public void Over()
+    public void End()
     {
-        //先移除所有的Agent, 并断开与Agent的Socket连接
-        RemoveAllAgent();
+        //先关闭所有的Agent客户端连接   
+        CloseAllAgent();
+
         //关闭TcpListener
         if (m_tcpListener != null)
         {
@@ -72,8 +74,12 @@ public class ServerActor : Actor
         }
         catch (Exception exception)
         {
-            Debug.LogError("服务器关闭，监听客户端连接线程终止失败. Reason: " + exception.Message);
+            Debug.Log("服务器关闭，监听客户端连接线程终止失败. Reason: " + exception.Message);
         }
+
+        Stop(); //ServerActor本身的m_isStop设置为true
+        //发送一个Cmd事件，表示服务器已经关闭.
+        SendNotification(EventID_Cmd.ServerStop, null, null);
     }
     #region 数据管理方法
     public void AddAgent(Socket socket)
@@ -106,13 +112,18 @@ public class ServerActor : Actor
         }
         return agent;
     }
-    private void RemoveAllAgent()
+    private void CloseAllAgent()
     {
-        foreach(var item in m_agentDict)
+        int count = m_agentDict.Count;
+        List<Agent> agentList = new List<Agent>();
+        foreach (var item in m_agentDict)
         {
             Agent agent = item.Value;
-            agent.Close();
-            m_agentDict.Remove(agent.Id);
+            agentList.Add(agent);
+        }
+        foreach (var agent in agentList)
+        {
+            agent.Close(); //agent.Close()中会自动把Agent从Server数据集合中删除
         }
     }
     #endregion
@@ -124,10 +135,17 @@ public class ServerActor : Actor
         while (true)
         {
             //确定是否有挂起的连接请求, Pending()返回true, 表示有从客户端来的连接请求
-            if (m_tcpListener != null && m_tcpListener.Pending())
+            try
             {
-                Socket socket = m_tcpListener.AcceptSocket();
-                AddAgent(socket);
+                if (m_tcpListener != null && m_tcpListener.Pending())
+                {
+                    Socket socket = m_tcpListener.AcceptSocket();
+                    AddAgent(socket);
+                }
+            }
+            catch(System.Exception exception)
+            {
+                Debug.Log("TcpListener监听客户端连接失败, Reason: " + exception.Message);
             }
             Thread.Sleep(1);
         }

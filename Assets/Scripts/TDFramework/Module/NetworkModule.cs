@@ -15,14 +15,38 @@ namespace TDFramework
         public override void Init()
         {
             m_networkEngine = SingletonMgr.NetworkEngine;
-            m_networkEngine.Run(SingletonMgr.GameGlobalInfo.ServerInfo.ServerPort);
         }
         public override void Release()
         {
             //关闭客户端连接服务器
             if (m_networkEngine != null)
             {
-                m_networkEngine.Stop();
+                m_networkEngine.Destroy();
+                m_networkEngine = null;
+            }
+        }
+        #endregion
+
+        #region 方法
+        public void Run()
+        {
+            if(m_networkEngine != null)
+            {
+                m_networkEngine.Run(SingletonMgr.GameGlobalInfo.ServerInfo.ServerPort);
+            }
+        }
+        public void Pause()
+        {
+            if(m_networkEngine != null)
+            {
+                m_networkEngine.Pause();
+            }
+        }
+        public void Destroy()
+        {
+            if(m_networkEngine != null)
+            {
+                m_networkEngine.Destroy();
                 m_networkEngine = null;
             }
         }

@@ -11,11 +11,13 @@ public class WatchDogActor : Actor
     #region 常量
     private const string CreatePlayerActorStr = "CreatePlayerActor";
     private const string DestroyPlayerActorStr = "DestroyPlayerActor";
+    private const string StopSelfActorStr = "StopSelfActor";
     private const char SplitChar = '|';
     #endregion
 
     #region 字段
     private WorldActor m_worldActor = null;
+    private ServerActor m_serverActor = null;
     #endregion
 
     #region 属性
@@ -23,11 +25,16 @@ public class WatchDogActor : Actor
     {
         get
         {
-            if (m_worldActor == null)
-            {
-                m_worldActor = ActorManager.Instance.GetActor<WorldActor>();
-            }
+            m_worldActor = ActorManager.Instance.GetActor<WorldActor>();
             return m_worldActor;
+        }
+    }
+    public ServerActor ServerActor
+    {
+        get
+        {
+            m_serverActor = ActorManager.Instance.GetActor<ServerActor>();
+            return m_serverActor;
         }
     }
     #endregion
@@ -35,7 +42,7 @@ public class WatchDogActor : Actor
     #region 构造函数
     public WatchDogActor(MonoBehaviour mono) : base(mono)
     {
-        
+
     }
     #endregion
 
@@ -68,7 +75,19 @@ public class WatchDogActor : Actor
     }
     private void DestroyPlayerActorCallback(uint agentId)
     {
-        WorldActor.RemovePlayerActor(agentId);
+        Agent agent = ServerActor.GetAgent(agentId);
+        PlayerActor playerActor = (PlayerActor)agent.Actor;
+        if (playerActor != null)
+        {
+            //发送Cmd，表明某个客户端下线了
+            SendNotification(EventID_Cmd.U3DClientOffLine, playerActor.U3DId, null);
+            ActorManager.Instance.RemoveActor(playerActor.Id);
+            WorldActor.RemovePlayerActorByActorId((uint)playerActor.Id);
+            if (ServerActor != null)
+            {
+                ServerActor.RemoveAgent(agent);
+            }
+        }
     }
     #endregion
 

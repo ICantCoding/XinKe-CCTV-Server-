@@ -122,7 +122,7 @@ namespace TDFramework
             if (gameObjectItem.ResourceItem.Obj == null)
             {
 #if UNITY_EDITOR
-                Debug.LogError("异步资源加载的资源为空: " + path);
+                Debug.Log("异步资源加载的资源为空: " + path);
 #endif
             }
             else
@@ -158,7 +158,7 @@ namespace TDFramework
             }
             if (gameObjectItem.AlreadyRelease)
             {
-                Debug.LogError(obj.name + "该对象已经放回对象池, 检查是否清空该对象的引用!");
+                Debug.Log(obj.name + "该对象已经放回对象池, 检查是否清空该对象的引用!");
                 return;
             }
 #if UNITY_EDITOR

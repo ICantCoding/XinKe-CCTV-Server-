@@ -19,11 +19,11 @@ public class SendBuffer
 
 public class Agent
 {
-	#region 常量静态字段
+    #region 常量静态字段
     private static readonly object lockObj = new object();
     private static uint maxId = 0;
     private const int bufferSize = 2048;
-	#endregion
+    #endregion
 
     #region 字段
     private uint m_id;               //客户端代理Id号
@@ -59,6 +59,10 @@ public class Agent
         get { return m_server; }
         set { m_server = value; }
     }
+    public EndPoint EndPoint
+    {
+        get { return m_endPoint; }
+    }
     #endregion
 
     #region 构造函数
@@ -91,8 +95,7 @@ public class Agent
             }
             catch (Exception exception)
             {
-                //接收数据失败,就直接关闭掉该客户端的连接
-                Debug.LogError("服务器BeginReceive时失败, Reason: " + exception.Message);
+                Debug.Log("服务器BeginReceive时失败, Reason: " + exception.Message);
                 Close();
             }
         }
@@ -106,15 +109,13 @@ public class Agent
         }
         catch (Exception exception)
         {
-            //接收数据失败,就直接关闭掉该客户端的连接
-            Debug.LogError("服务器接收客户端发送的消息时, EndReceive失败. Reason: " + exception.Message);
+            Debug.Log("服务器接收客户端发送的消息时, EndReceive失败. Reason: " + exception.Message);
             Close();
             return;
         }
         if (recvLen <= 0)
         {
-            //接收数据的大小<=0, 就直接关闭到该客户端的连接
-            Debug.LogError("服务器接收客户端发送的消息失败, Reason: 消息长度<=0.");
+            Debug.Log("服务器接收客户端发送的消息失败, Reason: 消息长度<=0.");
             Close();
         }
         else
@@ -128,8 +129,7 @@ public class Agent
             }
             catch (Exception exception)
             {
-                //接收数据失败,就直接关闭掉该客户端的连接
-                Debug.LogError("服务器BeginReceive时失败, Reason: " + exception.Message);
+                Debug.Log("服务器BeginReceive时失败, Reason: " + exception.Message);
                 Close();
             }
         }
@@ -168,25 +168,20 @@ public class Agent
             }
             catch (Exception exception)
             {
-                Debug.LogError("服务器关闭某个客户端连接时失败, Reason: " + exception.Message);
+                Debug.Log("服务器关闭某个客户端连接时失败, Reason: " + exception.Message);
             }
         }
         m_socket = null;
         m_isClose = true;
-
+        
         if (m_actor != null)
         {
-            m_actor.SendMsg(string.Format("close"));
+            m_actor.Stop();
         }
-        if (m_dogActor != null)
+        if (m_dogActor != null && m_actor != null)
         {
             //关闭Agent的时候，肯定要使用看门狗通知销毁PlayerActor
             m_dogActor.SendActorMessageToDestroyPlayerActor(m_id);
-        }
-        if (m_server != null)
-        {
-            //关闭Agent的时候, 肯定要从Server的Agent集合中移除当前的Agent
-            m_server.RemoveAgent(this);
         }
     }
 
@@ -213,7 +208,7 @@ public class Agent
                 }
                 catch (Exception exception)
                 {
-                    Debug.LogError("服务器BeginSend时失败, Reason: " + exception.Message);
+                    Debug.Log("服务器BeginSend时失败, Reason: " + exception.Message);
                     Close();
                 }
             }
@@ -229,7 +224,7 @@ public class Agent
         catch (Exception exception)
         {
             Close();
-            Debug.LogError("服务器EndSend是失败, Reason: " + exception.Message);
+            Debug.Log("服务器EndSend是失败, Reason: " + exception.Message);
             return;
         }
         lock (m_sendBufferList)
@@ -272,7 +267,7 @@ public class Agent
                     catch (Exception exception)
                     {
                         //异步发送数据失败，就关闭Agent的Socket连接
-                        Debug.LogError("服务器BeginSend时失败, Reason: " + exception.Message);
+                        Debug.Log("服务器BeginSend时失败, Reason: " + exception.Message);
                         Close();
                     }
                 }

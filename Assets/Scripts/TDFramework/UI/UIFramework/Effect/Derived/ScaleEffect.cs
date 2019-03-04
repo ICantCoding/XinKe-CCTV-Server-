@@ -42,7 +42,7 @@ namespace TDFramework
         }
         public override void PointerTapEffectAction()
         {
-            Debug.Log("Tap Tap...");
+            
         }
         #endregion
     }

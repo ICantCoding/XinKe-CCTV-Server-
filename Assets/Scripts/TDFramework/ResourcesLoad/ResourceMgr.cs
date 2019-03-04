@@ -302,6 +302,7 @@ namespace TDFramework
                 para.m_crc = crc;
                 para.m_path = path;
                 para.m_priority = priority;
+                //这里应该还少了对Sprite的判定
                 m_loadingAssetDict.Add(crc, para);
                 m_loadingAssetList[(int)priority].Add(para);
             }

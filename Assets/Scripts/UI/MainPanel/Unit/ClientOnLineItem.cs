@@ -35,18 +35,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ClientOnLineItem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    #region 字段
+    private Text m_contentTxt;
+    private Button m_btn;
+    #endregion
 
-    // Update is called once per frame
-    void Update()
+    #region 属性
+    public Text ContentTxt
     {
-        
+        get
+        {
+            if (m_contentTxt == null)
+            {
+                m_contentTxt = transform.Find("Text").GetComponent<Text>();
+            }
+            return m_contentTxt;
+        }
     }
+    #endregion
+
+    #region Unity生命周期
+    void Awake()
+    {
+        m_btn = transform.GetComponent<Button>();
+        if (m_btn != null)
+        {
+            m_btn.onClick.AddListener(OnBtnClick);
+        }
+    }
+    #endregion
+
+    #region 方法
+    public void SetCell(string content)
+    {
+        ContentTxt.text = content;
+    }
+    #endregion
+
+    #region UI事件处理
+    private void OnBtnClick()
+    {
+        Debug.Log("On Btn Click...");
+    }
+    #endregion
 }

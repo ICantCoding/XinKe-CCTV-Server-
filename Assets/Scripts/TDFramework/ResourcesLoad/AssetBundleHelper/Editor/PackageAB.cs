@@ -75,7 +75,7 @@ namespace TDFramework
             {
                 if (m_directoryABDict.ContainsKey(item.ABName))
                 {
-                    Debug.LogError("当前文件夹: " + item.DirectoryPath + "的AB包名字重复, 请检查!");
+                    Debug.Log("当前文件夹: " + item.DirectoryPath + "的AB包名字重复, 请检查!");
                 }
                 else
                 {
@@ -104,7 +104,7 @@ namespace TDFramework
                 }
                 if (m_prefabABDict.ContainsKey(go.name))
                 {
-                    Debug.LogError("当前Prefab: " + go.name + "的AB包名字重复, 请检查!");
+                    Debug.Log("当前Prefab: " + go.name + "的AB包名字重复, 请检查!");
                 }
                 else
                 {
@@ -155,7 +155,7 @@ namespace TDFramework
             AssetImporter importer = AssetImporter.GetAtPath(filePath);
             if (importer == null)
             {
-                Debug.LogError("文件: " + filePath + "被标记AssetBundleName时, 找不到该文件路径!");
+                Debug.Log("文件: " + filePath + "被标记AssetBundleName时, 找不到该文件路径!");
             }
             else
             {
@@ -320,7 +320,7 @@ namespace TDFramework
             }
             catch (System.Exception e)
             {
-                Debug.LogError("CreateMd5File4AssetBundleFiles error: " + e.Message);
+                Debug.Log("CreateMd5File4AssetBundleFiles error: " + e.Message);
             }
         }
     }

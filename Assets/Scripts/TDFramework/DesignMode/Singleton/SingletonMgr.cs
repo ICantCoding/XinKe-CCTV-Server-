@@ -13,5 +13,6 @@ namespace TDFramework
         public static SceneInfoMgr SceneInfoMgr = SceneInfoMgr.Instance;
         public static AssetBundleManager AssetBundleManager = AssetBundleManager.Instance;
         public static ResourceMgr ResourceMgr = ResourceMgr.Instance;
+        public static ObjectManager ObjectManager = ObjectManager.Instance;
     }
 }

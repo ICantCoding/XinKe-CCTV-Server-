@@ -45,7 +45,7 @@ namespace TDFramework
                 refCount = value;
                 if(refCount < 0)
                 {
-                    Debug.LogError(AssetName + "的资源引用计数<0");
+                    Debug.Log(AssetName + "的资源引用计数<0");
                 }
             }
         }
@@ -123,7 +123,7 @@ namespace TDFramework
             TextAsset textAsset = configAB.LoadAsset<TextAsset>(ABPathConfig.DependenceFileName);
             if (textAsset == null)
             {
-                Debug.LogError("AssetBundleConfig is not exists!");
+                Debug.Log("AssetBundleConfig is not exists!");
                 return false;
             }
             MemoryStream ms = new MemoryStream(textAsset.bytes);
@@ -156,7 +156,7 @@ namespace TDFramework
             ResourceItem resourceItem = null;
             if (!m_resourceItemDict.TryGetValue(crc, out resourceItem) || resourceItem == null)
             {
-                Debug.LogError("没有找到Crc: " + crc.ToString() + "对应的资源!");
+                Debug.Log("没有找到Crc: " + crc.ToString() + "对应的资源!");
                 return null;
             }
             if (resourceItem.Ab != null)
@@ -205,7 +205,7 @@ namespace TDFramework
                 }
                 if (assetBundle == null)
                 {
-                    Debug.LogError("Load AssetBundle Error: " + abFullPath);
+                    Debug.Log("Load AssetBundle Error: " + abFullPath);
                     return null;
                 }
                 abItem = m_assetBundleItemPool.Spawn(true);
