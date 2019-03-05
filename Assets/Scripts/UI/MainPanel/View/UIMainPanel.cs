@@ -204,7 +204,7 @@ public class UIMainPanel : UIPanel
     {
         System.UInt16 u3dId = (System.UInt16)notification.Body;
         ClientOnLineItem item = GetClientOnLineItem(u3dId);
-        Destroy(item.gameObject);
+        SingletonMgr.ObjectManager.ReleaseGameObjectItem(item.gameObject); //回收
         RemoveClientOnLineItem(u3dId);
     }
     private void ServerStart_Callback(INotification notification)

@@ -71,7 +71,8 @@ public class WatchDogActor : Actor
     {
         var playerActor = new PlayerActor(agentId, m_monobehaviour); //创建PlayerActor
         ActorManager.Instance.AddActor(playerActor);
-        WorldActor.AddPlayerActor(playerActor); //将新创建的PlayerActor添加到WorldActor进行管理
+        //将新创建的Playeractor添加到WorldActor的List集合中管理， 暂时还不要交给Dict管理(需要设置U3DID的时候才能交给Dict管理)
+        WorldActor.AddPlayerActor2List(playerActor); 
     }
     private void DestroyPlayerActorCallback(uint agentId)
     {
@@ -82,7 +83,7 @@ public class WatchDogActor : Actor
             //发送Cmd，表明某个客户端下线了
             SendNotification(EventID_Cmd.U3DClientOffLine, playerActor.U3DId, null);
             ActorManager.Instance.RemoveActor(playerActor.Id);
-            WorldActor.RemovePlayerActorByActorId((uint)playerActor.Id);
+            WorldActor.RemovePlayeractor(playerActor);
             if (ServerActor != null)
             {
                 ServerActor.RemoveAgent(agent);

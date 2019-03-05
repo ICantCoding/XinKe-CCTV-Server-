@@ -7,7 +7,8 @@ using TDFramework;
 
 public class ServerInfo
 {
-    
+    [XmlElement("Id")]
+    public System.UInt16 Id;
     [XmlElement("ServerName")]
     public string ServerName;
     [XmlElement("ServerPort")]
@@ -17,6 +18,7 @@ public class ServerInfo
     public static void SerializeServerInfo2Xml()
     {
         ServerInfo serverInfo = new ServerInfo();
+        serverInfo.Id = 0; //服务器的Id为0, 用于Packet中的sendId或者nodeId
         serverInfo.ServerName = "CCTV服务器";
         serverInfo.ServerPort = 3322;
 

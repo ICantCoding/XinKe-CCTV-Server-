@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Define\EventID.cs" />
+     <Compile Include="Assets\Scripts\Define\ResultID.cs" />
      <Compile Include="Assets\Scripts\TDFramework\AppStart\AppConfig.cs" />
      <Compile Include="Assets\Scripts\TDFramework\AppStart\AppConfigPath.cs" />
      <Compile Include="Assets\Scripts\TDFramework\AppStart\AppStart.cs" />

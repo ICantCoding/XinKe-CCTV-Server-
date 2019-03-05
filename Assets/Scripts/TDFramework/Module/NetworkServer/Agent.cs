@@ -173,7 +173,7 @@ public class Agent
         }
         m_socket = null;
         m_isClose = true;
-        
+
         if (m_actor != null)
         {
             m_actor.Stop();

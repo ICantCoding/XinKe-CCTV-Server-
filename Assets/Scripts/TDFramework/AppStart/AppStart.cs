@@ -12,6 +12,10 @@ namespace TDFramework
         #endregion
 
         #region Unity生命周期
+        void Awake()
+        {
+            DontDestroyOnLoad(this.gameObject);
+        }
         void Start()
         {
             //加载LaunchModule模块，用于读取应用程序所需要的配置数据

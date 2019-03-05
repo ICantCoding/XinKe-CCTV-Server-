@@ -32,50 +32,61 @@ public class WorldActor : Actor
         while (!m_isStop)
         {
             yield return new WaitForSeconds(1); //每秒定时更新一次信息
-            Debug.Log("世界信息每隔1秒更新...");
+            // Debug.Log("世界信息每隔1秒更新...");
         }
     }
 
     #region PlayerActor的数据管理
-    public void AddPlayerActor(PlayerActor playerActor)
+    public void AddPlayerActor2List(PlayerActor playerActor)
     {
-        if (playerActor == null) return;
-        if (m_playerActorList.Contains(playerActor) == false)
-        {
-            m_playerActorList.Add(playerActor);
-        }
-        if (m_playerActorDict.ContainsKey(playerActor.U3DId) == false)
+        if(playerActor == null) return;
+        m_playerActorList.Add(playerActor);
+    }
+    public void AddPlayerActor2Dict(PlayerActor playerActor)
+    {
+        if(playerActor == null) return;
+        if(m_playerActorDict.ContainsKey(playerActor.U3DId) == false)
         {
             m_playerActorDict.Add(playerActor.U3DId, playerActor);
         }
     }
-    public void RemovePlayerActor(PlayerActor playerActor)
+    public void RemovePlayerActor4List(PlayerActor playerActor)
     {
-        if (playerActor == null) return;
-        if (m_playerActorList.Contains(playerActor))
+        if(playerActor == null) return;
+        RemovePlayerActor4List(playerActor.Id);
+    }
+    public void RemovePlayerActor4List(int id)
+    {
+        PlayerActor tempPlayerActor = null;
+        foreach(PlayerActor item in m_playerActorList)
         {
-            m_playerActorList.Remove(playerActor);
+            if(item.Id == id)
+            {
+                tempPlayerActor = item;
+                break;
+            }
         }
-        if (m_playerActorDict.ContainsKey(playerActor.U3DId))
+        if(tempPlayerActor != null)
         {
-            m_playerActorDict.Remove(playerActor.U3DId);
+            m_playerActorList.Remove(tempPlayerActor);
         }
     }
-    public void RemovePlayerActorByActorId(uint actorId)
+    public void RemovePlayerActor4Dict(PlayerActor playerActor)
     {
-        PlayerActor actor = GetPlayerActorByActorId(actorId);
-        if (actor != null)
+        if(playerActor == null) return;
+        RemovePlayerActor4Dict(playerActor.U3DId);
+    }
+    public void RemovePlayerActor4Dict(UInt16 u3dId)
+    {
+        if(m_playerActorDict.ContainsKey(u3dId))
         {
-            RemovePlayerActor(actor);
+            m_playerActorDict.Remove(u3dId);
         }
     }
-    public void RemovePlayerActorByU3dId(UInt16 u3dId)
+    public void RemovePlayeractor(PlayerActor playerActor)
     {
-        PlayerActor actor = GetPlayerActorByU3dId(u3dId);
-        if(actor != null)
-        {
-            RemovePlayerActor(actor);
-        }
+        RemovePlayerActor4List(playerActor);
+        RemovePlayerActor4Dict(playerActor);
     }
     public PlayerActor GetPlayerActorByActorId(uint actorId)
     {
@@ -93,6 +104,10 @@ public class WorldActor : Actor
         PlayerActor playerActor = null;
         m_playerActorDict.TryGetValue(u3dId, out playerActor);
         return playerActor;
+    }
+    public bool PlayerActorIsExitsByU3dId(UInt16 u3dId)
+    {
+        return m_playerActorDict.ContainsKey(u3dId);
     }
     #endregion
 
