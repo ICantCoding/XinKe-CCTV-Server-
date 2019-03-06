@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServerInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Id>0</Id>
   <ServerName>CCTV服务器</ServerName>
+  <ServerIpAddress>192.168.0.50</ServerIpAddress>
   <ServerPort>3322</ServerPort>
 </ServerInfo>

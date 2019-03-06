@@ -6,6 +6,8 @@ namespace TDFramework
     using System.Collections;
     using System.Collections.Generic;
     using System.IO;
+    using System.Net;
+    using System.Net.Sockets;
     using UnityEngine;
 
     public class Util
@@ -42,9 +44,9 @@ namespace TDFramework
         #region 销毁物体 相关
         public static void DestroyAllChildObject(Transform parent, float delayTime = 0.0f)
         {
-            if(parent == null) return;
+            if (parent == null) return;
             int childCount = parent.childCount;
-            for(int i = 0; i < childCount; i++)
+            for (int i = 0; i < childCount; i++)
             {
                 Transform childTrans = parent.GetChild(i);
                 UnityEngine.GameObject.Destroy(childTrans.gameObject, delayTime);
@@ -102,6 +104,30 @@ namespace TDFramework
                     }
                     list.Add(files[i].FullName);
                 }
+            }
+        }
+        #endregion
+
+        #region 获取本地局域网IP地址
+        public static string GetIpAddress()
+        {
+            try
+            {
+                string HostName = Dns.GetHostName();
+                IPHostEntry IpEntry = Dns.GetHostEntry(HostName);
+                for (int i = 0; i < IpEntry.AddressList.Length; i++)
+                {
+                    if (IpEntry.AddressList[i].AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        return IpEntry.AddressList[i].ToString();
+                    }
+                }
+                return "127.0.0.1";
+            }
+            catch (Exception exception)
+            {
+                Debug.Log("获取本地IP地址失败, Reason: " + exception.Message);
+                return "127.0.0.1";
             }
         }
         #endregion

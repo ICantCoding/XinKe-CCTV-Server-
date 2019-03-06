@@ -15,9 +15,6 @@ namespace TDFramework
         void Awake()
         {
             DontDestroyOnLoad(this.gameObject);
-        }
-        void Start()
-        {
             //加载LaunchModule模块，用于读取应用程序所需要的配置数据
             SingletonMgr.ModuleMgr.RegisterModule("LaunchModule");
             //加载NetworkModule模块，用于启动网络服务器，与客户端连接通信

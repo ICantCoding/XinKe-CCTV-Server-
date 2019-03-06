@@ -122,18 +122,18 @@ public class PlayerActor : Actor
     {
         if(packet == null) return;
         U3DClientLogin u3dClientLogin = new U3DClientLogin(packet.m_data);
-        U3DId = u3dClientLogin.m_clientId;
         System.Net.IPEndPoint ipEndPoint = (System.Net.IPEndPoint)m_agent.EndPoint;
         object[] objs = new object[2];
         objs[0] = u3dClientLogin;
         objs[1] = ipEndPoint;
-        if (m_worldActor.PlayerActorIsExitsByU3dId(U3DId))
+        if (m_worldActor.PlayerActorIsExitsByU3dId(u3dClientLogin.m_clientId))
         {
             //表示同一个U3DID的客户端登录到服务器，返回登录失败
             SendU3DClientLoginFailResponse();
         }
         else
         {
+            U3DId = u3dClientLogin.m_clientId;
             m_worldActor.AddPlayerActor2Dict(this); //添加到WorldActor中被Dict管理
             SendU3DClientLoginSuccessResponse();
             SendNotification(EventID_Cmd.U3DClientOnLine, objs, null);

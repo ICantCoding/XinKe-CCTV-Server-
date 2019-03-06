@@ -69,7 +69,7 @@ public class WatchDogActor : Actor
     #region 方法
     private void CreatePlayerActorCallback(uint agentId)
     {
-        var playerActor = new PlayerActor(agentId, m_monobehaviour); //创建PlayerActor
+        PlayerActor playerActor = new PlayerActor(agentId, m_monobehaviour); //创建PlayerActor
         ActorManager.Instance.AddActor(playerActor);
         //将新创建的Playeractor添加到WorldActor的List集合中管理， 暂时还不要交给Dict管理(需要设置U3DID的时候才能交给Dict管理)
         WorldActor.AddPlayerActor2List(playerActor); 

@@ -46,10 +46,13 @@ public class UIMainPanel : UIPanel
     private Transform m_clientOnLineItemContentTrans;
     private Button m_startBtn;
     private Button m_stopBtn;
+    private Text m_serverIpTxt;
+    private Text m_serverPortTxt;
     private Text m_statusTxt;
     #endregion
 
     #region 数据集合
+    //用于管理登录在线的客户端显示UI的ClientOnLineItem
     private Dictionary<System.UInt16, ClientOnLineItem> m_clientOnLineItemDict = new Dictionary<ushort, ClientOnLineItem>();
     #endregion
 
@@ -60,13 +63,13 @@ public class UIMainPanel : UIPanel
 
         //绑定跟当前UIPanel相关的Mediator, Command, Proxy
         UIMainPanel_Command command = new UIMainPanel_Command();
-        RegisterCommand(EventID_Cmd.U3DClientOnLine, command);//注册Command
+        RegisterCommand(EventID_Cmd.U3DClientOnLine, command);
         RegisterCommand(EventID_Cmd.U3DClientOffLine, command);
         RegisterCommand(EventID_Cmd.ServerStart, command);
         RegisterCommand(EventID_Cmd.ServerStop, command);
-        RegisterMediator(new UIMainPanel_Mediator()); //注册Mediator
-        RegisterMediator(this); //注册UIPanelMediator
-        RegisterProxy(new UIMainPanel_Proxy());    //注册Proxy
+        RegisterMediator(new UIMainPanel_Mediator());
+        RegisterMediator(this);
+        RegisterProxy(new UIMainPanel_Proxy());
 
         //获取UI
         m_clientOnLineItemContentTrans = transform.Find("Image/Image/Scroll View/Viewport/Content");
@@ -80,7 +83,14 @@ public class UIMainPanel : UIPanel
         {
             m_stopBtn.onClick.AddListener(OnStopBtnClick);
         }
+        m_serverIpTxt = transform.Find("Image/ServerIPText").GetComponent<Text>();
+        m_serverPortTxt = transform.Find("Image/ServerPortText").GetComponent<Text>();
         m_statusTxt = transform.Find("ServerStatus/Text").GetComponent<Text>();
+    }
+    void Start()
+    {
+        m_serverIpTxt.text = "IP地址: " + SingletonMgr.GameGlobalInfo.ServerInfo.ServerIpAddress;
+        m_serverPortTxt.text = "端口: " + SingletonMgr.GameGlobalInfo.ServerInfo.ServerPort.ToString();
     }
     protected void OnDestroy()
     {
@@ -204,8 +214,11 @@ public class UIMainPanel : UIPanel
     {
         System.UInt16 u3dId = (System.UInt16)notification.Body;
         ClientOnLineItem item = GetClientOnLineItem(u3dId);
-        SingletonMgr.ObjectManager.ReleaseGameObjectItem(item.gameObject); //回收
-        RemoveClientOnLineItem(u3dId);
+        if (item != null)
+        {
+            SingletonMgr.ObjectManager.ReleaseGameObjectItem(item.gameObject); //回收
+            RemoveClientOnLineItem(u3dId);
+        }
     }
     private void ServerStart_Callback(INotification notification)
     {

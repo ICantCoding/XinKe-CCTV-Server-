@@ -43,5 +43,6 @@ public class AppConfigXmlEditor
     private static void CreateNetworkXml()
     {
         ServerInfo.SerializeServerInfo2Xml();
+        Debug.Log("生成ServerInfo.xml成功.");
     }
 }

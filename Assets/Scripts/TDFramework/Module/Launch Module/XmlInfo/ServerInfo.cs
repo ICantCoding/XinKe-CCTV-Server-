@@ -11,6 +11,8 @@ public class ServerInfo
     public System.UInt16 Id;
     [XmlElement("ServerName")]
     public string ServerName;
+    [XmlElement("ServerIpAddress")]
+    public string ServerIpAddress;
     [XmlElement("ServerPort")]
     public int ServerPort;
 
@@ -20,6 +22,7 @@ public class ServerInfo
         ServerInfo serverInfo = new ServerInfo();
         serverInfo.Id = 0; //服务器的Id为0, 用于Packet中的sendId或者nodeId
         serverInfo.ServerName = "CCTV服务器";
+        serverInfo.ServerIpAddress = Util.GetIpAddress();
         serverInfo.ServerPort = 3322;
 
         if (File.Exists(AppConfigPath.ServerInfoXmlPath))
