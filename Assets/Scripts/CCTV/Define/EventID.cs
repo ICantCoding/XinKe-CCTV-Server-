@@ -44,6 +44,8 @@ public class EventID_Cmd
     public const string ServerStop = "ServerStop_Cmd";                          //Server服务器已经关闭
     public const string U3DClientOnLine = "U3DClientOnLine_Cmd";            //U3D客户端上线事件
     public const string U3DClientOffLine = "U3DClientOffLine_Cmd";          //U3D客户端离线事件
+    public const string StationClientOnLine = "StationClientOnLine_Cmd";    //Station客户端上线事件
+    public const string StationClientOffLine = "StationClientOffLine_Cmd";  //Station客户端离线事件
 
     public const string CCTVCtrlClientOnLine = "CCTVCtrlClientOnLine_Cmd";  //CCTV视频控制端上线事件
     public const string CCTVCtrlClientOffLine = "CCTVCtrlClientOffLine_Cmd";//CCTV视频控制端下线事件
@@ -59,5 +61,7 @@ public class EventID_UI
     public const string ServerStop = "ServerStop_UI";                       //Server服务器已经关闭
     public const string U3DClientOnLine = "U3DClientOnLine_UI";            //U3D客户端上线事件
     public const string U3DClientOffLine = "U3DClientOffLine_UI";          //U3D客户端离线事件
+    public const string StationClientOnLine = "StationClientOnLine_UI";    //Station客户端上线事件
+    public const string StationClientOffLine = "StationClientOffLine_UI";  //Station客户端离线事件
 }
 #endregion

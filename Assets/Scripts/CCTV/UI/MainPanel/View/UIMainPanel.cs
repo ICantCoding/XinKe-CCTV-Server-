@@ -49,6 +49,8 @@ public class UIMainPanel : UIPanel
     private Text m_serverIpTxt;
     private Text m_serverPortTxt;
     private Text m_statusTxt;
+    public Text m_onlineCountText;
+    public Text m_linkSocketCountText;
     #endregion
 
     #region 数据集合
@@ -65,6 +67,8 @@ public class UIMainPanel : UIPanel
         UIMainPanel_Command command = new UIMainPanel_Command();
         RegisterCommand(EventID_Cmd.U3DClientOnLine, command);
         RegisterCommand(EventID_Cmd.U3DClientOffLine, command);
+        RegisterCommand(EventID_Cmd.StationClientOnLine, command);
+        RegisterCommand(EventID_Cmd.StationClientOffLine, command);
         RegisterCommand(EventID_Cmd.ServerStart, command);
         RegisterCommand(EventID_Cmd.ServerStop, command);
         RegisterMediator(new UIMainPanel_Mediator());
@@ -96,6 +100,8 @@ public class UIMainPanel : UIPanel
     {
         RemoveCommand(EventID_Cmd.U3DClientOnLine);
         RemoveCommand(EventID_Cmd.U3DClientOffLine);
+        RemoveCommand(EventID_Cmd.StationClientOnLine);
+        RemoveCommand(EventID_Cmd.U3DClientOffLine);
         RemoveCommand(EventID_Cmd.ServerStart);
         RemoveCommand(EventID_Cmd.ServerStop);
         RemoveMediator(UIMainPanel_Mediator.NAME);
@@ -112,6 +118,8 @@ public class UIMainPanel : UIPanel
             EventID_UI.ServerStop,
             EventID_UI.U3DClientOnLine,
             EventID_UI.U3DClientOffLine,
+            EventID_UI.StationClientOnLine,
+            EventID_UI.StationClientOffLine,
         };
     }
     public override void HandleNotification(INotification notification)
@@ -128,6 +136,16 @@ public class UIMainPanel : UIPanel
                     U3DClientOffLine_Callback(notification);
                     break;
                 }
+            case EventID_UI.StationClientOnLine:
+            {
+                StationClientOnLine_Callback(notification);
+                break;
+            }
+            case EventID_UI.StationClientOffLine:
+            {
+                StationClientOffLine_Callback(notification);
+                break;
+            }
             case EventID_UI.ServerStart:
                 {
                     ServerStart_Callback(notification);
@@ -209,6 +227,8 @@ public class UIMainPanel : UIPanel
                 AddClientOnLineItem(u3dClientLogin.m_clientId, itemCom);
             }
         }
+        m_onlineCountText.text = ActorManager.Instance.GetActor<WorldActor>().OnLineCount.ToString();
+        m_linkSocketCountText.text = ActorManager.Instance.GetActor<WorldActor>().LinkSocketCount.ToString();
     }
     private void U3DClientOffLine_Callback(INotification notification)
     {
@@ -219,6 +239,16 @@ public class UIMainPanel : UIPanel
             SingletonMgr.ObjectManager.ReleaseGameObjectItem(item.gameObject); //回收
             RemoveClientOnLineItem(u3dId);
         }
+        m_onlineCountText.text = ActorManager.Instance.GetActor<WorldActor>().OnLineCount.ToString();
+        m_linkSocketCountText.text = ActorManager.Instance.GetActor<WorldActor>().LinkSocketCount.ToString();
+    }
+    private void StationClientOnLine_Callback(INotification notification)
+    {
+        m_linkSocketCountText.text = ActorManager.Instance.GetActor<WorldActor>().LinkSocketCount.ToString();
+    }
+    private void StationClientOffLine_Callback(INotification notification)
+    {
+        m_linkSocketCountText.text = ActorManager.Instance.GetActor<WorldActor>().LinkSocketCount.ToString();
     }
     private void ServerStart_Callback(INotification notification)
     {

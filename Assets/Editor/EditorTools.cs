@@ -45,4 +45,16 @@ public class AppConfigXmlEditor
         ServerInfo.SerializeServerInfo2Xml();
         Debug.Log("生成ServerInfo.xml成功.");
     }
+
+    [MenuItem("Tools/Navigation/Y")]
+    private static void Y()
+    {
+        GameObject[] gos = Selection.gameObjects;
+        for(int i = 0; i < gos.Length; i++)
+        {
+            GameObject go = gos[i];
+            Vector3 pos = go.transform.localPosition;
+            go.transform.localPosition = new Vector3(pos.x, pos.y - 0.1856f, pos.z);
+        }
+    }
 }

@@ -31,6 +31,16 @@ public class UIMainPanel_Command : SimpleCommand
                     U3DClientOffLine_Callback(notification);
                     break;
                 }
+            case EventID_Cmd.StationClientOnLine:
+            {
+                StationClientOnLine_Callback(notification);
+                break;
+            }
+            case EventID_Cmd.StationClientOffLine:
+            {
+                StationClientOffLine_Callback(notification);
+                break;
+            }
             case EventID_Cmd.ServerStart:
                 {
                     ServerStart_Callback(notification);
@@ -58,6 +68,14 @@ public class UIMainPanel_Command : SimpleCommand
     {
         System.UInt16 u3dId = (System.UInt16)notification.Body;
         SendNotification(EventID_UI.U3DClientOffLine, u3dId, null);
+    }
+    private void StationClientOnLine_Callback(INotification notification)
+    {
+        SendNotification(EventID_UI.StationClientOnLine, null, null);
+    }
+    private void StationClientOffLine_Callback(INotification notification)
+    {
+        SendNotification(EventID_UI.StationClientOffLine, null, null);
     }
     private void ServerStart_Callback(INotification notification)
     {

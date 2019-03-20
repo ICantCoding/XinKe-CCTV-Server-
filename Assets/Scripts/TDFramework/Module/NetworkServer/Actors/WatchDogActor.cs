@@ -71,24 +71,30 @@ public class WatchDogActor : Actor
     {
         PlayerActor playerActor = new PlayerActor(agentId, m_monobehaviour); //创建PlayerActor
         ActorManager.Instance.AddActor(playerActor);
-        //将新创建的Playeractor添加到WorldActor的List集合中管理， 暂时还不要交给Dict管理(需要设置U3DID的时候才能交给Dict管理)
-        WorldActor.AddPlayerActor2List(playerActor); 
     }
     private void DestroyPlayerActorCallback(uint agentId)
     {
         Agent agent = ServerActor.GetAgent(agentId);
+        if(agent == null) return;
         PlayerActor playerActor = (PlayerActor)agent.Actor;
         if (playerActor != null)
         {
-            //发送Cmd，表明某个客户端下线了
-            SendNotification(EventID_Cmd.U3DClientOffLine, playerActor.U3DId, null);
-            ActorManager.Instance.RemoveActor(playerActor.Id);
-            WorldActor.RemovePlayeractor(playerActor);
-            if (ServerActor != null)
+            if (playerActor.PlayerActorType == PlayerActorType.U3DPlayerActorType)
             {
-                ServerActor.RemoveAgent(agent);
+                WorldActor.RemovePlayerActor4U3DDict(playerActor);
+                //如果PlayerActor是U3DPlayerActor类型, 需要通知UI更新
+                SendNotification(EventID_Cmd.U3DClientOffLine, playerActor.U3DId, null);
             }
+            else if(playerActor.PlayerActorType == PlayerActorType.StationPlayerActorType)
+            {
+                WorldActor.RemovePlayerActor4StationDict(playerActor);
+                SendNotification(EventID_Cmd.StationClientOffLine, null, null);
+            }
+            playerActor.Stop();
+            ActorManager.Instance.RemoveActor(playerActor.Id);
+            agent.Actor = null;
         }
+        ServerActor.RemoveAgent(agent);
     }
     #endregion
 

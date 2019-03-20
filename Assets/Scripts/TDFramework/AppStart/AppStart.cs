@@ -7,10 +7,6 @@ namespace TDFramework
 
     public class AppStart : MonoBehaviour
     {
-        #region 字段
-
-        #endregion
-
         #region Unity生命周期
         void Awake()
         {
@@ -23,6 +19,8 @@ namespace TDFramework
             SingletonMgr.ModuleMgr.RegisterModule(ModuleName.ResourcesModule);
             //加载UIModule模块
             SingletonMgr.ModuleMgr.RegisterModule(ModuleName.UIModule);
+            //加载StationModule模块
+            SingletonMgr.ModuleMgr.RegisterModule(ModuleName.StationModule);
         }
         void OnDestroy()
         {
@@ -30,6 +28,7 @@ namespace TDFramework
             SingletonMgr.ModuleMgr.RemoveModule(ModuleName.NetworkModule);
             SingletonMgr.ModuleMgr.RemoveModule(ModuleName.ResourcesModule);
             SingletonMgr.ModuleMgr.RemoveModule(ModuleName.UIModule);
+            SingletonMgr.ModuleMgr.RemoveModule(ModuleName.StationModule);
         }
         void OnApplicationQuit()
         {
@@ -37,6 +36,7 @@ namespace TDFramework
             SingletonMgr.ModuleMgr.RemoveModule(ModuleName.NetworkModule);
             SingletonMgr.ModuleMgr.RemoveModule(ModuleName.ResourcesModule);
             SingletonMgr.ModuleMgr.RemoveModule(ModuleName.UIModule);
+            SingletonMgr.ModuleMgr.RemoveModule(ModuleName.StationModule);
         }
         #endregion
     }

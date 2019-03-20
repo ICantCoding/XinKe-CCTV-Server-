@@ -12,6 +12,7 @@ namespace TDFramework
         public const string NetworkModule = "NetworkModule";
         public const string ResourcesModule = "ResourcesModule";
         public const string UIModule = "UIModule";
+        public const string StationModule = "StationModule";
     }
 
     //模块抽象类

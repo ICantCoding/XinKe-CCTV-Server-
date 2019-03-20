@@ -19,13 +19,6 @@ public class ServerActor : Actor
     private WatchDogActor m_dogActor; //看门狗Actor
     #endregion
 
-    #region 属性
-    public Thread ListenerThread
-    {
-        get { return m_thread; }
-    }
-    #endregion
-
     #region 构造函数
     public ServerActor(MonoBehaviour mono) : base(mono)
     {
@@ -40,11 +33,11 @@ public class ServerActor : Actor
         {
             m_tcpPort = tcpPort;
             m_tcpListener = new TcpListener(IPAddress.Any, m_tcpPort);
-            m_tcpListener.Start(50); //设置最大挂载连接数为50
+            m_tcpListener.Start(1000); //设置最大挂载连接数为1000
         }
         catch (System.Exception exception)
         {
-            Debug.Log("服务器TcpListener Start失败, Reason: " + exception.Message);
+            Debug.LogError("服务器TcpListener Start失败, Reason: " + exception.Message);
             return false;
         }
         m_thread = new Thread(new ThreadStart(ListenClientConnectedThreadFunction));
@@ -56,15 +49,22 @@ public class ServerActor : Actor
     public void End()
     {
         //先关闭所有的Agent客户端连接   
-        CloseAllAgent();
+        CloseAllAgents();
 
-        //关闭TcpListener
-        if (m_tcpListener != null)
+        try
         {
-            m_tcpListener.Stop();
+            if (m_tcpListener != null)
+            {
+                m_tcpListener.Stop();
+                m_tcpListener = null;
+            }
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError("服务器关闭失败. Reason: " + exception.Message);
             m_tcpListener = null;
         }
-        //中断子线程
+
         try
         {
             if (m_thread != null)
@@ -74,7 +74,7 @@ public class ServerActor : Actor
         }
         catch (Exception exception)
         {
-            Debug.Log("服务器关闭，监听客户端连接线程终止失败. Reason: " + exception.Message);
+            Debug.LogError("服务器关闭，监听客户端连接线程终止失败. Reason: " + exception.Message);
         }
 
         Stop(); //ServerActor本身的m_isStop设置为true
@@ -112,7 +112,7 @@ public class ServerActor : Actor
         }
         return agent;
     }
-    private void CloseAllAgent()
+    private void CloseAllAgents()
     {
         int count = m_agentDict.Count;
         List<Agent> agentList = new List<Agent>();
@@ -123,7 +123,13 @@ public class ServerActor : Actor
         }
         foreach (var agent in agentList)
         {
+            if (m_dogActor != null && agent.Actor != null)
+            {
+                //关闭Agent的时候，肯定要使用看门狗通知销毁PlayerActor
+                m_dogActor.SendActorMessageToDestroyPlayerActor(agent.Id);
+            }
             agent.Close(); //agent.Close()中会自动把Agent从Server数据集合中删除
+            RemoveAgent(agent);
         }
     }
     #endregion
@@ -143,9 +149,9 @@ public class ServerActor : Actor
                     AddAgent(socket);
                 }
             }
-            catch(System.Exception exception)
+            catch (System.Exception exception)
             {
-                Debug.Log("TcpListener监听客户端连接失败, Reason: " + exception.Message);
+                Debug.LogError("TcpListener监听客户端连接失败, Reason: " + exception.Message);
             }
             Thread.Sleep(1);
         }

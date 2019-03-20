@@ -8,15 +8,41 @@ using UnityEngine;
 //用来存放所有的玩家记录
 public class WorldActor : Actor
 {
-    #region 常量
-
+    #region 字段
+    //使用字典管理PlayerActor, Key为PlayerActor的U3DId客户端唯一编号
+    private Dictionary<UInt16, PlayerActor> m_u3dPlayerActorDict =
+        new Dictionary<UInt16, PlayerActor>();
+    //使用字典管理PlayerActor, 用于管理Station的Client, 第一个Key为StationIndex， 第二个Key表示StationSocketType
+    private Dictionary<UInt16, Dictionary<UInt16, List<PlayerActor>>> m_stationPlayerActorDict =
+        new Dictionary<UInt16, Dictionary<UInt16, List<PlayerActor>>>();
     #endregion
 
-    #region 字段
-    //世界WorldActor中保存管理了PlayerActor
-    private List<PlayerActor> m_playerActorList = new List<PlayerActor>();
-    //使用字典管理PlayerActor, Key为PlayerActor的U3DId客户端唯一编号
-    private Dictionary<UInt16, PlayerActor> m_playerActorDict = new Dictionary<UInt16, PlayerActor>();
+    #region 属性
+    public int OnLineCount
+    {
+        get { return m_u3dPlayerActorDict.Count; }
+    }
+    public int LinkSocketCount
+    {
+        get
+        {
+            int count = 0;
+            var enumerator = m_stationPlayerActorDict.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current.Value;
+                var enumerator2 = item.GetEnumerator();
+                while (enumerator2.MoveNext())
+                {
+                    var item2 = enumerator2.Current.Value;
+                    count += item2.Count;
+                }
+                enumerator2.Dispose();
+            }
+            enumerator.Dispose();
+            return count + OnLineCount;
+        }
+    }
     #endregion
 
     #region 构造函数
@@ -26,88 +52,85 @@ public class WorldActor : Actor
     }
     #endregion
 
-    #region 方法
-    private IEnumerator UpdateWorld()
-    {
-        while (!m_isStop)
-        {
-            yield return new WaitForSeconds(1); //每秒定时更新一次信息
-            // Debug.Log("世界信息每隔1秒更新...");
-        }
-    }
-
     #region PlayerActor的数据管理
-    public void AddPlayerActor2List(PlayerActor playerActor)
+    #region U3DPlayerActor相关
+    public void AddPlayerActor2U3DDict(PlayerActor playerActor)
     {
-        if(playerActor == null) return;
-        m_playerActorList.Add(playerActor);
-    }
-    public void AddPlayerActor2Dict(PlayerActor playerActor)
-    {
-        if(playerActor == null) return;
-        if(m_playerActorDict.ContainsKey(playerActor.U3DId) == false)
+        if (playerActor == null) return;
+        if (m_u3dPlayerActorDict.ContainsKey(playerActor.U3DId) == false)
         {
-            m_playerActorDict.Add(playerActor.U3DId, playerActor);
+            m_u3dPlayerActorDict.Add(playerActor.U3DId, playerActor);
         }
     }
-    public void RemovePlayerActor4List(PlayerActor playerActor)
+    public void RemovePlayerActor4U3DDict(UInt16 u3dId)
     {
-        if(playerActor == null) return;
-        RemovePlayerActor4List(playerActor.Id);
-    }
-    public void RemovePlayerActor4List(int id)
-    {
-        PlayerActor tempPlayerActor = null;
-        foreach(PlayerActor item in m_playerActorList)
+        if (m_u3dPlayerActorDict.ContainsKey(u3dId))
         {
-            if(item.Id == id)
-            {
-                tempPlayerActor = item;
-                break;
-            }
-        }
-        if(tempPlayerActor != null)
-        {
-            m_playerActorList.Remove(tempPlayerActor);
+            m_u3dPlayerActorDict.Remove(u3dId);
         }
     }
-    public void RemovePlayerActor4Dict(PlayerActor playerActor)
+    public void RemovePlayerActor4U3DDict(PlayerActor playerActor)
     {
-        if(playerActor == null) return;
-        RemovePlayerActor4Dict(playerActor.U3DId);
-    }
-    public void RemovePlayerActor4Dict(UInt16 u3dId)
-    {
-        if(m_playerActorDict.ContainsKey(u3dId))
-        {
-            m_playerActorDict.Remove(u3dId);
-        }
-    }
-    public void RemovePlayeractor(PlayerActor playerActor)
-    {
-        RemovePlayerActor4List(playerActor);
-        RemovePlayerActor4Dict(playerActor);
-    }
-    public PlayerActor GetPlayerActorByActorId(uint actorId)
-    {
-        foreach (var temp in m_playerActorList)
-        {
-            if (temp.Id == actorId)
-            {
-                return temp;
-            }
-        }
-        return null;
+        if (playerActor == null) return;
+        RemovePlayerActor4U3DDict(playerActor.U3DId);
     }
     public PlayerActor GetPlayerActorByU3dId(UInt16 u3dId)
     {
         PlayerActor playerActor = null;
-        m_playerActorDict.TryGetValue(u3dId, out playerActor);
+        m_u3dPlayerActorDict.TryGetValue(u3dId, out playerActor);
         return playerActor;
     }
     public bool PlayerActorIsExitsByU3dId(UInt16 u3dId)
     {
-        return m_playerActorDict.ContainsKey(u3dId);
+        return m_u3dPlayerActorDict.ContainsKey(u3dId);
+    }
+    #endregion
+
+    #region StationPlayerActor相关
+    public void AddPlayerActor2StationDict(UInt16 stationIndex, UInt16 stationSocketType, PlayerActor playerActor)
+    {
+        if (playerActor == null) return;
+        Dictionary<UInt16, List<PlayerActor>> playerActorDict = null;
+        List<PlayerActor> list = null;
+        if (m_stationPlayerActorDict.ContainsKey(stationIndex) == false)
+        {
+            list = new List<PlayerActor>();
+            playerActorDict = new Dictionary<UInt16, List<PlayerActor>>();
+            playerActorDict.Add(stationSocketType, list);
+            m_stationPlayerActorDict.Add(stationIndex, playerActorDict);
+        }
+        else
+        {
+            playerActorDict = m_stationPlayerActorDict[stationIndex];
+            if(playerActorDict.ContainsKey(stationSocketType))
+            {
+                list = playerActorDict[stationSocketType];
+            }
+            else
+            {
+                list = new List<PlayerActor>();
+                playerActorDict.Add(stationSocketType, list);
+            }
+        }
+        list.Add(playerActor);
+    }
+    public void RemovePlayerActor4StationDict(PlayerActor playerActor)
+    {
+        if (playerActor == null) return;
+        Dictionary<UInt16, List<PlayerActor>> playerActorDict = null;
+        List<PlayerActor> list = null;
+        if (m_stationPlayerActorDict.ContainsKey(playerActor.StationIndex) == true)
+        {
+            playerActorDict = m_stationPlayerActorDict[playerActor.StationIndex];
+            if (playerActorDict.ContainsKey(playerActor.StationSocketType) == true)
+            {
+                list = playerActorDict[playerActor.StationSocketType];
+                if (list != null && list.Contains(playerActor) == true)
+                {
+                    list.Remove(playerActor);
+                }
+            }
+        }
     }
     #endregion
 
@@ -118,7 +141,7 @@ public class WorldActor : Actor
     {
         if (!string.IsNullOrEmpty(actorMsg.msg))
         {
-            
+
         }
     }
     public override void Init()
@@ -126,5 +149,13 @@ public class WorldActor : Actor
         base.Init();
         m_monobehaviour.StartCoroutine(UpdateWorld()); //用于定时更新需要的信息
     }
+    private IEnumerator UpdateWorld()
+    {
+        while (!m_isStop)
+        {
+            yield return new WaitForSeconds(1); //每秒定时更新一次信息
+        }
+    }
     #endregion
+
 }
