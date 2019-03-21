@@ -1,9 +1,9 @@
 /********************************************************************************
-** Coder：    ???
+** Coder：    田山杉
 
 ** 创建时间： 2019-03-07 11:13:38
 
-** 功能描述:  ???
+** 功能描述:  
 
 ** version:   v1.2.0
 
@@ -36,7 +36,7 @@ public class StationEngine : Singleton<StationEngine>
         Stopwatch sw = new Stopwatch();
         sw.Start();
         m_stationMgr = ReadStationPoint.BuildStationPoint();
-		ReadStationPoint.AAA(m_stationMgr);
+		ReadStationPoint.BuildPointInfo(m_stationMgr);
         ReadStationPoint.BuildStationDevices(m_stationMgr);
         ReadStationPoint.BuildStationNpc(m_stationMgr);
         sw.Stop();

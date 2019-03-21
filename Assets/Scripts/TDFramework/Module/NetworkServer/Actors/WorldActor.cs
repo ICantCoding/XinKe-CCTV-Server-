@@ -122,15 +122,26 @@ public class WorldActor : Actor
         if (m_stationPlayerActorDict.ContainsKey(playerActor.StationIndex) == true)
         {
             playerActorDict = m_stationPlayerActorDict[playerActor.StationIndex];
-            if (playerActorDict.ContainsKey(playerActor.StationSocketType) == true)
+            if (playerActorDict.ContainsKey(playerActor.StationClientType) == true)
             {
-                list = playerActorDict[playerActor.StationSocketType];
+                list = playerActorDict[playerActor.StationClientType];
                 if (list != null && list.Contains(playerActor) == true)
                 {
                     list.Remove(playerActor);
                 }
             }
         }
+    }
+    public List<PlayerActor> GetPlayerActorByStationIndexAndStationClientType(UInt16 stationIndex, UInt16 stationClientType)
+    {
+        if(m_stationPlayerActorDict.ContainsKey(stationIndex))
+        {
+            if(m_stationPlayerActorDict[stationIndex].ContainsKey(stationClientType))
+            {
+                return m_stationPlayerActorDict[stationIndex][stationClientType];
+            }
+        }
+        return null;
     }
     #endregion
 

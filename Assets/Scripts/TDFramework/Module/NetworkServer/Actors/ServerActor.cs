@@ -26,7 +26,7 @@ public class ServerActor : Actor
     }
     #endregion
 
-    #region 方法
+    #region 启动和关闭服务器
     public bool Start(int tcpPort)
     {
         try
@@ -81,7 +81,32 @@ public class ServerActor : Actor
         //发送一个Cmd事件，表示服务器已经关闭.
         SendNotification(EventID_Cmd.ServerStop, null, null);
     }
-    #region 数据管理方法
+    #endregion
+
+    #region 子线程方法
+    private void ListenClientConnectedThreadFunction()
+    {
+        while (true)
+        {
+            //确定是否有挂起的连接请求, Pending()返回true, 表示有从客户端来的连接请求
+            try
+            {
+                if (m_tcpListener != null && m_tcpListener.Pending())
+                {
+                    Socket socket = m_tcpListener.AcceptSocket();
+                    AddAgent(socket);
+                }
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogError("TcpListener监听客户端连接失败, Reason: " + exception.Message);
+            }
+            Thread.Sleep(1);
+        }
+    }
+    #endregion
+
+        #region 数据管理方法
     public void AddAgent(Socket socket)
     {
         Agent agent = new Agent(socket);
@@ -121,40 +146,14 @@ public class ServerActor : Actor
             Agent agent = item.Value;
             agentList.Add(agent);
         }
+
         foreach (var agent in agentList)
         {
-            if (m_dogActor != null && agent.Actor != null)
-            {
-                //关闭Agent的时候，肯定要使用看门狗通知销毁PlayerActor
-                m_dogActor.SendActorMessageToDestroyPlayerActor(agent.Id);
-            }
-            agent.Close(); //agent.Close()中会自动把Agent从Server数据集合中删除
-            RemoveAgent(agent);
+            agent.Close();
         }
     }
-    #endregion
     #endregion
 
-    #region 子线程方法
-    private void ListenClientConnectedThreadFunction()
-    {
-        while (true)
-        {
-            //确定是否有挂起的连接请求, Pending()返回true, 表示有从客户端来的连接请求
-            try
-            {
-                if (m_tcpListener != null && m_tcpListener.Pending())
-                {
-                    Socket socket = m_tcpListener.AcceptSocket();
-                    AddAgent(socket);
-                }
-            }
-            catch (System.Exception exception)
-            {
-                Debug.LogError("TcpListener监听客户端连接失败, Reason: " + exception.Message);
-            }
-            Thread.Sleep(1);
-        }
-    }
-    #endregion
+
+
 }

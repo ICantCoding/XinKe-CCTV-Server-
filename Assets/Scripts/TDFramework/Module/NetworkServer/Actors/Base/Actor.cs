@@ -18,13 +18,16 @@ public class ActorMessage
 public class Actor
 {
     #region 字段
-    protected object m_lockobj = new object(); //锁，用于Queue<ActorMessage>队列操作控制
+    //锁，用于Queue<ActorMessage>队列操作控制
+    protected object m_lockobj = new object();
+    //Actor的唯一标识，递增
     protected int m_Id;
-    protected bool m_isStop = false; //停止
+    //停止 MonoBehaviour的协程行为
+    protected bool m_isStop = false;
     protected MonoBehaviour m_monobehaviour = null;
     protected Queue<ActorMessage> m_msgQueue;
-
-    protected Notifier m_puremvcNotifier; //组合关系，让Actor具有发送PureMVC消息的能力
+    //组合关系，让Actor具有发送PureMVC消息的能力
+    protected Notifier m_puremvcNotifier;
     #endregion
 
     #region 属性
@@ -51,7 +54,7 @@ public class Actor
     #region Actor公有行为
     public virtual void Init()
     {
-        //这里使用协程，还是线程？ 需要考虑比较
+        //这里使用协程，还是线程？ 需要考虑比较, 注意有线程数量的限制情况
         m_monobehaviour.StartCoroutine(Dispatch()); //开启携程
         // Thread thread = new Thread(Dispatch);
         // thread.Start();
@@ -138,10 +141,13 @@ public class ActorManager
 {
     #region 字段
     public static ActorManager Instance;
-    Dictionary<int, Actor> m_actorDict; //根据Actor的Id来缓存Actor
-    Dictionary<Type, Actor> m_actorType; //根据Actor的Type来缓存Actor
-
-    private int m_actorId = 0; //进行原子操作递增， 用于Actor的唯一标识
+    //根据Actor的Id来缓存Actor
+    Dictionary<int, Actor> m_actorDict;
+    //根据Actor的Type来缓存Actor
+    Dictionary<Type, Actor> m_actorType;
+    //进行原子操作递增， 用于Actor的唯一标识
+    private int m_actorId = 0;
+    //用于停止ActorManager管理的所有Actor
     private bool m_isStop = false;
     #endregion
 
@@ -171,7 +177,8 @@ public class ActorManager
             }
         }
         actor.Id = actorId;
-        actor.Init();       //向ActorManager添加Actor的时候，就初始化Actor，并启动Actor的任务
+        //向ActorManager添加Actor的时候，就初始化Actor，并启动Actor的分发消息任务
+        actor.Init();       
         return actorId;
     }
     public void RemoveActor(int actorId)
@@ -186,10 +193,10 @@ public class ActorManager
                     Actor actor2 = m_actorType[actor.GetType()];
                     if (actor2 == actor)
                     {
-                        actor.Stop(); 
+                        actor.Stop();
                         m_actorType.Remove(actor.GetType());
                         //关闭该Actor的协程, 这里关闭All协程的话，会把其他Actor的协程也关掉
-                        //因为所有的Actor的协程都绑定在一个MonoBheaviour上
+                        //因为所有的Actor的协程都绑定在同一个MonoBheaviour上
                         // actor.Momo.StopAllCoroutines(); 
                     }
                 }

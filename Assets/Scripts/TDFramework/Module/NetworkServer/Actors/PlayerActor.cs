@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using TDFramework;
 
 public enum PlayerActorType
 {
@@ -16,14 +17,21 @@ public enum PlayerActorType
 public class PlayerActor : Actor
 {
     #region 字段
-    private PlayerActorType m_playerActorType; //PlayerActor类型
-    private UInt16 m_stationIndex;          //如果PlayerActor是StationPlayerActorType, 该字段有意义, 表示站台索引
-    private UInt16 m_stationSocketType;     //如果PlayerActor是StationPlayerActorType, 该字段有意义, 表示站台socket连接类型
+    //PlayerActor类型
+    private PlayerActorType m_playerActorType;
+    //如果PlayerActor是StationPlayerActorType, 该字段有意义, 表示站台索引
+    private UInt16 m_stationIndex;
+    //如果PlayerActor是StationPlayerActorType, 该字段有意义, 表示站台socket客户端连接类型， 上行，下行......        
+    private UInt16 m_stationClientType;
 
-    private UInt16 m_u3dId; //U3D客户端ID唯一标识
-    private uint m_agentId; //Agent的Id
-    private Agent m_agent; //Agent
-    private WorldActor m_worldActor; //世界Actor
+    //U3D客户端ID唯一标识
+    private UInt16 m_u3dId;
+    //Agent的Id
+    private uint m_agentId;
+    //Agent
+    private Agent m_agent;
+    //世界Actor
+    private WorldActor m_worldActor;
     #endregion
 
     #region 属性
@@ -37,10 +45,10 @@ public class PlayerActor : Actor
         get { return m_stationIndex; }
         set { m_stationIndex = value; }
     }
-    public UInt16 StationSocketType
+    public UInt16 StationClientType
     {
-        get { return m_stationSocketType; }
-        set { m_stationSocketType = value; }
+        get { return m_stationClientType; }
+        set { m_stationClientType = value; }
     }
     public UInt16 U3DId
     {
@@ -51,6 +59,10 @@ public class PlayerActor : Actor
     {
         get { return m_agentId; }
         set { m_agentId = value; }
+    }
+    public Agent Agent
+    {
+        get { return m_agent; }
     }
     #endregion
 
@@ -71,7 +83,7 @@ public class PlayerActor : Actor
         if (actorMsg == null) return;
         if (!string.IsNullOrEmpty(actorMsg.msg))
         {
-
+            HandleMsgStr(actorMsg.msg);
         }
         if (actorMsg.packet != null)
         {
@@ -83,22 +95,18 @@ public class PlayerActor : Actor
     #endregion
 
     #region 接收到客户端消息处理
+    private void HandleMsgStr(string msg)
+    {
+
+    }
     private void HandlePacket(Packet packet)
     {
         UInt16 firstId = packet.m_firstId;
         UInt16 secondId = packet.m_secondId;
-        if (firstId == 0 && secondId == 0)
+        BaseHandle handle = SingletonMgr.NetworkMsgHandleFuncMap.GetHandleInstantiateObj(firstId, secondId, m_agent, m_worldActor, this);
+        if (handle != null)
         {
-            //一个客户端上线，并携带了客户端信息
-            Debug.Log("U3D客户端上线!");
-            U3DClientLoginHandle handle = new U3DClientLoginHandle(m_agent, m_worldActor, this);
-            handle.ReceiveU3DClientLoginRequest(packet);
-        }
-        else if (firstId == 0 && secondId == 1)
-        {
-            //一个Station连接上线，并携带了Station信息
-            StationClientLoginHandle handle = new StationClientLoginHandle(m_agent, m_worldActor, this);
-            handle.ReceiveStationLoginRequest(packet);
+            handle.ReceivePacket(packet);
         }
     }
     #endregion

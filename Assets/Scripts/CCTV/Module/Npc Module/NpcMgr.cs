@@ -1,19 +1,10 @@
+
 /********************************************************************************
-** Coder：    ???
-
-** 创建时间： 2019-03-08 11:22:19
-
-** 功能描述:  ???
-
-** version:   v1.2.0
-
-*********************************************************************************/
-/********************************************************************************
-** Coder：    ???
+** Coder：    田山杉
 
 ** 创建时间： 2019-03-07 16:24:06
 
-** 功能描述:  ???
+** 功能描述:  Npc的管理器
 
 ** version:   v1.2.0
 
@@ -39,20 +30,24 @@ public class NpcMgr
         get { return m_npcActionStatus; }
         set { m_npcActionStatus = value; }
     }
+    public Dictionary<int, NpcAction> NpcActionDict
+    {
+        get { return m_npcActionDict; }
+    }
     #endregion
 
     #region 方法
     public void AddNpcAction(NpcAction npcAction)
     {
-        if(npcAction == null) return;
-        if(m_npcActionDict.ContainsKey(npcAction.NpcId) == false)
+        if (npcAction == null) return;
+        if (m_npcActionDict.ContainsKey(npcAction.NpcId) == false)
         {
             m_npcActionDict.Add(npcAction.NpcId, npcAction);
         }
     }
     public void RemoveNpcAction(int npcId)
     {
-        if(m_npcActionDict.ContainsKey(npcId))
+        if (m_npcActionDict.ContainsKey(npcId))
         {
             m_npcActionDict.Remove(npcId);
         }

@@ -49,15 +49,4 @@ namespace TDFramework
         #endregion
 
     }
-
-    public class GameLayers
-    {
-
-    }
-
-    public class GameTags
-    {
-        public const string PoolGos_Tag = "PoolGos";
-        public const string SceneGos_Tag = "SceneGos";
-    }
 }

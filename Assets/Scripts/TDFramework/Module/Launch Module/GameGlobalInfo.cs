@@ -9,10 +9,8 @@ public class GameGlobalInfo : Singleton<GameGlobalInfo>
     private ServerInfo m_serverInfo = null;
     public ServerInfo ServerInfo
     {
-        get{return m_serverInfo;}
-        set{
-            m_serverInfo = value;
-        }
+        get { return m_serverInfo; }
+        set { m_serverInfo = value; }
     }
     #endregion
 

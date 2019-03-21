@@ -111,6 +111,10 @@ public class UIMainPanel : UIPanel
     #endregion
 
     #region Mediator功能实现
+    public override string MediatorName
+    {
+        get { return "UIMainPanel"; }
+    }
     public override string[] ListNotificationInterests()
     {
         return new string[]{
@@ -137,15 +141,15 @@ public class UIMainPanel : UIPanel
                     break;
                 }
             case EventID_UI.StationClientOnLine:
-            {
-                StationClientOnLine_Callback(notification);
-                break;
-            }
+                {
+                    StationClientOnLine_Callback(notification);
+                    break;
+                }
             case EventID_UI.StationClientOffLine:
-            {
-                StationClientOffLine_Callback(notification);
-                break;
-            }
+                {
+                    StationClientOffLine_Callback(notification);
+                    break;
+                }
             case EventID_UI.ServerStart:
                 {
                     ServerStart_Callback(notification);
@@ -158,22 +162,6 @@ public class UIMainPanel : UIPanel
                 }
             default:
                 break;
-        }
-
-    }
-    public override void OnRegister()
-    {
-
-    }
-    public override void OnRemove()
-    {
-
-    }
-    public override string MediatorName
-    {
-        get
-        {
-            return "UIMainPanel";
         }
     }
     #endregion
@@ -269,20 +257,20 @@ public class UIMainPanel : UIPanel
     #region UI事件处理
     private void OnStartBtnClick()
     {
-        IModule module = SingletonMgr.ModuleMgr.GetModule("NetworkModule");
+        IModule module = SingletonMgr.ModuleMgr.GetModule(StringMgr.NetworkModule);
         if (module != null)
         {
             NetworkModule networkModule = (NetworkModule)module;
-            networkModule.Run();
+            networkModule.Start();
         }
     }
     private void OnStopBtnClick()
     {
-        IModule module = SingletonMgr.ModuleMgr.GetModule("NetworkModule");
+        IModule module = SingletonMgr.ModuleMgr.GetModule(StringMgr.NetworkModule);
         if (module != null)
         {
             NetworkModule networkModule = (NetworkModule)module;
-            networkModule.Pause();
+            networkModule.Stop();
         }
     }
     #endregion

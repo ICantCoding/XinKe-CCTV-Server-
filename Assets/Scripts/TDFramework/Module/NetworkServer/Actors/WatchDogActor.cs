@@ -23,19 +23,13 @@ public class WatchDogActor : Actor
     #region 属性
     public WorldActor WorldActor
     {
-        get
-        {
-            m_worldActor = ActorManager.Instance.GetActor<WorldActor>();
-            return m_worldActor;
-        }
+        get { return m_worldActor; }
+        set { m_worldActor = value; }
     }
     public ServerActor ServerActor
     {
-        get
-        {
-            m_serverActor = ActorManager.Instance.GetActor<ServerActor>();
-            return m_serverActor;
-        }
+        get { return m_serverActor; }
+        set { m_serverActor = value; }
     }
     #endregion
 
@@ -75,7 +69,7 @@ public class WatchDogActor : Actor
     private void DestroyPlayerActorCallback(uint agentId)
     {
         Agent agent = ServerActor.GetAgent(agentId);
-        if(agent == null) return;
+        if (agent == null) return;
         PlayerActor playerActor = (PlayerActor)agent.Actor;
         if (playerActor != null)
         {
@@ -85,7 +79,7 @@ public class WatchDogActor : Actor
                 //如果PlayerActor是U3DPlayerActor类型, 需要通知UI更新
                 SendNotification(EventID_Cmd.U3DClientOffLine, playerActor.U3DId, null);
             }
-            else if(playerActor.PlayerActorType == PlayerActorType.StationPlayerActorType)
+            else if (playerActor.PlayerActorType == PlayerActorType.StationPlayerActorType)
             {
                 WorldActor.RemovePlayerActor4StationDict(playerActor);
                 SendNotification(EventID_Cmd.StationClientOffLine, null, null);

@@ -5,16 +5,6 @@ namespace TDFramework
     using System.Collections;
     using System.Collections.Generic;
 
-    //项目中每个模块的名称
-    public class ModuleName
-    {
-        public const string LaunchModule = "LaunchModule";
-        public const string NetworkModule = "NetworkModule";
-        public const string ResourcesModule = "ResourcesModule";
-        public const string UIModule = "UIModule";
-        public const string StationModule = "StationModule";
-    }
-
     //模块抽象类
     public abstract class IModule
     {

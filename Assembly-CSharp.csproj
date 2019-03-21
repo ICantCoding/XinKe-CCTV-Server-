@@ -53,16 +53,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\CCTV\Define\EventID.cs" />
-     <Compile Include="Assets\Scripts\CCTV\Define\ResultID.cs" />
-     <Compile Include="Assets\Scripts\CCTV\Device\Device.cs" />
-     <Compile Include="Assets\Scripts\CCTV\Device\DeviceMgr.cs" />
-     <Compile Include="Assets\Scripts\CCTV\Device\PingBiMenDevice.cs" />
-     <Compile Include="Assets\Scripts\CCTV\Device\ZhaJiDevice.cs" />
-     <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcAction.cs" />
-     <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcEnterStationAction.cs" />
+     <Compile Include="Assets\Scripts\CCTV\Module\Device Module\Device\Device.cs" />
+     <Compile Include="Assets\Scripts\CCTV\Module\Device Module\Device\PingBiMenDevice.cs" />
+     <Compile Include="Assets\Scripts\CCTV\Module\Device Module\Device\ZhaJiDevice.cs" />
+     <Compile Include="Assets\Scripts\CCTV\Module\Device Module\DeviceMgr.cs" />
+     <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcAction\NpcAction.cs" />
+     <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcAction\NpcEnterStationAction.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcMgr.cs" />
-     <Compile Include="Assets\Scripts\CCTV\Module\NpcModule.cs" />
+     <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcModule.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Station Module\PointQueue\Point.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Station Module\PointQueue\PointBehaviour.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Station Module\PointQueue\PointQueue.cs" />
@@ -71,7 +69,7 @@
      <Compile Include="Assets\Scripts\CCTV\Module\Station Module\Station\Station.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Station Module\Station\StationEngine.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Station Module\Station\StationMgr.cs" />
-     <Compile Include="Assets\Scripts\CCTV\Module\StationModule.cs" />
+     <Compile Include="Assets\Scripts\CCTV\Module\Station Module\StationModule.cs" />
      <Compile Include="Assets\Scripts\CCTV\UI\MainPanel\UIMainPanel_Command.cs" />
      <Compile Include="Assets\Scripts\CCTV\UI\MainPanel\UIMainPanel_Mediator.cs" />
      <Compile Include="Assets\Scripts\CCTV\UI\MainPanel\UIMainPanel_Proxy.cs" />
@@ -80,6 +78,11 @@
      <Compile Include="Assets\Scripts\TDFramework\AppStart\AppConfig.cs" />
      <Compile Include="Assets\Scripts\TDFramework\AppStart\AppConfigPath.cs" />
      <Compile Include="Assets\Scripts\TDFramework\AppStart\AppStart.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Define\EventID.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Define\GameLayerMgr.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Define\GameTagMgr.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Define\IntMgr.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Define\StringMgr.cs" />
      <Compile Include="Assets\Scripts\TDFramework\DesignMode\Singleton\MonoSingleton.cs" />
      <Compile Include="Assets\Scripts\TDFramework\DesignMode\Singleton\Singleton.cs" />
      <Compile Include="Assets\Scripts\TDFramework\DesignMode\Singleton\SingletonMgr.cs" />
@@ -90,23 +93,29 @@
      <Compile Include="Assets\Scripts\TDFramework\LoadScene\LoadSceneMgr.cs" />
      <Compile Include="Assets\Scripts\TDFramework\LoadScene\SceneInfoMgr.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\Launch Module\GameGlobalInfo.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\Launch Module\LaunchModule.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\Launch Module\XmlInfo\ServerInfo.cs" />
-     <Compile Include="Assets\Scripts\TDFramework\Module\LaunchModule.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\ModuleMgr.cs" />
-     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkModule.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Actors\Base\Actor.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Actors\PlayerActor.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Actors\ServerActor.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Actors\WatchDogActor.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Actors\WorldActor.cs" />
-     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Agent.cs" />
-     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\MemoryStream.cs" />
-     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\MessageHandle\StationClientLoginHandle.cs" />
-     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\MessageHandle\U3DClientLoginHandle.cs" />
-     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\MessageReader.cs" />
-     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\NetworkEngine.cs" />
-     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Packet.cs" />
-     <Compile Include="Assets\Scripts\TDFramework\Module\ResourcesModule.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Agent\Agent.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Engine\NetworkEngine.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Help\MemoryStream.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Help\MessageReader.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\MessageHandle\Define\ResultID.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\MessageHandle\Handle\BaseHandle.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\MessageHandle\Handle\StationClientLoginHandle.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\MessageHandle\Handle\U3DClientLoginHandle.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\MessageHandle\NetworkMsgHandleFuncMap.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\NetworkModule.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Packet\NpcPosition.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Packet\Packet.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Packet\StationClientLogin.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Packet\U3DClientLogin.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\Resources Module\ResourcesModule.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\UI Module\UIFramework\Base\UIPage.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\UI Module\UIFramework\Base\UIPanel.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\UI Module\UIFramework\Base\UIView.cs" />
@@ -120,7 +129,7 @@
      <Compile Include="Assets\Scripts\TDFramework\Module\UI Module\UIFramework\EventListener\ClickEventListener.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\UI Module\UIFramework\Interface\IRegisterPureMVC.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\UI Module\UIFramework\UIMgr.cs" />
-     <Compile Include="Assets\Scripts\TDFramework\Module\UIModule.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\UI Module\UIModule.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Pool\ClassObjectPool.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Pool\ObjectManager.cs" />
      <Compile Include="Assets\Scripts\TDFramework\ResourcesLoad\AssetBundleHelper\ABPathConfig.cs" />
@@ -167,7 +176,6 @@
      <None Include="Assets\Scripts\TDFramework\SDK\Demigiant\DOTween\readme.txt" />
      <None Include="Assets\Scripts\TDFramework\Module\UI Module\UIFramework\ReadMe.txt" />
      <None Include="Assets\Scripts\TDFramework\SDK\Demigiant\DOTween\DOTween43.xml" />
-     <None Include="Assets\Scripts\TDFramework\Module\UI Module\ReadMe.txt" />
      <None Include="Assets\Scripts\TDFramework\SDK\Demigiant\readme_DOTweenPro.txt" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>E:/XinKeWork/Day20190219/CCTV Server/CCTV Server/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

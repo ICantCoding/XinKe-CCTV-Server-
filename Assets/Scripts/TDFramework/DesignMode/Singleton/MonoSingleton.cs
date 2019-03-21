@@ -25,7 +25,7 @@ namespace TDFramework
                             m_instance = new GameObject(typeof(T).Name + "_Singleton").AddComponent<T>();
                         }
                         if (m_instance == null)
-                            Debug.Log("Failed to create m_instance of " + typeof(T).FullName + ".");
+                            Debug.LogError("Failed to create m_instance of " + typeof(T).FullName + ".");
                     }
                 }
                 return m_instance;
@@ -52,6 +52,5 @@ namespace TDFramework
 
         }
 		#endregion
-
     }
 }

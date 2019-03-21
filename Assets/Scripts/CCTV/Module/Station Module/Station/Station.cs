@@ -12,6 +12,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
 
 public enum StationType
 {
@@ -20,7 +21,6 @@ public enum StationType
 
 public class Station
 {
-
     #region Station管理位置点信息
     #region 字段
     //Key为位置点类别, int对应PointStatus枚举值大小
@@ -169,7 +169,7 @@ public class Station
     public Device GetDevice(DeviceType deviceType, int deviceId)
     {
         DeviceMgr mgr = GetDeviceMgr(deviceType);
-        if(mgr == null) return null;
+        if (mgr == null) return null;
         return mgr.GetDevice(deviceId);
     }
     #endregion
@@ -185,8 +185,8 @@ public class Station
     #region 方法
     public void AddNpcMgr(NpcMgr npcMgr)
     {
-        if(npcMgr == null) return;
-        if(m_npcMgrDict.ContainsKey(npcMgr.NpcActionStatus) == false)
+        if (npcMgr == null) return;
+        if (m_npcMgrDict.ContainsKey(npcMgr.NpcActionStatus) == false)
         {
             m_npcMgrDict.Add(npcMgr.NpcActionStatus, npcMgr);
         }
@@ -200,10 +200,10 @@ public class Station
     public void RemoveNpcAction(NpcActionStatus npcActionStatus, int npcId)
     {
         NpcMgr npcMgr = GetNpcMgr(npcActionStatus);
-        if(npcMgr == null) return;
+        if (npcMgr == null) return;
         npcMgr.RemoveNpcAction(npcId);
     }
     #endregion
-    
+
     #endregion
 }

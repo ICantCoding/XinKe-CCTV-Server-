@@ -12,12 +12,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Threading;
 
 public class ReadStationPoint
 {
     public static StationMgr BuildStationPoint()
     {
-        Transform pointRootTrans = GameObject.Find("Point/PointRoot").transform;
+        GameObject go = GameObject.Find("Point/PointRoot");
+        if(go == null) return null;
+        Transform pointRootTrans = go.transform;
         if (pointRootTrans == null) return null;
         StationMgr stationMgr = new StationMgr();
         int stationCount = pointRootTrans.childCount;
@@ -114,7 +117,7 @@ public class ReadStationPoint
         return pointQueue;
     }
 
-    public static void AAA(StationMgr stationMgr)
+    public static void BuildPointInfo(StationMgr stationMgr)
     {
         if (stationMgr == null) return;
         foreach (var item in System.Enum.GetValues(typeof(StationType)))
@@ -185,7 +188,9 @@ public class ReadStationPoint
     public static void BuildStationDevices(StationMgr stationMgr)
     {
         if (stationMgr == null) return;
-        Transform deviceRootTrans = GameObject.Find("Device/DeviceRoot").transform;
+        GameObject go = GameObject.Find("Device/DeviceRoot");
+        if(go == null) return;
+        Transform deviceRootTrans = go.transform;
         if (deviceRootTrans == null) return;
         int stationCount = deviceRootTrans.childCount;
         for (int i = 0; i < stationCount; ++i)
@@ -255,7 +260,9 @@ public class ReadStationPoint
     public static void BuildStationNpc(StationMgr stationMgr)
     {
         if (stationMgr == null) return;
-        Transform npcRootTrans = GameObject.Find("Npc/NpcRoot").transform;
+        GameObject go = GameObject.Find("Npc/NpcRoot");
+        if(go == null) return;
+        Transform npcRootTrans = go.transform;
         if (npcRootTrans == null) return;
         int stationCount = npcRootTrans.childCount;
         for (int i = 0; i < stationCount; ++i)
@@ -289,7 +296,8 @@ public class ReadStationPoint
             Transform npcTrans = npcActionStatusTrans.GetChild(i);
             NpcAction npcAction = npcTrans.GetComponent<NpcAction>();
             if(npcAction == null) continue;
-            npcAction.NpcId = StationEngine.StartNpcId++; //需要加锁， 注意
+            int npcId = Interlocked.Increment(ref StationEngine.StartNpcId); //原子操作
+            npcAction.NpcId = npcId;
             npcAction.StationIndex = stationIndex;
             npcMgr.AddNpcAction(npcAction);
         }
