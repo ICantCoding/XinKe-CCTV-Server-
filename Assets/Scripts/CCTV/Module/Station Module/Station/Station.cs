@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
 
-public enum StationType
+public enum StationType : System.UInt16
 {
     ZhaoYing,				//赵营
 }

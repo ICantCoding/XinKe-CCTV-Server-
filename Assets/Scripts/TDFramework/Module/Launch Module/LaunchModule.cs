@@ -14,6 +14,8 @@ namespace TDFramework
         {
             //读取 CCTV服务器信息(包括ServerName, ServerPort)
             SingletonMgr.GameGlobalInfo.ServerInfo = ServerInfo.DeserializeServerInfoFromXml();
+            //读取 站台信息
+            SingletonMgr.GameGlobalInfo.StationInfoList = StationInfoList.DeserializeStationInfoListFromXml();
         }
         public override void Release()
         {

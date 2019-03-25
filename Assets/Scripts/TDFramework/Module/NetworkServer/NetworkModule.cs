@@ -44,10 +44,15 @@ namespace TDFramework
                 m_networkEngine.StopServerActor();
             }
         }
-        //获取Station类型的PlayerActor
-        public List<PlayerActor> GetPlayerActorByStationIndexAndStationClientType(UInt16 stationIndex, UInt16 stationClientType)
+        #endregion
+
+        #region 公有方法
+        //获取Station当前客户端正在观看的StationPlayerActor
+        public void GetStationPlayerActorAtXXStation(UInt16 stationIndex, UInt16 stationClientType, List<PlayerActor> stationPlayerActorList)
         {
-           return m_networkEngine.GetPlayerActorByStationIndexAndStationClientType(stationIndex, stationClientType);
+            if (stationPlayerActorList == null) return;
+            stationPlayerActorList.Clear();
+            m_networkEngine.GetStationPlayerActorAtXXStation(stationIndex, stationClientType, stationPlayerActorList);
         }
         #endregion
     }

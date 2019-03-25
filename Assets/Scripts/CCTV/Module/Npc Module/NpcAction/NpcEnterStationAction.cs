@@ -69,18 +69,18 @@ public class NpcEnterStationAction : NpcAction
     #endregion
 
     #region Unity生命周期
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         m_navMeshAgent = GetComponent<NavMeshAgent>();
         m_navMeshObstacle = GetComponent<NavMeshObstacle>();
         m_animator = GetComponent<Animator>();
+        m_npcActionStatus = NpcActionStatus.EnterStationTrainUp_NpcActionStatus;
         m_endStepIndex = EnterStationTrainUpAction_StepArray.Length - 1;
     }
     void Start()
     {
         StartAction();
-        //开启Npc同步
-        StartCoroutine(SyncNpcAction());
     }
     #endregion
 
@@ -245,6 +245,7 @@ public class NpcEnterStationAction : NpcAction
                                 ((ZhaJiDevice)(m_gotoPoint.m_device)).CanOpen == true)
                             {
                                 ((ZhaJiDevice)(m_gotoPoint.m_device)).CanOpen = false;
+                                NpcSync.SendNpcAnimation((UInt16)NpcAnimationType.OpenZhaJi);
                                 m_animator.SetTrigger(EnterCheckTicketAnimatorHashValue);
                             }
                             else if (m_gotoPoint.m_device.DeviceType == DeviceType.ZhaJi &&
@@ -337,6 +338,7 @@ public class NpcEnterStationAction : NpcAction
         }
         if (m_animator != null)
         {
+            NpcSync.SendNpcAnimation((UInt16)NpcAnimationType.Walk);
             m_animator.SetBool(StandUpAnimatorHashValue, false);
             m_animator.SetBool(WalkAnimatorHashValue, true);
         }
@@ -345,6 +347,7 @@ public class NpcEnterStationAction : NpcAction
     {
         if (m_animator != null)
         {
+            NpcSync.SendNpcAnimation((UInt16)NpcAnimationType.StandUp);
             m_animator.SetBool(WalkAnimatorHashValue, false);
             m_animator.SetBool(StandUpAnimatorHashValue, true);
         }
@@ -358,6 +361,7 @@ public class NpcEnterStationAction : NpcAction
     {
         if (m_animator != null)
         {
+            NpcSync.SendNpcAnimation((UInt16)NpcAnimationType.StandUp);
             m_animator.SetBool(WalkAnimatorHashValue, false);
             m_animator.SetBool(StandUpAnimatorHashValue, true);
         }
@@ -395,58 +399,6 @@ public class NpcEnterStationAction : NpcAction
             tempPoint.m_prePoint = m_gotoPoint;
             GotoDestination(tempPoint);
         });
-    }
-    #endregion
-
-    #region Npc同步行为
-    IEnumerator SyncNpcAction()
-    {
-        float posX, posY, posZ, angleX, angleY, angleZ = 0.0f;
-        int npcId = NpcId;
-        List<PlayerActor> playerActorList = null;
-        int count = 0;
-        while (true)
-        {
-            posX = transform.localPosition.x;
-            posY = transform.localPosition.y;
-            posZ = transform.localPosition.z;
-            angleX = transform.localEulerAngles.x;
-            angleY = transform.localEulerAngles.y;
-            angleZ = transform.localEulerAngles.z;
-            NetworkModule module = (NetworkModule)SingletonMgr.ModuleMgr.GetModule(StringMgr.NetworkModule);
-            if (module != null)
-            {
-                playerActorList = module.GetPlayerActorByStationIndexAndStationClientType((System.UInt16)StationIndex, (System.UInt16)1);
-                if (playerActorList != null)
-                {
-                    count = playerActorList.Count;
-                    for (int i = 0; i < count; ++i)
-                    {
-                        Agent agent = playerActorList[i].Agent;
-                        NpcPosition npcPos = new NpcPosition()
-                        {
-                            m_posX = posX,
-                            m_posY = posY,
-                            m_posZ = posZ,
-                            m_angleX = angleX,
-                            m_angleY = angleY,
-                            m_angleZ = angleZ,
-                            m_npcId = npcId
-                        };
-                        byte[] bytes = npcPos.Packet2Bytes();
-                        UInt16 sendId = TDFramework.SingletonMgr.GameGlobalInfo.ServerInfo.Id;
-                        UInt16 u3dId = 0;
-                        UInt16 firstId = 0;
-                        UInt16 secondId = 2;
-                        UInt16 msgLen = (UInt16)bytes.Length;
-                        Packet packet = new Packet(sendId, u3dId, firstId, secondId, msgLen, bytes);
-                        agent.SendPacket(packet.Packet2Bytes());
-                    }
-                }
-            }
-            // yield return new WaitForSeconds(0.1f);
-            yield return null;
-        }
     }
     #endregion
 }

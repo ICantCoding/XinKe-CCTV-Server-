@@ -27,7 +27,7 @@ public class ReadStationPoint
         for (int i = 0; i < stationCount; ++i)
         {
             Transform stationTrans = pointRootTrans.GetChild(i);
-            int stationIndex = (int)System.Enum.Parse(typeof(StationType), stationTrans.gameObject.name);
+            System.UInt16 stationIndex = (System.UInt16)System.Enum.Parse(typeof(StationType), stationTrans.gameObject.name);
             Station station = XXX(stationTrans);
             stationMgr.AddStation2Mgr(stationIndex, station);
         }
@@ -122,7 +122,7 @@ public class ReadStationPoint
         if (stationMgr == null) return;
         foreach (var item in System.Enum.GetValues(typeof(StationType)))
         {
-            Station station = stationMgr.GetStation((int)item);
+            Station station = stationMgr.GetStation((System.UInt16)item);
             BBB(station);
         }
     }
@@ -196,14 +196,14 @@ public class ReadStationPoint
         for (int i = 0; i < stationCount; ++i)
         {
             Transform stationTrans = deviceRootTrans.GetChild(i);
-            int stationIndex = (int)System.Enum.Parse(typeof(StationType), stationTrans.gameObject.name);
+            System.UInt16 stationIndex = (System.UInt16)System.Enum.Parse(typeof(StationType), stationTrans.gameObject.name);
             Station station = stationMgr.GetStation(stationIndex);
             if (station == null) return;
             DeviceMgr deviceMgr = HHH(stationMgr, stationTrans, stationIndex);
             station.AddDeviceMgr(deviceMgr);
         }
     }
-    private static DeviceMgr HHH(StationMgr stationMgr, Transform stationTrans, int stationIndex)
+    private static DeviceMgr HHH(StationMgr stationMgr, Transform stationTrans, System.UInt16 stationIndex)
     {
         DeviceMgr deviceMgr = new DeviceMgr();
         int deviceTypeCount = stationTrans.childCount;
@@ -216,7 +216,7 @@ public class ReadStationPoint
         }
         return deviceMgr;
     }
-    private static void JJJ(StationMgr stationMgr, DeviceMgr deviceMgr, Transform deviceTypeTrans, int stationIndex, DeviceType deviceType)
+    private static void JJJ(StationMgr stationMgr, DeviceMgr deviceMgr, Transform deviceTypeTrans, System.UInt16 stationIndex, DeviceType deviceType)
     {
         int deviceCount = deviceTypeTrans.childCount;
         for (int i = 0; i < deviceCount; ++i)
@@ -249,7 +249,7 @@ public class ReadStationPoint
             #endregion
         }
     }
-    private static Point GetFirstPoint(StationMgr stationMgr, int stationIndex, int pointStatus, int queueIndex)
+    private static Point GetFirstPoint(StationMgr stationMgr, System.UInt16 stationIndex, int pointStatus, int queueIndex)
     {
         Point point = stationMgr.GetFirstPoint(stationIndex, pointStatus, queueIndex);
         return point;
@@ -268,14 +268,14 @@ public class ReadStationPoint
         for (int i = 0; i < stationCount; ++i)
         {
             Transform stationTrans = npcRootTrans.GetChild(i);
-            int stationIndex = (int)System.Enum.Parse(typeof(StationType), stationTrans.gameObject.name);
+            System.UInt16 stationIndex = (System.UInt16)System.Enum.Parse(typeof(StationType), stationTrans.gameObject.name);
             Station station = stationMgr.GetStation(stationIndex);
             if (station == null) return;
             NpcMgr npcMgr = VVV(stationTrans, stationIndex);
             station.AddNpcMgr(npcMgr);
         }
     }
-    private static NpcMgr VVV(Transform stationTrans, int stationIndex)
+    private static NpcMgr VVV(Transform stationTrans, System.UInt16 stationIndex)
     {
         NpcMgr npcMgr = new NpcMgr();
         int npcActionStatusCount = stationTrans.childCount;
@@ -288,7 +288,7 @@ public class ReadStationPoint
         }
         return npcMgr;
     }
-    private static void NNN(NpcMgr npcMgr, Transform npcActionStatusTrans, int stationIndex)
+    private static void NNN(NpcMgr npcMgr, Transform npcActionStatusTrans, System.UInt16 stationIndex)
     {
         int npcCount = npcActionStatusTrans.childCount;
         for(int i = 0; i < npcCount; ++i)

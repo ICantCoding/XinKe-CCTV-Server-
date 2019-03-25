@@ -56,6 +56,7 @@ namespace TDFramework
             {
                 m_serverActor = new ServerActor(this);
                 m_watchDogActor.ServerActor = m_serverActor;
+                m_serverActor.WatchDogActor = m_watchDogActor;
                 //Id为3的Actor, 不与Agent绑定，也没有U3DId标识
                 m_actorManager.AddActor(m_serverActor, true);
                 m_serverActor.Start(serverPort); //启动服务器
@@ -92,13 +93,26 @@ namespace TDFramework
             }
         }
         //获取Station类型的PlayerActor
-        public List<PlayerActor> GetPlayerActorByStationIndexAndStationClientType(UInt16 stationIndex, UInt16 stationClientType)
+        public void GetStationPlayerActorAtXXStation(UInt16 stationIndex, UInt16 stationClientType, List<PlayerActor> stationPlayerActorList)
         {
             if (m_worldActor != null)
             {
-                return m_worldActor.GetPlayerActorByStationIndexAndStationClientType(stationIndex, stationClientType);
+                List<PlayerActor> u3dPlayerActorList = m_worldActor.GetU3DPlayerActorListAtXXStation(stationIndex);
+                if(u3dPlayerActorList == null || u3dPlayerActorList.Count == 0) return;
+
+                var enumerator = u3dPlayerActorList.GetEnumerator();
+                while (enumerator.MoveNext())
+                {
+                    PlayerActor playerActor = enumerator.Current;
+                    string keyStr = string.Format("{0}-{1}-{2}", playerActor.U3DId, stationIndex, stationClientType);
+                    playerActor = m_worldActor.GetStationPlayerActor(keyStr);
+                    if (playerActor != null)
+                    {
+                        stationPlayerActorList.Add(playerActor);
+                    }
+                }
+                enumerator.Dispose();
             }
-            return null;
         }
         #endregion
     }

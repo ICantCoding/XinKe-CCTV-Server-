@@ -10,14 +10,12 @@ public class StringMgr
     public const string ResourceEngineName = "ResourceEngine";
 
 
-
-
     #region 模块名称
-    public const string LaunchModule = "LaunchModule";
-    public const string NetworkModule = "NetworkModule";
-    public const string ResourcesModule = "ResourcesModule";
-    public const string UIModule = "UIModule";
-    public const string StationModule = "StationModule";
+    public const string LaunchModuleName = "LaunchModule";
+    public const string NetworkModuleName = "NetworkModule";
+    public const string ResourcesModuleName = "ResourcesModule";
+    public const string UIModuleName = "UIModule";
+    public const string StationModuleName = "StationModule";
     #endregion
 
 

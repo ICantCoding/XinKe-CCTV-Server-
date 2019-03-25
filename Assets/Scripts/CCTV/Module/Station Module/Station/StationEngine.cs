@@ -50,35 +50,35 @@ public class StationEngine : Singleton<StationEngine>
     #endregion
 
 	#region 方法
-    public Point GetNoReservationPoint(int stationIndex, int pointStatus, int queueIndex)
+    public Point GetNoReservationPoint(UInt16 stationIndex, int pointStatus, int queueIndex)
     {
         Point point = m_stationMgr.GetNoReservationPoint(stationIndex, pointStatus, queueIndex);
         return point;
     }
-	public Point GetEmptyPoint(int stationIndex, int pointStatus, int queueIndex)
+	public Point GetEmptyPoint(UInt16 stationIndex, int pointStatus, int queueIndex)
 	{
 		Point point = m_stationMgr.GetEmptyPoint(stationIndex, pointStatus, queueIndex);
 		return point;
 	}
-	public Point GetEmptyPoint(int stationIndex, int pointStatus)
+	public Point GetEmptyPoint(UInt16 stationIndex, int pointStatus)
 	{
 		Point point = m_stationMgr.GetEmptyPoint(stationIndex, pointStatus);
 		return point;
 	}
     //获取队列最后一个位置点
-    public Point GetLastPoint(int stationIndex, int pointStatus, int queueIndex)
+    public Point GetLastPoint(UInt16 stationIndex, int pointStatus, int queueIndex)
     {
         Point point = m_stationMgr.GetLastPoint(stationIndex, pointStatus, queueIndex);
         return point;
     }
     //获取某个指定的站台
-    public Station GetStation(int stationIndex)
+    public Station GetStation(UInt16 stationIndex)
     {
         Station station = m_stationMgr.GetStation(stationIndex);
         return station;
     }
     //获取指定站台的某个PointStatus的PointQueueHash
-    public PointQueueHash GetPointQueueHash(int stationIndex, int pointStatus)
+    public PointQueueHash GetPointQueueHash(UInt16 stationIndex, int pointStatus)
     {
         Station station = GetStation(stationIndex);
         if(station == null) return null;
@@ -89,27 +89,27 @@ public class StationEngine : Singleton<StationEngine>
 
     #region 新增
     //随机获取一个PointQueue队列，并取出该PointQueue中的第一个位置点
-    public Point GetFirstPoint2RandomPointQueue(int stationIndex, int pointStatus)
+    public Point GetFirstPoint2RandomPointQueue(UInt16 stationIndex, int pointStatus)
     {
         return m_stationMgr.GetFirstPoint2RandomPointQueue(stationIndex, pointStatus);
     }
     //随机获取一个PointQueue队列, 并取出首个NoReservation的位置点
-    public Point GetNoReservationPoint2RandomPointQueue(int stationIndex, int pointStatus)
+    public Point GetNoReservationPoint2RandomPointQueue(UInt16 stationIndex, int pointStatus)
     {
         return m_stationMgr.GetNoReservationPoint2RandomPointQueue(stationIndex, pointStatus);
     }
     //随机获取一个位置点, 针对休息区
-    public Point GetRandomNoReservationPointAtRestArea(int stationIndex, int pointStatus)
+    public Point GetRandomNoReservationPointAtRestArea(UInt16 stationIndex, int pointStatus)
     {
         return m_stationMgr.GetRandomNoReservationPointAtRestArea(stationIndex, pointStatus);
     }
     //获取队列第一个位置点
-    public Point GetFirstPoint(int stationIndex, int pointStatus, int queueIndex)
+    public Point GetFirstPoint(UInt16 stationIndex, int pointStatus, int queueIndex)
     {
         return m_stationMgr.GetFirstPoint(stationIndex, pointStatus, queueIndex);
     }
     //获取未被预约的Point, 返回的首先是队列最后边没有被预约的位置点
-    public Point GetReverseNoReservationPointByQueueIndex(int stationIndex, int pointStatus, int queueIndex)
+    public Point GetReverseNoReservationPointByQueueIndex(UInt16 stationIndex, int pointStatus, int queueIndex)
     {
         return m_stationMgr.GetReverseNoReservationPointByQueueIndex(stationIndex, pointStatus, queueIndex);
     }

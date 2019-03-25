@@ -75,13 +75,16 @@ public class WatchDogActor : Actor
         {
             if (playerActor.PlayerActorType == PlayerActorType.U3DPlayerActorType)
             {
+                //移除
                 WorldActor.RemovePlayerActor4U3DDict(playerActor);
+                //移除
+                WorldActor.RemoveU3DPlayerActor2BelongStationDict(playerActor);
                 //如果PlayerActor是U3DPlayerActor类型, 需要通知UI更新
                 SendNotification(EventID_Cmd.U3DClientOffLine, playerActor.U3DId, null);
             }
             else if (playerActor.PlayerActorType == PlayerActorType.StationPlayerActorType)
             {
-                WorldActor.RemovePlayerActor4StationDict(playerActor);
+                WorldActor.RemoveStationPlayerActor4StationDict(playerActor);
                 SendNotification(EventID_Cmd.StationClientOffLine, null, null);
             }
             playerActor.Stop();

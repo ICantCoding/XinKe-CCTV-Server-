@@ -42,5 +42,7 @@ namespace TDFramework
     {
         //网络配置xml文件
         public static string ServerInfoXmlPath = Application.streamingAssetsPath + "/Xml/ServerInfo.xml";
+        //站台配置xml文件
+        public static string StationInfoXmlPath = Application.streamingAssetsPath + "/Xml/StationInfo.xml";
     }
 }

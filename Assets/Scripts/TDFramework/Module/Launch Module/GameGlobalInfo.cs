@@ -5,12 +5,24 @@ using TDFramework;
 
 public class GameGlobalInfo : Singleton<GameGlobalInfo>
 {
-    #region 客户端信息	
+    #region 服务端信息	
     private ServerInfo m_serverInfo = null;
     public ServerInfo ServerInfo
     {
         get { return m_serverInfo; }
         set { m_serverInfo = value; }
+    }
+    #endregion
+
+    #region 站台信息
+    private StationInfoList m_stationInfoList = null;
+    public StationInfoList StationInfoList
+    {
+        get { return m_stationInfoList; }
+        set
+        {
+            m_stationInfoList = value;
+        }
     }
     #endregion
 

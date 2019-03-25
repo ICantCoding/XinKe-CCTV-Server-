@@ -19,10 +19,18 @@ public class ServerActor : Actor
     private WatchDogActor m_dogActor; //看门狗Actor
     #endregion
 
+    #region 属性
+    public WatchDogActor WatchDogActor
+    {
+        get { return m_dogActor; }
+        set { m_dogActor = value; }
+    }
+    #endregion
+
     #region 构造函数
     public ServerActor(MonoBehaviour mono) : base(mono)
     {
-        m_dogActor = ActorManager.Instance.GetActor<WatchDogActor>();
+        
     }
     #endregion
 
@@ -106,7 +114,7 @@ public class ServerActor : Actor
     }
     #endregion
 
-        #region 数据管理方法
+    #region 数据管理方法
     public void AddAgent(Socket socket)
     {
         Agent agent = new Agent(socket);
@@ -153,7 +161,4 @@ public class ServerActor : Actor
         }
     }
     #endregion
-
-
-
 }

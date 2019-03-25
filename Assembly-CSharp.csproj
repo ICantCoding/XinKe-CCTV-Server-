@@ -59,8 +59,10 @@
      <Compile Include="Assets\Scripts\CCTV\Module\Device Module\DeviceMgr.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcAction\NpcAction.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcAction\NpcEnterStationAction.cs" />
+     <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcAction\NpcExitStationAction.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcMgr.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcModule.cs" />
+     <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcSync\NpcSync.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Station Module\PointQueue\Point.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Station Module\PointQueue\PointBehaviour.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Station Module\PointQueue\PointQueue.cs" />
@@ -95,6 +97,7 @@
      <Compile Include="Assets\Scripts\TDFramework\Module\Launch Module\GameGlobalInfo.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\Launch Module\LaunchModule.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\Launch Module\XmlInfo\ServerInfo.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\Launch Module\XmlInfo\StationInfo.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\ModuleMgr.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Actors\Base\Actor.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Actors\PlayerActor.cs" />
@@ -111,6 +114,7 @@
      <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\MessageHandle\Handle\U3DClientLoginHandle.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\MessageHandle\NetworkMsgHandleFuncMap.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\NetworkModule.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Packet\NpcAnimation.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Packet\NpcPosition.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Packet\Packet.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\NetworkServer\Packet\StationClientLogin.cs" />
@@ -161,6 +165,7 @@
      <Compile Include="Assets\Scripts\TDFramework\SDK\PureMVC\Patterns\Proxy\Proxy.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Struct\TDDoubleLinkedList\TDDoubleLinkedList.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Utils\CrcHelper.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Utils\FPSDisplay.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Utils\HumanRead.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Utils\Ini\IniFileReader.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Utils\Ini\IniHelper.cs" />
@@ -169,6 +174,7 @@
      <None Include="Assets\StreamingAssets\Xml\ServerInfo.xml" />
      <None Include="Assets\Scripts\TDFramework\SDK\Demigiant\DOTweenPro\readme.txt" />
      <None Include="Assets\Scripts\TDFramework\ResourcesLoad\AssetBundleHelper\Config\AssetBundleDependenceConfig.xml" />
+     <None Include="Assets\StreamingAssets\Xml\StationInfo.xml" />
      <None Include="Assets\Scripts\TDFramework\ResourcesLoad\AssetBundleHelper\ReadMe.txt" />
      <None Include="Assets\Scripts\TDFramework\SDK\Demigiant\DemiLib\Core\DemiLib.xml" />
      <None Include="Assets\Scripts\TDFramework\SDK\Demigiant\DOTween\DOTween50.xml" />

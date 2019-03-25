@@ -257,7 +257,7 @@ public class UIMainPanel : UIPanel
     #region UI事件处理
     private void OnStartBtnClick()
     {
-        IModule module = SingletonMgr.ModuleMgr.GetModule(StringMgr.NetworkModule);
+        IModule module = SingletonMgr.ModuleMgr.GetModule(StringMgr.NetworkModuleName);
         if (module != null)
         {
             NetworkModule networkModule = (NetworkModule)module;
@@ -266,7 +266,7 @@ public class UIMainPanel : UIPanel
     }
     private void OnStopBtnClick()
     {
-        IModule module = SingletonMgr.ModuleMgr.GetModule(StringMgr.NetworkModule);
+        IModule module = SingletonMgr.ModuleMgr.GetModule(StringMgr.NetworkModuleName);
         if (module != null)
         {
             NetworkModule networkModule = (NetworkModule)module;

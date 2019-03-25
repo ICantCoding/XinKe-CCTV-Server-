@@ -17,13 +17,18 @@ public enum PlayerActorType
 public class PlayerActor : Actor
 {
     #region 字段
-    //PlayerActor类型
+    //PlayerActor类型, 表明当前PlayerActor是U3D还是Station
     private PlayerActorType m_playerActorType;
+
+    //如果PlayerActor是StationPlayerActorType, 该字段有意义，表示StationPlayerActor属于哪一个U3DPlayerActor
+    private UInt16 m_belongU3DId; //指明StationPlayerActor属于哪一个U3DPlayerACtor关联
     //如果PlayerActor是StationPlayerActorType, 该字段有意义, 表示站台索引
     private UInt16 m_stationIndex;
     //如果PlayerActor是StationPlayerActorType, 该字段有意义, 表示站台socket客户端连接类型， 上行，下行......        
     private UInt16 m_stationClientType;
 
+    //如果PlayerActor是U3DPlayerActorType, 该字段有意义, 表示当前客户端PlayerActor所在站台
+    private UInt16 m_belongStationIndex; //指明U3DClient正在看具体指明的哪一个站台
     //U3D客户端ID唯一标识
     private UInt16 m_u3dId;
     //Agent的Id
@@ -40,6 +45,12 @@ public class PlayerActor : Actor
         get { return m_playerActorType; }
         set { m_playerActorType = value; }
     }
+    //StationPlayerActor有关
+    public UInt16 BelongU3DId
+    {
+        get { return m_belongU3DId; }
+        set { m_belongU3DId = value; }
+    }
     public UInt16 StationIndex
     {
         get { return m_stationIndex; }
@@ -49,6 +60,20 @@ public class PlayerActor : Actor
     {
         get { return m_stationClientType; }
         set { m_stationClientType = value; }
+    }
+    //U3DPlayerActor有关
+    public UInt16 BelongStationIndex
+    {
+        get { return m_belongStationIndex; }
+        set
+        {
+            if(m_belongStationIndex != value) //U3DClient如果观看CCTV的站台有变, 则调节整理WorldActor中的U3DPlayerAcotr所属Station的结构
+            {
+                m_worldActor.RemoveU3DPlayerActor2BelongStationDict(this);
+                m_worldActor.AddU3DPlayerActor2BelongStationDict(this);
+            }
+            m_belongStationIndex = value;
+        }
     }
     public UInt16 U3DId
     {

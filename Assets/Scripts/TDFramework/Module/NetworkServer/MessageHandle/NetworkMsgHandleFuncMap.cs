@@ -46,7 +46,7 @@ public class NetworkMsgHandleFuncMap : Singleton<NetworkMsgHandleFuncMap>
             dic.Add(secondId, handleClassName);
         }
     }
-    public BaseHandle GetHandleInstantiateObj(UInt16 firstId, UInt16 secondId, 
+    public BaseHandle GetHandleInstantiateObj(UInt16 firstId, UInt16 secondId,
         Agent agent, WorldActor worldActor, PlayerActor playerActor)
     {
         string handleClassName = "";
@@ -66,6 +66,32 @@ public class NetworkMsgHandleFuncMap : Singleton<NetworkMsgHandleFuncMap>
         parameters[2] = playerActor;
         BaseHandle handle = (BaseHandle)Assembly.Load(assembly.FullName).CreateInstance(handleClassName, false, BindingFlags.Default, null, parameters, null, null);
         return handle;
+    }
+    public void GetFirstIdAndSecondId(string handleClassName, out UInt16 firstId, out UInt16 secondId)
+    {
+        firstId = 0;
+        secondId = 0;
+        if (string.IsNullOrEmpty(handleClassName)) return;
+        var enumerator = m_networkMsgHandleFuncMapDict.GetEnumerator();
+        while (enumerator.MoveNext())
+        {
+            var dic = enumerator.Current.Value;
+            var enumerator2 = dic.GetEnumerator();
+            while (enumerator2.MoveNext())
+            {
+                string str = enumerator2.Current.Value;
+                if (str == handleClassName)
+                {
+                    firstId = enumerator.Current.Key;
+                    secondId = enumerator2.Current.Key;
+                    enumerator2.Dispose();
+                    enumerator.Dispose();
+                    return;
+                }
+            }
+            enumerator2.Dispose();
+        }
+        enumerator.Dispose();
     }
     #endregion
 }

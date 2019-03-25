@@ -17,12 +17,15 @@ public class StationClientLoginHandle : BaseHandle
     {
         if (packet == null) return;
         StationClientLogin stationClientLogin = new StationClientLogin(packet.m_data);
+        UInt16 u3dId = stationClientLogin.m_u3dId;
         UInt16 stationIndex = stationClientLogin.m_stationIndex;
         UInt16 stationClientType = stationClientLogin.m_stationClientType;
+        m_playerActor.BelongU3DId = u3dId;
         m_playerActor.PlayerActorType = PlayerActorType.StationPlayerActorType;
         m_playerActor.StationIndex = stationIndex;
         m_playerActor.StationClientType = stationClientType;
-        m_worldActor.AddPlayerActor2StationDict(stationIndex, stationClientType, m_playerActor);
+        //自定义Key 字符串组合成一个唯一对应标识
+        m_worldActor.AddStationPlayerActor2StationDict(m_playerActor);
         SendStationClientLoginSuccessResponse();
         m_playerActor.SendNotification(EventID_Cmd.StationClientOnLine, null, null);
     }
@@ -45,3 +48,5 @@ public class StationClientLoginHandle : BaseHandle
         m_agent.SendPacket(responsePacket.Packet2Bytes()); //返回U3D客户端登录成功.
     }
 }
+
+

@@ -32,9 +32,12 @@ public class U3DClientLoginHandle : BaseHandle
         {
             m_playerActor.PlayerActorType = PlayerActorType.U3DPlayerActorType;
             m_playerActor.U3DId = u3dClientLogin.m_clientId;
+            //默认登录的U3D客户端都属于站台0，CCTV视频监控都看向站台0的情况
+            m_playerActor.BelongStationIndex = 0; 
             m_worldActor.AddPlayerActor2U3DDict(m_playerActor);
+            m_worldActor.AddU3DPlayerActor2BelongStationDict(m_playerActor);
             SendU3DClientLoginSuccessResponse();
-            m_playerActor.SendNotification(EventID_Cmd.U3DClientOnLine, objs, null);
+            m_playerActor.SendNotification(EventID_Cmd.U3DClientOnLine, objs, null); //通知UI Command
         }
     }
     #endregion

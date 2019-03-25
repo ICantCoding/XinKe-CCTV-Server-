@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\EditorTools.cs" />
+     <Compile Include="Assets\Editor\IconManager.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\UI Module\UIFramework\Editor\UIPanelAssetInfo.cs" />
      <Compile Include="Assets\Scripts\TDFramework\ResourcesLoad\AssetBundleHelper\Editor\PackageAB.cs" />
      <Compile Include="Assets\Scripts\TDFramework\SDK\Demigiant\DOTweenPro\Editor\DOTweenAnimationInspector.cs" />

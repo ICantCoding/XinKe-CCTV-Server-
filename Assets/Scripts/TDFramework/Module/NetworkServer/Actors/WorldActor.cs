@@ -9,12 +9,12 @@ using UnityEngine;
 public class WorldActor : Actor
 {
     #region 字段
-    //使用字典管理PlayerActor, Key为PlayerActor的U3DId客户端唯一编号
-    private Dictionary<UInt16, PlayerActor> m_u3dPlayerActorDict =
-        new Dictionary<UInt16, PlayerActor>();
-    //使用字典管理PlayerActor, 用于管理Station的Client, 第一个Key为StationIndex， 第二个Key表示StationSocketType
-    private Dictionary<UInt16, Dictionary<UInt16, List<PlayerActor>>> m_stationPlayerActorDict =
-        new Dictionary<UInt16, Dictionary<UInt16, List<PlayerActor>>>();
+    //使用字典管理U3DPlayerActor, Key为PlayerActor的U3DId客户端唯一编号
+    private Dictionary<UInt16, PlayerActor> m_u3dPlayerActorDict;
+    //使用字典管理StationPlayerActor, Key为U3DID-StationIndex-NpcActionStatus, Value为StationPlayerActor, U3DID客户端对应站台对应Npc行为的PlayerActor
+    private Dictionary<string, PlayerActor> m_stationPlayerActorDict;
+    //管理有哪些U3DPlayerActor在观看某个特定的StationIndex, 实时变化
+    private Dictionary<UInt16, List<PlayerActor>> m_u3dPlayerActorBelongStationDict;
     #endregion
 
     #region 属性
@@ -24,31 +24,23 @@ public class WorldActor : Actor
     }
     public int LinkSocketCount
     {
-        get
-        {
-            int count = 0;
-            var enumerator = m_stationPlayerActorDict.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var item = enumerator.Current.Value;
-                var enumerator2 = item.GetEnumerator();
-                while (enumerator2.MoveNext())
-                {
-                    var item2 = enumerator2.Current.Value;
-                    count += item2.Count;
-                }
-                enumerator2.Dispose();
-            }
-            enumerator.Dispose();
-            return count + OnLineCount;
-        }
+        get { return m_stationPlayerActorDict.Count + OnLineCount; }
     }
     #endregion
 
     #region 构造函数
     public WorldActor(MonoBehaviour mono) : base(mono)
     {
-
+        m_u3dPlayerActorDict = new Dictionary<UInt16, PlayerActor>();
+        m_stationPlayerActorDict = new Dictionary<string, PlayerActor>();
+        m_u3dPlayerActorBelongStationDict = new Dictionary<UInt16, List<PlayerActor>>();
+        //动态获取站台数量
+        int count = TDFramework.SingletonMgr.GameGlobalInfo.StationInfoList.Count;
+        for (UInt16 i = 0; i < count; ++i)
+        {
+            List<PlayerActor> list = new List<PlayerActor>();
+            m_u3dPlayerActorBelongStationDict.Add(i, list);
+        }
     }
     #endregion
 
@@ -87,61 +79,71 @@ public class WorldActor : Actor
     #endregion
 
     #region StationPlayerActor相关
-    public void AddPlayerActor2StationDict(UInt16 stationIndex, UInt16 stationSocketType, PlayerActor playerActor)
+    public void AddStationPlayerActor2StationDict(string keyStr, PlayerActor playerActor)
     {
-        if (playerActor == null) return;
-        Dictionary<UInt16, List<PlayerActor>> playerActorDict = null;
-        List<PlayerActor> list = null;
-        if (m_stationPlayerActorDict.ContainsKey(stationIndex) == false)
+        if (string.IsNullOrEmpty(keyStr) || playerActor == null) return;
+        if (m_stationPlayerActorDict.ContainsKey(keyStr) == false)
         {
-            list = new List<PlayerActor>();
-            playerActorDict = new Dictionary<UInt16, List<PlayerActor>>();
-            playerActorDict.Add(stationSocketType, list);
-            m_stationPlayerActorDict.Add(stationIndex, playerActorDict);
-        }
-        else
-        {
-            playerActorDict = m_stationPlayerActorDict[stationIndex];
-            if(playerActorDict.ContainsKey(stationSocketType))
-            {
-                list = playerActorDict[stationSocketType];
-            }
-            else
-            {
-                list = new List<PlayerActor>();
-                playerActorDict.Add(stationSocketType, list);
-            }
-        }
-        list.Add(playerActor);
-    }
-    public void RemovePlayerActor4StationDict(PlayerActor playerActor)
-    {
-        if (playerActor == null) return;
-        Dictionary<UInt16, List<PlayerActor>> playerActorDict = null;
-        List<PlayerActor> list = null;
-        if (m_stationPlayerActorDict.ContainsKey(playerActor.StationIndex) == true)
-        {
-            playerActorDict = m_stationPlayerActorDict[playerActor.StationIndex];
-            if (playerActorDict.ContainsKey(playerActor.StationClientType) == true)
-            {
-                list = playerActorDict[playerActor.StationClientType];
-                if (list != null && list.Contains(playerActor) == true)
-                {
-                    list.Remove(playerActor);
-                }
-            }
+            m_stationPlayerActorDict.Add(keyStr, playerActor);
         }
     }
-    public List<PlayerActor> GetPlayerActorByStationIndexAndStationClientType(UInt16 stationIndex, UInt16 stationClientType)
+    public void AddStationPlayerActor2StationDict(PlayerActor playerActor)
     {
-        if(m_stationPlayerActorDict.ContainsKey(stationIndex))
+        if(playerActor == null) return;
+        string keyStr = string.Format("{0}-{1}-{2}", playerActor.BelongU3DId, playerActor.StationIndex, playerActor.StationClientType);
+        AddStationPlayerActor2StationDict(keyStr, playerActor);
+    }
+    public void RemoveStationPlayerActor4StationDict(string keyStr)
+    {
+        if(string.IsNullOrEmpty(keyStr)) return;
+        if(m_stationPlayerActorDict.ContainsKey(keyStr))
         {
-            if(m_stationPlayerActorDict[stationIndex].ContainsKey(stationClientType))
-            {
-                return m_stationPlayerActorDict[stationIndex][stationClientType];
-            }
+            m_stationPlayerActorDict.Remove(keyStr);
+        }
+    }
+    public void RemoveStationPlayerActor4StationDict(PlayerActor playerActor)
+    {
+        if(playerActor == null) return;
+        string keyStr = string.Format("{0}-{1}-{2}", playerActor.BelongU3DId, playerActor.StationIndex, playerActor.StationClientType);
+        RemoveStationPlayerActor4StationDict(keyStr);
+    }
+    public PlayerActor GetStationPlayerActor(string keyStr)
+    {
+        if (m_stationPlayerActorDict.ContainsKey(keyStr))
+        {
+            return m_stationPlayerActorDict[keyStr];
         }
         return null;
+    }
+    #endregion
+
+    #region U3DPlayerActorBelongStation相关
+    public void AddU3DPlayerActor2BelongStationDict(PlayerActor playerActor)
+    {
+        if (playerActor == null) return;
+        List<PlayerActor> list = m_u3dPlayerActorBelongStationDict[playerActor.BelongStationIndex];
+        if (list.Contains(playerActor) == false)
+        {
+            list.Add(playerActor);
+        }
+    }
+    public void RemoveU3DPlayerActor2BelongStationDict(UInt16 stationIndex, PlayerActor playerActor)
+    {
+        if (playerActor == null) return;
+        List<PlayerActor> list = m_u3dPlayerActorBelongStationDict[stationIndex];
+        if (list.Contains(playerActor))
+        {
+            list.Remove(playerActor);
+        }
+    }
+    public void RemoveU3DPlayerActor2BelongStationDict(PlayerActor playerActor)
+    {
+        if(playerActor == null) return;
+        RemoveU3DPlayerActor2BelongStationDict(playerActor.BelongStationIndex, playerActor);
+    }
+    public List<PlayerActor> GetU3DPlayerActorListAtXXStation(UInt16 stationIndex)
+    {
+        return m_u3dPlayerActorBelongStationDict[stationIndex];
     }
     #endregion
 
