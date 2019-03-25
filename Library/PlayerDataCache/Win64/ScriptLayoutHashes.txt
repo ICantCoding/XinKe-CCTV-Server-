@@ -1,6 +1,6 @@
 Win64
 PlayerPath?
-E:/XinKeWork/Day20190219/PC/CCTV Service/CCTV Server.exe
+C:/Users/ShanWazi/Desktop/CCTV PC/CCTV Server/CCTV Server.exe
 SceneListBegin?
 Assets/Scenes/LaunchSplash.unity
 Assets/Scenes/AppStart.unity
@@ -127,6 +127,7 @@ d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.Spa
 94017dcc9f00fe671ea7dc427b4da011 Unity.TextMeshPro.dll:TMPro.TMP_SpriteAsset
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:TDFramework.ResourceEngine
 d6761fde12d24c98c261af318af3ba3b Assembly-CSharp.dll:.UIMainPanel
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:TDFramework.FPSDisplay
 1229a022d9c925c7acc6077d8a62541c Assembly-CSharp.dll:.NpcEnterStationAction
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 f4f0617139ee7c2eed764086d98e4bad Assembly-CSharp.dll:.NpcAction
@@ -188,4 +189,3 @@ c6666661329916e218bee7f5e79e60f5 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 3165968ba45c74472d279ba04455fccb Unity.TextMeshPro.dll:TMPro.TMP_ColorGradient
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 7fa4ef697a763aaf4a7e130b13036a38 Assembly-CSharp.dll:.Device
-71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:TDFramework.FPSDisplay
