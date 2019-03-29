@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,28 @@ namespace TDFramework
         public override void Release()
         {
 
+        }
+        #endregion
+
+        #region 位置点相关
+
+        #endregion
+
+        #region Npc相关
+        public int GetNpcCount(UInt16 stationIndex, NpcActionStatus npcActionStatus)
+        {
+            return m_stationEngine.GetNpcCount(stationIndex, npcActionStatus);
+        }
+        public Transform GetNpcParentTransform(UInt16 stationIndex, NpcActionStatus npcActionStatus)
+        {
+            return m_stationEngine.GetNpcParentTransform(stationIndex, npcActionStatus);
+        }
+        #endregion
+
+        #region 设备相关
+        public DeviceMgr GetDeviceMgr(UInt16 stationIndex, DeviceType deviceType)
+        {
+            return m_stationEngine.GetDeviceMgr(stationIndex, deviceType);
         }
         #endregion
     }

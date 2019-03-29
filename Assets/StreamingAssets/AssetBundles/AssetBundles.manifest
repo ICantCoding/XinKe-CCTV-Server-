@@ -1,10 +1,17 @@
 ManifestFileVersion: 0
-CRC: 1795647076
+CRC: 4248622992
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: assetbundleconfig
       Dependencies: {}
     Info_1:
+      Name: npcman
+      Dependencies: {}
+    Info_2:
+      Name: npcman 1
+      Dependencies:
+        Dependency_0: npcman
+    Info_3:
       Name: clientonlineitem
       Dependencies: {}

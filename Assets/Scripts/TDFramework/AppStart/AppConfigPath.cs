@@ -44,5 +44,11 @@ namespace TDFramework
         public static string ServerInfoXmlPath = Application.streamingAssetsPath + "/Xml/ServerInfo.xml";
         //站台配置xml文件
         public static string StationInfoXmlPath = Application.streamingAssetsPath + "/Xml/StationInfo.xml";
+        //站台闸机配置xml文件
+        public static string Station0ZhaJiXmlPath = Application.streamingAssetsPath + "/Xml/DeviceInfo/Station0ZhaJiDeviceInfo.xml";
+        public static string Station1ZhaJiXmlPath = Application.streamingAssetsPath + "/Xml/DeviceInfo/Station1ZhaJiDeviceInfo.xml";
+        //站台屏蔽门配置xml文件
+        public static string Station0PingBiMenXmlPath = Application.streamingAssetsPath + "/Xml/DeviceInfo/Station0PingBiMenDeviceInfo.xml";
+        public static string Station1PingBiMenXmlPath = Application.streamingAssetsPath + "/Xml/DeviceInfo/Station1PingBiMenDeviceInfo.xml";
     }
 }

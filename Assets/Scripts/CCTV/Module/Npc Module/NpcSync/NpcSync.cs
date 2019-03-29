@@ -7,73 +7,26 @@ using TDFramework;
 public class NpcSync : MonoBehaviour
 {
     #region 字段
-    private NpcAction m_npcAction = null;
     private NetworkModule m_networkModule = null;
     #endregion
 
     #region Unity生命周期
-    void Awake()
-    {
-        m_npcAction = GetComponent<NpcAction>();
-    }
     void Start()
     {
-        //开启Npc同步
-        StartCoroutine(SyncNpcPosition());
+        m_networkModule = (NetworkModule)TDFramework.SingletonMgr.ModuleMgr.GetModule(StringMgr.NetworkModuleName);
     }
     #endregion
 
     #region 同步Npc信息
-    IEnumerator SyncNpcPosition()
-    {
-        Vector3 prePos = transform.localPosition;
-        Vector3 nowPos = transform.localPosition;
-        float posX, posY, posZ, angleX, angleY, angleZ = 0.0f;
-        int npcId = m_npcAction.NpcId;
-        List<PlayerActor> stationPlayerActorList = new List<PlayerActor>();
-        //先尝试获取NetworkModule, 获取之后才能开始同步Npc
-        while (m_networkModule == null)
-        {
-            m_networkModule = (NetworkModule)SingletonMgr.ModuleMgr.GetModule(StringMgr.NetworkModuleName);
-            yield return null;
-        }
-        //随后开始发送Npc同步信息
-        while (true)
-        {
-            posX = transform.localPosition.x;
-            posY = transform.localPosition.y;
-            posZ = transform.localPosition.z;
-            angleX = transform.localEulerAngles.x;
-            angleY = transform.localEulerAngles.y;
-            angleZ = transform.localEulerAngles.z;
-
-            if (Vector3.Distance(prePos, nowPos) > 0.2f) //NPC位置发生改变时才，去同步
-            {
-                prePos.x = posX;
-                prePos.y = posY;
-                prePos.z = posZ;
-                SendNpcPosition(stationPlayerActorList,
-                    posX, posY, posZ,
-                    angleX, angleY, angleZ,
-                    npcId, m_npcAction.StationIndex, (UInt16)m_npcAction.NpcActionStatus);
-            }
-            else
-            {
-                nowPos.x = transform.localPosition.x;
-                nowPos.y = transform.localPosition.y;
-                nowPos.z = transform.localPosition.z;
-            }
-            yield return null;
-        }
-    }
     //发送Npc位置信息
     public void SendNpcPosition(List<PlayerActor> stationPlayerActorList,
         float posX, float posY, float posZ,
         float angleX, float angleY, float angleZ,
         int npcId, UInt16 stationIndex, UInt16 stationClientType)
     {
+        if (m_networkModule == null) return;
         m_networkModule.GetStationPlayerActorAtXXStation(stationIndex,
-                            (UInt16)m_npcAction.NpcActionStatus, stationPlayerActorList);
+                            stationClientType, stationPlayerActorList);
         if (stationPlayerActorList.Count > 0)
         {
             int count = stationPlayerActorList.Count;
@@ -104,37 +57,65 @@ public class NpcSync : MonoBehaviour
         }
     }
     //发送Npc动作信息
-    public void SendNpcAnimation(UInt16 npcAnimationType)
+    public void SendNpcAnimation(UInt16 npcAnimationType, int npcId, UInt16 stationIndex, UInt16 stationClientType)
     {
-        if (m_networkModule != null)
+        if (m_networkModule == null) return;
+        List<PlayerActor> stationPlayerActorList = new List<PlayerActor>();
+        m_networkModule.GetStationPlayerActorAtXXStation(stationIndex,
+            stationClientType, stationPlayerActorList);
+        if (stationPlayerActorList != null && stationPlayerActorList.Count > 0)
         {
-            List<PlayerActor> stationPlayerActorList = new List<PlayerActor>();
-            m_networkModule.GetStationPlayerActorAtXXStation(m_npcAction.StationIndex,
-                (UInt16)m_npcAction.NpcActionStatus, stationPlayerActorList);
-            if (stationPlayerActorList != null && stationPlayerActorList.Count > 0)
+            for (int i = 0; i < stationPlayerActorList.Count; i++)
             {
-                for (int i = 0; i < stationPlayerActorList.Count; i++)
+                Agent agent = stationPlayerActorList[i].Agent;
+                NpcAnimation npcAnimation = new NpcAnimation()
                 {
-                    Agent agent = stationPlayerActorList[i].Agent;
-                    NpcAnimation npcAnimation = new NpcAnimation()
-                    {
-                        m_npcAnimationType = npcAnimationType,
-                        m_npcId = m_npcAction.NpcId,
-                        m_stationIndex = m_npcAction.StationIndex,
-                        m_stationClientType = (UInt16)m_npcAction.NpcActionStatus,
-                    };
-                    byte[] bytes = npcAnimation.Packet2Bytes();
-                    UInt16 sendId = TDFramework.SingletonMgr.GameGlobalInfo.ServerInfo.Id;
-                    UInt16 u3dId = 0;
-                    UInt16 firstId = 0;
-                    UInt16 secondId = 3;
-                    UInt16 msgLen = (UInt16)bytes.Length;
-                    Packet packet = new Packet(sendId, u3dId, firstId, secondId, msgLen, bytes);
-                    agent.SendPacket(packet.Packet2Bytes());
-                }
+                    m_npcAnimationType = npcAnimationType,
+                    m_npcId = npcId,
+                    m_stationIndex = stationIndex,
+                    m_stationClientType = stationClientType,
+                };
+                byte[] bytes = npcAnimation.Packet2Bytes();
+                UInt16 sendId = TDFramework.SingletonMgr.GameGlobalInfo.ServerInfo.Id;
+                UInt16 u3dId = 0;
+                UInt16 firstId = 0;
+                UInt16 secondId = 3;
+                UInt16 msgLen = (UInt16)bytes.Length;
+                Packet packet = new Packet(sendId, u3dId, firstId, secondId, msgLen, bytes);
+                agent.SendPacket(packet.Packet2Bytes());
             }
-            stationPlayerActorList = null;
         }
+        stationPlayerActorList = null;
+    }
+    //发送Npc销毁信息
+    public void SendNpcDestroy(int npcId, UInt16 stationIndex, UInt16 stationClientType)
+    {
+        if (m_networkModule == null) return;
+        List<PlayerActor> stationPlayerActorList = new List<PlayerActor>();
+        m_networkModule.GetStationPlayerActorAtXXStation(stationIndex,
+            stationClientType, stationPlayerActorList);
+        if (stationPlayerActorList != null && stationPlayerActorList.Count > 0)
+        {
+            for (int i = 0; i < stationPlayerActorList.Count; i++)
+            {
+                Agent agent = stationPlayerActorList[i].Agent;
+                NpcDestroy npcDestroy = new NpcDestroy()
+                {
+                    m_npcId = npcId,
+                    m_stationIndex = stationIndex,
+                    m_stationClientType = stationClientType,
+                };
+                byte[] bytes = npcDestroy.Packet2Bytes();
+                UInt16 sendId = TDFramework.SingletonMgr.GameGlobalInfo.ServerInfo.Id;
+                UInt16 u3dId = 0;
+                UInt16 firstId = 0;
+                UInt16 secondId = 4;
+                UInt16 msgLen = (UInt16)bytes.Length;
+                Packet packet = new Packet(sendId, u3dId, firstId, secondId, msgLen, bytes);
+                agent.SendPacket(packet.Packet2Bytes());
+            }
+        }
+        stationPlayerActorList = null;
     }
     #endregion
 }

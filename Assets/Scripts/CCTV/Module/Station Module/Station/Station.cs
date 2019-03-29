@@ -155,7 +155,7 @@ public class Station
     public void AddDeviceMgr(DeviceMgr mgr)
     {
         if (mgr == null) return;
-        if (m_deviceMgrDict.ContainsKey(mgr.DeviceType))
+        if (m_deviceMgrDict.ContainsKey(mgr.DeviceType) == false)
         {
             m_deviceMgrDict.Add(mgr.DeviceType, mgr);
         }
@@ -188,6 +188,7 @@ public class Station
         if (npcMgr == null) return;
         if (m_npcMgrDict.ContainsKey(npcMgr.NpcActionStatus) == false)
         {
+            Debug.Log("npcMgr.NpcActionStatus: " + npcMgr.NpcActionStatus.ToString());
             m_npcMgrDict.Add(npcMgr.NpcActionStatus, npcMgr);
         }
     }
@@ -202,6 +203,20 @@ public class Station
         NpcMgr npcMgr = GetNpcMgr(npcActionStatus);
         if (npcMgr == null) return;
         npcMgr.RemoveNpcAction(npcId);
+    }
+    public int GetNpcCount(NpcActionStatus npcActionStatus)
+    {
+        NpcMgr npcMgr = GetNpcMgr(npcActionStatus);
+        if(npcMgr == null) return 0;
+        return npcMgr.Count;
+    }
+    public Transform GetNpcParentTransform(NpcActionStatus npcActionStatus)
+    {
+        Debug.Log("AAAAAAAAAAAAAAAAAAAAAAa");
+        NpcMgr npcMgr = GetNpcMgr(npcActionStatus);
+        if(npcMgr == null) return null;
+        Debug.Log("BBBBBBBBBBBBBBBBBBBBB");
+        return npcMgr.NpcParentTransform;
     }
     #endregion
 

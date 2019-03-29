@@ -1,9 +1,9 @@
 /********************************************************************************
-** Coder：    ???
+** Coder：    田山杉
 
 ** 创建时间： 2019-03-06 16:10:50
 
-** 功能描述:  ???
+** 功能描述:  闸机设备动作组件
 
 ** version:   v1.2.0
 
@@ -19,9 +19,14 @@ public class ZhaJiDevice : Device
     #region 组件字段
     private Transform m_left;
     private Transform m_right;
+    private DeviceSync m_deviceSync;
     #endregion
 
     #region 状态字段
+    //打开闸机左扇叶旋转角度偏移
+    public Vector3 m_leftOpenLocalEulerAngleOffset;
+    //打开闸机右扇叶旋转角度偏移
+    public Vector3 m_rightOpenLocalEulerAngleOffset;
     private Vector3 m_leftOriginLocalEulerAngle;
     private Vector3 m_rightOriginLocalEulerAngle;
     private Vector3 m_leftOpenLocalEulerAngle;
@@ -47,20 +52,25 @@ public class ZhaJiDevice : Device
     #region Unity生命周期
     void Awake()
     {
+        m_deviceSync = transform.root.GetComponent<DeviceSync>();
+
         m_left = transform.Find("Left");
         m_right = transform.Find("Right");
         m_leftOriginLocalEulerAngle = m_left.localEulerAngles;
         m_rightOriginLocalEulerAngle = m_right.localEulerAngles;
-        m_leftOpenLocalEulerAngle = new Vector3(m_leftOriginLocalEulerAngle.x + 26.884f,
-            m_leftOriginLocalEulerAngle.y, m_leftOriginLocalEulerAngle.z);
-        m_rightOpenLocalEulerAngle = new Vector3(m_rightOriginLocalEulerAngle.x - 26.884f,
-            m_rightOriginLocalEulerAngle.y, m_rightOriginLocalEulerAngle.z);
+        m_leftOpenLocalEulerAngle = m_leftOriginLocalEulerAngle + m_leftOpenLocalEulerAngleOffset;
+        m_rightOpenLocalEulerAngle = m_rightOriginLocalEulerAngle + m_rightOpenLocalEulerAngleOffset;
     }
     #endregion
 
     #region 方法
     public override void Open(System.Action openCallback)
     {
+        if(m_deviceSync != null)
+        {
+            m_deviceSync.SendDeviceStatus(1, StationIndex, DeviceType, DeviceId);
+        }
+
         CanOpen = false;
         m_left.DOLocalRotate(m_leftOpenLocalEulerAngle, m_animationTime);
         m_right.DOLocalRotate(m_rightOpenLocalEulerAngle, m_animationTime).OnComplete(() =>
@@ -74,7 +84,11 @@ public class ZhaJiDevice : Device
     }
     public new IEnumerator Close(System.Action closeCallback)
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(4.0f);
+        if(m_deviceSync != null)
+        {
+            m_deviceSync.SendDeviceStatus(0, StationIndex, DeviceType, DeviceId);
+        }
         m_left.DOLocalRotate(m_leftOriginLocalEulerAngle, m_animationTime);
         m_right.DOLocalRotate(m_rightOriginLocalEulerAngle, m_animationTime).OnComplete(() =>
         {

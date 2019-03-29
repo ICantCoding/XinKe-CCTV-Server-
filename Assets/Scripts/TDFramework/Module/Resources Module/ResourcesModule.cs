@@ -15,6 +15,7 @@ namespace TDFramework
         public override void Init()
         {
             Transform poolGoTrans = new GameObject(GameTagMgr.PoolGos_Tag).transform;
+            poolGoTrans.localPosition = new Vector3(-9.4f, -14.995f, -18.56f);
             GameObject.DontDestroyOnLoad(poolGoTrans.gameObject);
             Transform sceneGoTrans = new GameObject(GameTagMgr.SceneGos_Tag).transform;
             GameObject.DontDestroyOnLoad(sceneGoTrans.gameObject);

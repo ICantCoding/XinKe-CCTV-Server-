@@ -54,6 +54,11 @@ namespace TDFramework
             stationPlayerActorList.Clear();
             m_networkEngine.GetStationPlayerActorAtXXStation(stationIndex, stationClientType, stationPlayerActorList);
         }
+        //获得当前站台观察者U3DPlayerActor
+        public List<PlayerActor> GetU3DPlayerActorListAtXXStation(UInt16 stationIndex)
+        {
+            return m_networkEngine.GetU3DPlayerActorListAtXXStation(stationIndex);
+        }
         #endregion
     }
 }

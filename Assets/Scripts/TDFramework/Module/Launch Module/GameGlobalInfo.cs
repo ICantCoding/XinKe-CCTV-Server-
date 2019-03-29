@@ -19,12 +19,19 @@ public class GameGlobalInfo : Singleton<GameGlobalInfo>
     public StationInfoList StationInfoList
     {
         get { return m_stationInfoList; }
-        set
-        {
-            m_stationInfoList = value;
-        }
+        set { m_stationInfoList = value; }
     }
     #endregion
+
+    #region 设备信息
+    private ZhaJiDeviceInfoCollection m_zhaJiDeviceInfoCollectionStation0 = null;
+    public ZhaJiDeviceInfoCollection ZhaJiDeviceInfoCollectionStation0
+    {
+        get { return m_zhaJiDeviceInfoCollectionStation0; }
+        set { m_zhaJiDeviceInfoCollectionStation0 = value; }
+    }
+    #endregion
+
 
 
     #region 其他信息

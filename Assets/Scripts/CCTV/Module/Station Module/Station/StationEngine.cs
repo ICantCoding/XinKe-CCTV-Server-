@@ -3,7 +3,7 @@
 
 ** 创建时间： 2019-03-07 11:13:38
 
-** 功能描述:  
+** 功能描述:  站台管理引擎
 
 ** version:   v1.2.0
 
@@ -12,15 +12,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using UnityEngine;
 using TDFramework;
+using UnityEngine;
 
 public class StationEngine : Singleton<StationEngine>
 {
-    #region 字段
-    private StationMgr m_stationMgr = null;
+    #region 静态字段
     //用于Npc自增标识
     public static int StartNpcId = 0;
+    #endregion
+
+    #region 字段
+    private StationMgr m_stationMgr = null;
     #endregion
 
     #region 属性
@@ -36,7 +39,7 @@ public class StationEngine : Singleton<StationEngine>
         Stopwatch sw = new Stopwatch();
         sw.Start();
         m_stationMgr = ReadStationPoint.BuildStationPoint();
-		ReadStationPoint.BuildPointInfo(m_stationMgr);
+        ReadStationPoint.BuildPointInfo(m_stationMgr);
         ReadStationPoint.BuildStationDevices(m_stationMgr);
         ReadStationPoint.BuildStationNpc(m_stationMgr);
         sw.Stop();
@@ -49,22 +52,22 @@ public class StationEngine : Singleton<StationEngine>
     }
     #endregion
 
-	#region 方法
+    #region 位置点相关
     public Point GetNoReservationPoint(UInt16 stationIndex, int pointStatus, int queueIndex)
     {
         Point point = m_stationMgr.GetNoReservationPoint(stationIndex, pointStatus, queueIndex);
         return point;
     }
-	public Point GetEmptyPoint(UInt16 stationIndex, int pointStatus, int queueIndex)
-	{
-		Point point = m_stationMgr.GetEmptyPoint(stationIndex, pointStatus, queueIndex);
-		return point;
-	}
-	public Point GetEmptyPoint(UInt16 stationIndex, int pointStatus)
-	{
-		Point point = m_stationMgr.GetEmptyPoint(stationIndex, pointStatus);
-		return point;
-	}
+    public Point GetEmptyPoint(UInt16 stationIndex, int pointStatus, int queueIndex)
+    {
+        Point point = m_stationMgr.GetEmptyPoint(stationIndex, pointStatus, queueIndex);
+        return point;
+    }
+    public Point GetEmptyPoint(UInt16 stationIndex, int pointStatus)
+    {
+        Point point = m_stationMgr.GetEmptyPoint(stationIndex, pointStatus);
+        return point;
+    }
     //获取队列最后一个位置点
     public Point GetLastPoint(UInt16 stationIndex, int pointStatus, int queueIndex)
     {
@@ -81,13 +84,10 @@ public class StationEngine : Singleton<StationEngine>
     public PointQueueHash GetPointQueueHash(UInt16 stationIndex, int pointStatus)
     {
         Station station = GetStation(stationIndex);
-        if(station == null) return null;
+        if (station == null) return null;
         PointQueueHash pointQueueHash = station.GetPointQueueHash(pointStatus);
         return pointQueueHash;
     }
-	#endregion
-
-    #region 新增
     //随机获取一个PointQueue队列，并取出该PointQueue中的第一个位置点
     public Point GetFirstPoint2RandomPointQueue(UInt16 stationIndex, int pointStatus)
     {
@@ -112,6 +112,24 @@ public class StationEngine : Singleton<StationEngine>
     public Point GetReverseNoReservationPointByQueueIndex(UInt16 stationIndex, int pointStatus, int queueIndex)
     {
         return m_stationMgr.GetReverseNoReservationPointByQueueIndex(stationIndex, pointStatus, queueIndex);
+    }
+    #endregion
+
+    #region Npc相关
+    public int GetNpcCount(UInt16 stationIndex, NpcActionStatus npcActionStatus)
+    {
+        return m_stationMgr.GetNpcCount(stationIndex, npcActionStatus);
+    }
+    public Transform GetNpcParentTransform(UInt16 stationIndex, NpcActionStatus npcActionStatus)
+    {
+        return m_stationMgr.GetNpcParentTransform(stationIndex, npcActionStatus);
+    }
+    #endregion
+
+    #region 设备相关
+    public DeviceMgr GetDeviceMgr(UInt16 stationIndex, DeviceType deviceType)
+    {
+        return m_stationMgr.GetDeviceMgr(stationIndex, deviceType);
     }
     #endregion
 }

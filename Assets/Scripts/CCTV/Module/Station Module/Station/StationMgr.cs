@@ -12,6 +12,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using UnityEngine;
 
 public class StationMgr
 {
@@ -44,7 +45,7 @@ public class StationMgr
     }
     #endregion
 
-    #region Point位置点相关
+    #region 位置点相关
     //指定站台索引, 位置点类型, PointQueue的queueIndex, 来获取未预约的位置点
     public Point GetNoReservationPoint(UInt16 stationIndex, int pointStatus, int queueIndex)
     {
@@ -111,27 +112,26 @@ public class StationMgr
     #endregion
 
     #region 设备相关
-
-    #region 状态字段
-
-    #endregion
-
-    #region 方法
-
-    #endregion
-
+    public DeviceMgr GetDeviceMgr(UInt16 stationIndex, DeviceType deviceType)
+    {
+        Station station = GetStation(stationIndex);
+        if(station == null) return null;
+        return station.GetDeviceMgr(deviceType);
+    }
     #endregion
 
     #region Npc相关
-    
-    #region 状态字段
-    
+    public int GetNpcCount(UInt16 stationIndex, NpcActionStatus npcActionStatus)
+    {
+        Station station = GetStation(stationIndex);
+        if(station == null) return 0;
+        return station.GetNpcCount(npcActionStatus);
+    }
+    public Transform GetNpcParentTransform(UInt16 stationIndex, NpcActionStatus npcActionStatus)
+    {
+        Station station = GetStation(stationIndex);
+        if(station == null) return null;
+        return station.GetNpcParentTransform(npcActionStatus);
+    }
     #endregion
-
-    #region 方法
-
-    #endregion
-
-    #endregion
-
 }

@@ -1,9 +1,9 @@
 /********************************************************************************
-** Coder：    ???
+** Coder：    田山杉
 
 ** 创建时间： 2019-03-15 14:58:04
 
-** 功能描述:  ???
+** 功能描述:  屏蔽门组件
 
 ** version:   v1.2.0
 
@@ -24,9 +24,14 @@ public class PingBiMenDevice : Device
     #region 组件字段
     private Transform m_left;
     private Transform m_right;
+    private DeviceSync m_deviceSync;
     #endregion
 
     #region 状态字段
+    //屏蔽门左侧门打开偏移量
+    public Vector3 m_leftOpenLocalPositionOffset;
+    //屏蔽门右侧门打开偏移量
+    public Vector3 m_rightOpenLocalPositionOffset;
     private Vector3 m_leftOriginLocalPosition;
     private Vector3 m_rightOriginLocalPosition;
     private Vector3 m_leftOpenLocalPosition;
@@ -59,22 +64,24 @@ public class PingBiMenDevice : Device
     #region Unity生命周期
     void Awake()
     {
+        m_deviceSync = transform.root.GetComponent<DeviceSync>();
+
         m_left = transform.Find("Left");
         m_right = transform.Find("Right");
         m_leftOriginLocalPosition = m_left.localPosition;
         m_rightOriginLocalPosition = m_right.localPosition;
-        m_leftOpenLocalPosition = new Vector3(m_leftOriginLocalPosition.x + (0.918f),
-            m_leftOriginLocalPosition.y,
-            m_leftOriginLocalPosition.z - (0.3839f));
-        m_rightOpenLocalPosition = new Vector3(m_rightOriginLocalPosition.x - (0.908f),
-            m_rightOriginLocalPosition.y,
-            m_rightOriginLocalPosition.z + (0.3731f));
+        m_leftOpenLocalPosition = m_leftOriginLocalPosition + m_leftOpenLocalPositionOffset;
+        m_rightOpenLocalPosition = m_rightOriginLocalPosition + m_rightOpenLocalPositionOffset;
     }
     #endregion
 
     #region 方法
     public override void Open(System.Action openCallback)
     {
+        if (m_deviceSync != null)
+        {
+            m_deviceSync.SendDeviceStatus(1, StationIndex, DeviceType, DeviceId);
+        }
         m_left.DOLocalMove(m_leftOpenLocalPosition, m_animationTime);
         m_right.DOLocalMove(m_rightOpenLocalPosition, m_animationTime).OnComplete(() =>
         {
@@ -92,6 +99,10 @@ public class PingBiMenDevice : Device
     }
     public override void Close(System.Action closeCallback)
     {
+        if (m_deviceSync != null)
+        {
+            m_deviceSync.SendDeviceStatus(0, StationIndex, DeviceType, DeviceId);
+        }
         CanUp = false;
         CanDown = false;
         m_left.DOLocalMove(m_leftOriginLocalPosition, m_animationTime);

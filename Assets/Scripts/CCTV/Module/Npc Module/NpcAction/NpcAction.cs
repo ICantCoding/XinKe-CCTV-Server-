@@ -8,6 +8,7 @@
 ** version:   v1.2.0
 
 *********************************************************************************/
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TDFramework;
@@ -52,7 +53,7 @@ public class NpcActionStatusMap
 
     public NpcActionStatusMap()
     {
-        PointStatus[] EnterStationTrainUpAction_StepArray = new PointStatus[]
+        PointStatus[] m_stepArray = new PointStatus[]
         {
             PointStatus.EnterStation,
             PointStatus.BuyTicket,
@@ -60,7 +61,7 @@ public class NpcActionStatusMap
             PointStatus.WaitTrain_Up,
             PointStatus.Train_Up
         };
-        m_npcActionStatusActionDict.Add(NpcActionStatus.EnterStationTrainDown_NpcActionStatus, EnterStationTrainUpAction_StepArray);
+        m_npcActionStatusActionDict.Add(NpcActionStatus.EnterStationTrainDown_NpcActionStatus, m_stepArray);
     }
 }
 
@@ -76,6 +77,20 @@ public class NpcAction : MonoBehaviour
     //Npc所属站台Station
     [SerializeField]
     protected System.UInt16 m_stationIndex;
+    //Npc行为步骤
+    protected PointStatus[] m_stepArray;
+    //Npc开始行为流程索引
+    public int m_startStepIndex;
+    //Npc结束行为流程索引
+    public int m_endStepIndex;
+    //Npc当前目的地位置点Point
+    public Point m_gotoPoint;
+    //缓存临时变量
+    protected Point tempPoint = null;
+    public Vector2 m_selfPosV2; //Npc自身位置X, Z
+    public Vector2 m_desPosV2;  //目标位置X, Z
+    //Npc是否需要销毁或回收到对象池
+    public bool m_isDestroy = false;
     #endregion
 
     #region 状态属性
@@ -94,6 +109,17 @@ public class NpcAction : MonoBehaviour
         get { return m_stationIndex; }
         set { m_stationIndex = value; }
     }
+    public bool IsDestroy
+    {
+        get { return m_isDestroy; }
+        set { m_isDestroy = value; }
+    }
+    #endregion
+
+    #region 组件字段
+    protected NavMeshAgent m_navMeshAgent;
+    protected NavMeshObstacle m_navMeshObstacle;
+    protected Animator m_animator;
     #endregion
 
     #region 同步模块
@@ -108,7 +134,137 @@ public class NpcAction : MonoBehaviour
     #region Unity生命周期
     protected virtual void Awake()
     {
-        m_npcSync = GetComponent<NpcSync>();
+        m_npcSync = transform.root.GetComponent<NpcSync>();
+        m_navMeshAgent = GetComponent<NavMeshAgent>();
+        m_navMeshObstacle = GetComponent<NavMeshObstacle>();
+        m_animator = GetComponent<Animator>();
+    }
+    protected virtual void Start()
+    {
+        //开启Npc同步
+        StartCoroutine(SyncNpcPosition());
+        StartAction();
+    }
+    #endregion
+
+    protected virtual void StartAction()
+    {
+
+    }
+    protected IEnumerator SyncNpcPosition()
+    {
+        Vector3 prePos = transform.localPosition;
+        Vector3 nowPos = transform.localPosition;
+        float posX, posY, posZ, angleX, angleY, angleZ = 0.0f;
+        int npcId = NpcId;
+        List<PlayerActor> stationPlayerActorList = new List<PlayerActor>();
+        //随后开始发送Npc同步信息
+        while (true)
+        {
+            posX = transform.localPosition.x;
+            posY = transform.localPosition.y;
+            posZ = transform.localPosition.z;
+            angleX = transform.localEulerAngles.x;
+            angleY = transform.localEulerAngles.y;
+            angleZ = transform.localEulerAngles.z;
+
+            if (Vector3.Distance(prePos, nowPos) > 0.2f) //NPC位置发生改变时才，去同步
+            {
+                prePos.x = posX;
+                prePos.y = posY;
+                prePos.z = posZ;
+                m_npcSync.SendNpcPosition(stationPlayerActorList,
+                    posX, posY, posZ,
+                    angleX, angleY, angleZ,
+                    npcId, StationIndex, (UInt16)NpcActionStatus);
+            }
+            else
+            {
+                nowPos.x = transform.localPosition.x;
+                nowPos.y = transform.localPosition.y;
+                nowPos.z = transform.localPosition.z;
+            }
+            yield return null;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #region 辅助方法
+    //获得一个随机的进站位置点
+    public Point GetRandomEnterStationPoint()
+    {
+        int pointStatus = (int)m_stepArray[m_startStepIndex];
+        Point point = StationEngine.Instance.GetFirstPoint2RandomPointQueue(m_stationIndex, pointStatus);
+        return point;
+    }
+    //获得一个随机的出站位置点
+    public Point GetRandomExitStationPoint()
+    {
+        int pointStatus = (int)m_stepArray[m_endStepIndex];
+        Point point = StationEngine.Instance.GetFirstPoint2RandomPointQueue(m_stationIndex, pointStatus);
+        return point;
+    }
+    //获得一个当前步骤的没有预约的位置点
+    public Point GetNoReservationPoint2RandomPointQueue()
+    {
+        Point point = StationEngine.Instance.GetNoReservationPoint2RandomPointQueue(m_stationIndex,
+            (int)m_stepArray[m_startStepIndex]);
+        return point;
+    }
+    //获得一个当前步骤对应的休息区的位置点
+    public Point GetRestAreaPoint()
+    {
+        Point point = null;
+        int restStatus = (int)m_stepArray[m_startStepIndex] + 1;
+        //排队买票休息区
+        //排队进站检票休息区
+        //排队上车休息区
+        if (restStatus == (int)PointStatus.BuyTicket_RestArea ||
+            restStatus == (int)PointStatus.EnterCheckTicket_RestArea ||
+            restStatus == (int)PointStatus.WaitTrain_Up_RestArea ||
+            restStatus == (int)PointStatus.WaitTrain_Down_RestArea ||
+            restStatus == (int)PointStatus.ExitCheckTicket_RestArea)
+        {
+            point = StationEngine.Instance.GetRandomNoReservationPointAtRestArea(m_stationIndex, restStatus);
+        }
+        return point;
+    }
+    //获得指定必达位置点，这样的点通常是EnterCheckTicketAfter, ExitCheckTicketAfter, Train_Up等类型的位置点
+    public Point GetMustGotoPoint(int stepIndex)
+    {
+        Point point = null;
+        PointStatus status = m_stepArray[stepIndex];
+        if ((status == PointStatus.EnterCheckTicketAfter ||
+            status == PointStatus.ExitCheckTicketAfter ||
+            status == PointStatus.Train_Up || status == PointStatus.Train_Down) && m_gotoPoint != null)
+        {
+            //下一个位置点，必须为特定位置点时, 跟该位置点当前状态没有任何关系，必须获取到该位置点
+            point = StationEngine.Instance.GetFirstPoint(m_stationIndex,
+                (int)m_stepArray[stepIndex],
+                m_gotoPoint.m_belongPointQueue.m_queueIndex);
+        }
+        return point;
     }
     #endregion
 }
@@ -142,7 +298,7 @@ public class NpcAction : MonoBehaviour
 //     //Npc所属站台Station
 //     public int m_stationIndex;
 //     //Npc行为流程
-//     private PointStatus[] EnterStationTrainUpAction_StepArray = new PointStatus[]
+//     private PointStatus[] m_stepArray = new PointStatus[]
 //     {
 //         PointStatus.EnterStation,
 //         PointStatus.BuyTicket,
@@ -187,7 +343,7 @@ public class NpcAction : MonoBehaviour
 //         m_stationIndex = 0; //测试为站台1
 //         //该值应该随机或始终为0, 随机值为0, 1, 2 不能为后边的了
 //         m_startStepIndex = 0;
-//         m_endStepIndex = EnterStationTrainUpAction_StepArray.Length - 1;
+//         m_endStepIndex = m_stepArray.Length - 1;
 //     }
 //     void Start()
 //     {
@@ -199,7 +355,7 @@ public class NpcAction : MonoBehaviour
 //     //获得一个随机的进站位置点
 //     private Point GetRandomEnterStationPoint()
 //     {
-//         int pointStatus = (int)EnterStationTrainUpAction_StepArray[m_startStepIndex];
+//         int pointStatus = (int)m_stepArray[m_startStepIndex];
 //         Point point = StationEngine.Instance.GetFirstPoint2RandomPointQueue(m_stationIndex, pointStatus);
 //         return point;
 //     }
@@ -207,14 +363,14 @@ public class NpcAction : MonoBehaviour
 //     public Point GetNoReservationPoint2RandomPointQueue()
 //     {
 //         Point point = StationEngine.Instance.GetNoReservationPoint2RandomPointQueue(m_stationIndex,
-//             (int)EnterStationTrainUpAction_StepArray[m_startStepIndex]);
+//             (int)m_stepArray[m_startStepIndex]);
 //         return point;
 //     }
 //     //获得一个当前步骤对应的休息区的位置点
 //     public Point GetRestAreaPoint()
 //     {
 //         Point point = null;
-//         int restStatus = (int)EnterStationTrainUpAction_StepArray[m_startStepIndex] + 1;
+//         int restStatus = (int)m_stepArray[m_startStepIndex] + 1;
 //         //排队买票休息区
 //         //排队进站检票休息区
 //         //排队上车休息区
@@ -232,14 +388,14 @@ public class NpcAction : MonoBehaviour
 //     public Point GetMustGotoPoint(int stepIndex)
 //     {
 //         Point point = null;
-//         PointStatus status = EnterStationTrainUpAction_StepArray[stepIndex];
+//         PointStatus status = m_stepArray[stepIndex];
 //         if ((status == PointStatus.EnterCheckTicketAfter ||
 //             status == PointStatus.ExitCheckTicketAfter ||
 //             status == PointStatus.Train_Up) && m_gotoPoint != null)
 //         {
 //             //下一个位置点，必须为特定位置点时, 跟该位置点当前状态没有任何关系，必须获取到该位置点
 //             point = StationEngine.Instance.GetFirstPoint(m_stationIndex,
-//                 (int)EnterStationTrainUpAction_StepArray[stepIndex],
+//                 (int)m_stepArray[stepIndex],
 //                 m_gotoPoint.m_belongPointQueue.m_queueIndex);
 //         }
 //         return point;
@@ -250,7 +406,7 @@ public class NpcAction : MonoBehaviour
 //     private void StartAction()
 //     {
 //         #region 这里在获取Npc生成后，需要到达的第一个位置点
-//         if (PointStatus.EnterStation == EnterStationTrainUpAction_StepArray[m_startStepIndex])
+//         if (PointStatus.EnterStation == m_stepArray[m_startStepIndex])
 //         {
 //             //这个gotoPoint不可能为null
 //             tempPoint = GetRandomEnterStationPoint();
@@ -302,7 +458,7 @@ public class NpcAction : MonoBehaviour
 //                         //队列中有位置空出来了, 尽量获取从该空位置点所在队列的最后一个位置点
 //                         int queueIndex = tempPoint.m_queueIndex;
 //                         tempPoint = StationEngine.Instance.GetReverseNoReservationPointByQueueIndex(m_stationIndex,
-//                             (int)EnterStationTrainUpAction_StepArray[m_startStepIndex], queueIndex);
+//                             (int)m_stepArray[m_startStepIndex], queueIndex);
 //                         if (tempPoint != null)
 //                         {
 //                             GotoDestination(tempPoint);
@@ -342,7 +498,7 @@ public class NpcAction : MonoBehaviour
 //                     else if (m_gotoPoint != null && m_gotoPoint.m_nextPoint == null && m_gotoPoint.IsRestAreaPoint == false)
 //                     {
 //                         //Npc行为最后一个步骤完成，需要销毁或回收
-//                         if (m_gotoPoint.m_pointStatus == EnterStationTrainUpAction_StepArray[m_endStepIndex])
+//                         if (m_gotoPoint.m_pointStatus == m_stepArray[m_endStepIndex])
 //                         {
 //                             //销毁NPC
 //                             DestroyNpc();

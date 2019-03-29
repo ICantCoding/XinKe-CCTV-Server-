@@ -35,6 +35,9 @@ public class Device : MonoBehaviour
     //设备唯一标识
     [SerializeField]
     protected int m_deviceId;
+    //设备所属站台
+    [SerializeField]
+    protected UInt16 m_stationIndex;
     #endregion
 
     #region 属性
@@ -47,6 +50,11 @@ public class Device : MonoBehaviour
     {
         get { return m_deviceId; }
         set { m_deviceId = value; }
+    }
+    public UInt16 StationIndex
+    {
+        get { return m_stationIndex; }
+        set { m_stationIndex = value; }
     }
     #endregion
 

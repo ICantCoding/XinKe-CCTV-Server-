@@ -16,7 +16,7 @@ using UnityEngine;
 public class NpcMgr
 {
     #region 游戏物体对象
-    public Transform Npc;
+    public Transform NpcParentTransform;
     #endregion
 
     #region 字段
@@ -25,6 +25,10 @@ public class NpcMgr
     #endregion
 
     #region 属性
+    public int Count
+    {
+        get { return m_npcActionDict.Count; }
+    }
     public NpcActionStatus NpcActionStatus
     {
         get { return m_npcActionStatus; }

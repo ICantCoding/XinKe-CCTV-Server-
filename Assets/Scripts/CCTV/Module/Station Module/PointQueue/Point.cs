@@ -29,8 +29,11 @@ public enum PointStatus
     WaitTrain_Down_RestArea,        //等待列车，下行上车排队满员的时候，有一个休息区
     Train_Up,                       //列车上，上行车上NPC生成消失点
     Train_Down,                     //列车上，下行车上NPC生成消失点
-    NpcDownTrain_Up,                //Npc 上行方向下车排队点
-    NpcDownTrain_Down,              //Npc 下行方向下车排队点
+
+    Train_Up_Birth,                 //列车上，上行生成Npc点
+    Train_Down_Birth,               //列车上，下行生成Npc点
+    DownTrain_Up,                   //Npc 上行方向下车排队点
+    DownTrain_Down,                 //Npc 下行方向下车排队点
     ExitCheckTicket,		        //出站检票排队点
     ExitCheckTicket_RestArea,       //出站检票排队满员的时候，有一个休息区
     ExitCheckTicketAfter,           //出站检票之后排队点

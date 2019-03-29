@@ -201,7 +201,7 @@ public class UIMainPanel : UIPanel
         string content = u3dClientLogin.m_clientId + " " + u3dClientLogin.m_clientName + " (" +
          endPoint.Address.ToString() + " " + endPoint.Port.ToString() + ")";
         //UI处理
-        GameObject clientOnLineItemGo = SingletonMgr.ObjectManager.Instantiate("Assets/Prefabs/UI/ClientOnLineItem.prefab", false, false);
+        GameObject clientOnLineItemGo = SingletonMgr.ObjectManager.Instantiate("Assets/Prefabs/UI/ClientOnLineItem.prefab", false);
         if (clientOnLineItemGo != null && m_clientOnLineItemContentTrans != null)
         {
             clientOnLineItemGo.transform.SetParent(m_clientOnLineItemContentTrans);

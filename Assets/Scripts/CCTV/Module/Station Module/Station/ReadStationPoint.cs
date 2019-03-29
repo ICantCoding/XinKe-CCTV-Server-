@@ -16,10 +16,11 @@ using System.Threading;
 
 public class ReadStationPoint
 {
+    #region 读取点位置
     public static StationMgr BuildStationPoint()
     {
         GameObject go = GameObject.Find("Point/PointRoot");
-        if(go == null) return null;
+        if (go == null) return null;
         Transform pointRootTrans = go.transform;
         if (pointRootTrans == null) return null;
         StationMgr stationMgr = new StationMgr();
@@ -83,7 +84,9 @@ public class ReadStationPoint
             if (i == 0 && (pointName == "EnterCheckTicket" ||
                 pointName == "ExitCheckTicket" ||
                 pointName == "WaitTrain_Up" ||
-                pointName == "WaitTrain_Down"))
+                pointName == "WaitTrain_Down" ||
+                pointName == "Train_Up_Birth" ||
+                pointName == "Train_Down_Birth"))
             {
                 isDeviceCtrl = true;
             }
@@ -116,7 +119,9 @@ public class ReadStationPoint
         }
         return pointQueue;
     }
+    #endregion
 
+    #region 赋值点位置重要信息
     public static void BuildPointInfo(StationMgr stationMgr)
     {
         if (stationMgr == null) return;
@@ -183,13 +188,14 @@ public class ReadStationPoint
             }
         }
     }
+    #endregion
 
     #region 读取场景中各个站台的设备
     public static void BuildStationDevices(StationMgr stationMgr)
     {
         if (stationMgr == null) return;
         GameObject go = GameObject.Find("Device/DeviceRoot");
-        if(go == null) return;
+        if (go == null) return;
         Transform deviceRootTrans = go.transform;
         if (deviceRootTrans == null) return;
         int stationCount = deviceRootTrans.childCount;
@@ -199,22 +205,28 @@ public class ReadStationPoint
             System.UInt16 stationIndex = (System.UInt16)System.Enum.Parse(typeof(StationType), stationTrans.gameObject.name);
             Station station = stationMgr.GetStation(stationIndex);
             if (station == null) return;
-            DeviceMgr deviceMgr = HHH(stationMgr, stationTrans, stationIndex);
-            station.AddDeviceMgr(deviceMgr);
+            HHH(stationMgr, station, stationTrans, stationIndex);
         }
     }
-    private static DeviceMgr HHH(StationMgr stationMgr, Transform stationTrans, System.UInt16 stationIndex)
+    private static void HHH(StationMgr stationMgr, Station station, Transform stationTrans, System.UInt16 stationIndex)
     {
-        DeviceMgr deviceMgr = new DeviceMgr();
         int deviceTypeCount = stationTrans.childCount;
         for (int i = 0; i < deviceTypeCount; ++i)
         {
+            DeviceMgr deviceMgr = null;
             Transform deviceTypeTrans = stationTrans.GetChild(i);
             DeviceType deviceType = (DeviceType)System.Enum.Parse(typeof(DeviceType), deviceTypeTrans.gameObject.name);
-            deviceMgr.DeviceType = deviceType;
+            if (deviceType == DeviceType.ZhaJi)
+            {
+                deviceMgr = new ZhaJiMgr();
+            }
+            else if (deviceType == DeviceType.PingBiMen)
+            {
+                deviceMgr = new PingBiMenMgr();
+            }
             JJJ(stationMgr, deviceMgr, deviceTypeTrans, stationIndex, deviceType);
+            station.AddDeviceMgr(deviceMgr);
         }
-        return deviceMgr;
     }
     private static void JJJ(StationMgr stationMgr, DeviceMgr deviceMgr, Transform deviceTypeTrans, System.UInt16 stationIndex, DeviceType deviceType)
     {
@@ -225,28 +237,69 @@ public class ReadStationPoint
             Device deviceCom = deviceTrans.GetComponent<Device>();
             if (deviceCom == null) continue;
             deviceCom.DeviceId = (int)deviceType + i + 1;
+            deviceCom.StationIndex = stationIndex;
+            deviceCom.DeviceType = deviceType;
             deviceMgr.AddDevice(deviceCom);
 
-            #region 设备关联Point
             string name = deviceTrans.gameObject.name;
-            string[] str = name.Split('|');
-            if (str.Length >= 3)
+            string[] strs = name.Split('~');
+            string[] tempStrs = null;
+            string deviceName = "";
+            string pointType = "";
+            #region 设备与位置点进行关联
+            if (strs.Length == 1)
             {
-                int pointStatus = (int)System.Enum.Parse(typeof(PointStatus), str[1]);
-                int queueIndex1 = int.Parse(str[2]);
-                Point point = GetFirstPoint(stationMgr, stationIndex, pointStatus, queueIndex1);
-                point.m_device = deviceCom;
-                // point.m_pb.Device = deviceCom;
-                if (str.Length == 4)
+                tempStrs = strs[0].Split('|');
+                deviceName = tempStrs[0];
+                pointType = tempStrs[1];
+                PointBindDevice(tempStrs, stationMgr, stationIndex, deviceCom);
+            }
+            else if (strs.Length == 2)
+            {
+                tempStrs = strs[0].Split('|');
+                deviceName = tempStrs[0];
+                pointType = tempStrs[1];
+                PointBindDevice(tempStrs, stationMgr, stationIndex, deviceCom);
+                tempStrs = strs[1].Split('|');
+                PointBindDevice(tempStrs, stationMgr, stationIndex, deviceCom);
+            }
+            #endregion
+
+
+            #region 设备是屏蔽门，需管理上行和下行屏蔽门
+            if (deviceName == DeviceType.PingBiMen.ToString())
+            {
+                PingBiMenMgr pingBiMenMgr = (PingBiMenMgr)deviceMgr;
+                if (pointType == "WaitTrain_Down")
                 {
-                    //有两个点关联同一个设备
-                    int queueIndex2 = int.Parse(str[3]);
-                    point = GetFirstPoint(stationMgr, stationIndex, pointStatus, queueIndex2);
-                    point.m_device = deviceCom;
-                    // point.m_pb.Device = deviceCom;
+                    //下行屏蔽门
+                    pingBiMenMgr.AddDevice2XiaXingPingBiMenList(deviceCom);
+                }
+                else if (pointType == "WaitTrain_Up")
+                {
+                    //上行屏蔽门
+                    pingBiMenMgr.AddDevice2ShangXingPingBiMenList(deviceCom);
                 }
             }
             #endregion
+
+        }
+    }
+    private static void PointBindDevice(string[] str, StationMgr stationMgr, System.UInt16 stationIndex, Device deviceCom)
+    {
+        if (str.Length >= 3)
+        {
+            int pointStatus = (int)System.Enum.Parse(typeof(PointStatus), str[1]);
+            int queueIndex1 = int.Parse(str[2]);
+            Point point = GetFirstPoint(stationMgr, stationIndex, pointStatus, queueIndex1);
+            point.m_device = deviceCom;
+            if (str.Length == 4)
+            {
+                //有两个点关联同一个设备
+                int queueIndex2 = int.Parse(str[3]);
+                point = GetFirstPoint(stationMgr, stationIndex, pointStatus, queueIndex2);
+                point.m_device = deviceCom;
+            }
         }
     }
     private static Point GetFirstPoint(StationMgr stationMgr, System.UInt16 stationIndex, int pointStatus, int queueIndex)
@@ -256,12 +309,13 @@ public class ReadStationPoint
     }
     #endregion
 
+
     #region 读取场景中预先存在的Npc
     public static void BuildStationNpc(StationMgr stationMgr)
     {
         if (stationMgr == null) return;
         GameObject go = GameObject.Find("Npc/NpcRoot");
-        if(go == null) return;
+        if (go == null) return;
         Transform npcRootTrans = go.transform;
         if (npcRootTrans == null) return;
         int stationCount = npcRootTrans.childCount;
@@ -271,31 +325,32 @@ public class ReadStationPoint
             System.UInt16 stationIndex = (System.UInt16)System.Enum.Parse(typeof(StationType), stationTrans.gameObject.name);
             Station station = stationMgr.GetStation(stationIndex);
             if (station == null) return;
-            NpcMgr npcMgr = VVV(stationTrans, stationIndex);
-            station.AddNpcMgr(npcMgr);
+            VVV(station, stationTrans, stationIndex);
         }
     }
-    private static NpcMgr VVV(Transform stationTrans, System.UInt16 stationIndex)
+    private static void VVV(Station station, Transform stationTrans, System.UInt16 stationIndex)
     {
-        NpcMgr npcMgr = new NpcMgr();
+        NpcMgr npcMgr = null;
         int npcActionStatusCount = stationTrans.childCount;
         for (int i = 0; i < npcActionStatusCount; ++i)
         {
+            npcMgr = new NpcMgr();
             Transform npcActionStatusTrans = stationTrans.GetChild(i);
             NpcActionStatus npcActionStatus = (NpcActionStatus)System.Enum.Parse(typeof(NpcActionStatus), npcActionStatusTrans.gameObject.name);
             npcMgr.NpcActionStatus = npcActionStatus;
+            npcMgr.NpcParentTransform = npcActionStatusTrans;
+            station.AddNpcMgr(npcMgr);
             NNN(npcMgr, npcActionStatusTrans, stationIndex);
         }
-        return npcMgr;
     }
     private static void NNN(NpcMgr npcMgr, Transform npcActionStatusTrans, System.UInt16 stationIndex)
     {
         int npcCount = npcActionStatusTrans.childCount;
-        for(int i = 0; i < npcCount; ++i)
+        for (int i = 0; i < npcCount; ++i)
         {
             Transform npcTrans = npcActionStatusTrans.GetChild(i);
             NpcAction npcAction = npcTrans.GetComponent<NpcAction>();
-            if(npcAction == null) continue;
+            if (npcAction == null) continue;
             int npcId = Interlocked.Increment(ref StationEngine.StartNpcId); //原子操作
             npcAction.NpcId = npcId;
             npcAction.StationIndex = stationIndex;

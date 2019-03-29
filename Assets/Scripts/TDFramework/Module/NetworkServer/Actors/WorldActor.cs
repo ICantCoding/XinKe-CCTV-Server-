@@ -84,7 +84,6 @@ public class WorldActor : Actor
         if (string.IsNullOrEmpty(keyStr) || playerActor == null) return;
         if (m_stationPlayerActorDict.ContainsKey(keyStr) == false)
         {
-            UnityEngine.Debug.Log("keyStr: " + keyStr);
             m_stationPlayerActorDict.Add(keyStr, playerActor);
         }
     }

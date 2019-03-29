@@ -114,6 +114,15 @@ namespace TDFramework
                 enumerator.Dispose();
             }
         }
+        //获得当前站台观察者U3DPlayerActor
+        public List<PlayerActor> GetU3DPlayerActorListAtXXStation(UInt16 stationIndex)
+        {
+            if(m_worldActor != null)
+            {
+                return m_worldActor.GetU3DPlayerActorListAtXXStation(stationIndex);
+            }
+            return null;
+        }
         #endregion
     }
 }

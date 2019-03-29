@@ -16,6 +16,8 @@ namespace TDFramework
             SingletonMgr.GameGlobalInfo.ServerInfo = ServerInfo.DeserializeServerInfoFromXml();
             //读取 站台信息
             SingletonMgr.GameGlobalInfo.StationInfoList = StationInfoList.DeserializeStationInfoListFromXml();
+            // //读取 站台0闸机信息, 不是很有必要初始化该类数据
+            // SingletonMgr.GameGlobalInfo.ZhaJiDeviceInfoCollectionStation0 = ZhaJiDeviceInfoCollection.DeserializedZhaJiDeviceInfoCollectionAtStation0();
         }
         public override void Release()
         {
