@@ -44,6 +44,7 @@ public class NpcMgr
     public void AddNpcAction(NpcAction npcAction)
     {
         if (npcAction == null) return;
+        npcAction.NpcId = System.Threading.Interlocked.Increment(ref StationEngine.StartNpcId);
         if (m_npcActionDict.ContainsKey(npcAction.NpcId) == false)
         {
             m_npcActionDict.Add(npcAction.NpcId, npcAction);

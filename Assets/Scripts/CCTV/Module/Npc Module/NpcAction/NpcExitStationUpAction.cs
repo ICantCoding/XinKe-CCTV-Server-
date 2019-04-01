@@ -35,7 +35,7 @@ public class NpcExitStationUpAction : NpcAction
         base.Awake();
         m_stepArray = new PointStatus[]
         {
-            PointStatus.Train_Up,
+            PointStatus.Train_Up_Birth,
             PointStatus.DownTrain_Up,
             PointStatus.ExitCheckTicket,
             PointStatus.ExitCheckTicketAfter,
@@ -54,7 +54,7 @@ public class NpcExitStationUpAction : NpcAction
     protected override void StartAction()
     {
         #region 这里在获取Npc生成后，需要到达的第一个位置点
-        if (PointStatus.EnterStation == m_stepArray[m_startStepIndex])
+        if (PointStatus.Train_Up_Birth == m_stepArray[m_startStepIndex])
         {
             //这个gotoPoint不可能为null
             tempPoint = GetRandomEnterStationPoint();
@@ -77,7 +77,7 @@ public class NpcExitStationUpAction : NpcAction
         {
             //m_gotPoint还是为null的话, 我们就放弃这个Npc, 销毁(或回收)gameObject
             //但是只要保证NPC的个数，比对应行为的排队+休息区的个数小，则不会出现这样的情况
-            Destroy(this.gameObject);
+            DestroyNpc4ObjectManager();
             return;
         }
         #endregion
@@ -188,7 +188,7 @@ public class NpcExitStationUpAction : NpcAction
                         else if (m_gotoPoint.IsDeviceCtrl == false)
                         {
                             ++m_startStepIndex;
-                            if(m_startStepIndex == m_endStepIndex)
+                            if (m_startStepIndex == m_endStepIndex)
                             {
                                 tempPoint = GetRandomExitStationPoint();
                             }
@@ -262,7 +262,7 @@ public class NpcExitStationUpAction : NpcAction
 
 
 
-    
+
 
     #region 方法
     public void GotoDestination(Point desPoint)
@@ -334,13 +334,25 @@ public class NpcExitStationUpAction : NpcAction
             m_gotoPoint.IsEmpty = true;
         }
         IsDestroy = true;
-        Destroy(this.gameObject);
+        DestroyNpc4ObjectManager();
+    }
+    private void DestroyNpc4ObjectManager()
+    {
+        ((StationModule)SingletonMgr.ModuleMgr.GetModule(StringMgr.StationModuleName)).RemoveNpcAction(StationIndex, this);
+        if (ObjectManager.Instance.IsCreatedByObjectManager(this.gameObject))
+        {
+            ObjectManager.Instance.ReleaseGameObjectItem(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
     #endregion
 
     #region 动画事件回调
     //进站检票动作播放完毕回调函数
-    public void EnterCheckTicketAnimationEndCallback()
+    public void CheckTicketAnimationEndCallback()
     {
         m_gotoPoint.m_device.Open(() =>
         {

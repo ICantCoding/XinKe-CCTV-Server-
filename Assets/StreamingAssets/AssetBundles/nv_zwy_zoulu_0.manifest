@@ -1,0 +1,62 @@
+ManifestFileVersion: 0
+CRC: 1186566489
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6c64422e9f7bfb138af9c7f24d25592e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 20620ae69978935a2576c849c9f9292d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 195
+  Script: {instanceID: 0}
+Assets:
+- Assets/Module/Npc/Character/Texture/front.jpg
+- Assets/Prefabs/Npc/Nv_ZWY_zoulu_0.prefab
+- Assets/Module/Npc/Character/Materials/fdmj_FangDuMianJU_blinn1.mat
+- Assets/Module/Npc/Character/Texture/Nv_ZWY_TieTu.jpg
+- Assets/Module/Npc/Character/Texture/heise.jpg
+- Assets/Module/Npc/Character/Materials/Nv_ZWY_TieTu.mat
+- Assets/Module/Npc/Character/Materials/TieTu_1.mat
+- Assets/Module/Npc/Character/Materials/heise.mat
+- Assets/Module/Npc/Character/Materials/redphone.mat
+- Assets/Module/Npc/Character/Texture/miehuoqi.jpg
+- Assets/Module/Npc/Character/Materials/hhh.mat
+- Assets/Module/Npc/Character/Nv_ZWY_zoulu.fbx
+- Assets/Module/Npc/Character/Texture/redphone.jpg
+- Assets/Module/Npc/Character/Texture/TieTu_1.jpg
+- Assets/Module/Npc/Character/Materials/miehuoqi.mat
+- Assets/Module/Npc/AnimatorController/Nv_ZWY_zoulu_0.controller
+- Assets/Module/Npc/Character/Texture/hhh.jpg
+- Assets/Module/Npc/Character/Materials/front.mat
+- Assets/Module/Npc/Character/Materials/ns_cx25.mat
+- Assets/Module/Npc/Character/Texture/ns_cx25.png
+- Assets/Module/Npc/Character/Materials/fdmj_FangDuMianJU_mianju_blinn2.mat
+Dependencies: []

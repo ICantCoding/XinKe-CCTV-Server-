@@ -121,6 +121,18 @@ public class StationMgr
     #endregion
 
     #region Npc相关
+    public void AddNpcAction(UInt16 stationIndex, NpcAction npcAction)
+    {
+        Station station = GetStation(stationIndex);
+        if(System.Object.ReferenceEquals(station, null)) return;
+        station.AddNpcAction(npcAction);
+    }
+    public void RemoveNpcAction(UInt16 stationIndex, NpcAction npcAction)
+    {
+        Station station = GetStation(stationIndex);
+        if(System.Object.ReferenceEquals(station, null)) return;
+        station.RemoveNpcAction(npcAction.NpcActionStatus, npcAction.NpcId);
+    }
     public int GetNpcCount(UInt16 stationIndex, NpcActionStatus npcActionStatus)
     {
         Station station = GetStation(stationIndex);

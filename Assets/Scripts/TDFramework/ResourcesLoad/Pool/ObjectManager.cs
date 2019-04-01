@@ -242,6 +242,13 @@ namespace TDFramework
             }
             return null;
         }
+        //判断游戏对象是否是对象池创建
+        public bool IsCreatedByObjectManager(GameObject go)
+        {
+            if(System.Object.ReferenceEquals(go, null)) return false;
+            long guid = go.GetInstanceID();
+            return m_gameObjectItemDict.ContainsKey(guid);
+        }
         #endregion
         #endregion
     }

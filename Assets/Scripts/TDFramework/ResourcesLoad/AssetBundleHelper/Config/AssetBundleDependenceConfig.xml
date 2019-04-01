@@ -4,8 +4,40 @@
   <ABList Path="Assets/Scripts/TDFramework/ResourcesLoad/AssetBundleHelper/Config/AssetBundleDependenceConfig.bytes" Crc="2226670194" ABName="assetbundleconfig" AssetName="AssetBundleDependenceConfig.bytes" />
   <ABList Path="Assets/Scripts/TDFramework/ResourcesLoad/AssetBundleHelper/Config/AssetBundleDependenceConfig.xml" Crc="4102649066" ABName="assetbundleconfig" AssetName="AssetBundleDependenceConfig.xml" />
   <ABList Path="Assets/Prefabs/UI/ClientOnLineItem.prefab" Crc="254802911" ABName="clientonlineitem" AssetName="ClientOnLineItem.prefab" />
-  <ABList Path="Assets/Prefabs/Npc/NpcMan.prefab" Crc="315186434" ABName="npcman" AssetName="NpcMan.prefab" />
-  <ABList Path="Assets/Prefabs/Npc/NpcMan 1.prefab" Crc="1056903852" ABName="npcman 1" AssetName="NpcMan 1.prefab">
-    <DependABList>npcman</DependABList>
+  <ABList Path="Assets/Prefabs/Npc/Man1_Npc.prefab" Crc="3796099011" ABName="man1_npc" AssetName="Man1_Npc.prefab" />
+  <ABList Path="Assets/Prefabs/Npc/Man2_Npc.prefab" Crc="2514292019" ABName="man2_npc" AssetName="Man2_Npc.prefab">
+    <DependABList>man1_npc</DependABList>
+  </ABList>
+  <ABList Path="Assets/Prefabs/Npc/Man3_Npc.prefab" Crc="242762076" ABName="man3_npc" AssetName="Man3_Npc.prefab">
+    <DependABList>man1_npc</DependABList>
+  </ABList>
+  <ABList Path="Assets/Prefabs/Npc/Man4_Npc.prefab" Crc="2061543635" ABName="man4_npc" AssetName="Man4_Npc.prefab">
+    <DependABList>man1_npc</DependABList>
+  </ABList>
+  <ABList Path="Assets/Prefabs/Npc/Man5_Npc.prefab" Crc="3779454140" ABName="man5_npc" AssetName="Man5_Npc.prefab">
+    <DependABList>man1_npc</DependABList>
+  </ABList>
+  <ABList Path="Assets/Prefabs/Npc/Nv_ZWY_zoulu_0.prefab" Crc="3388213187" ABName="nv_zwy_zoulu_0" AssetName="Nv_ZWY_zoulu_0.prefab" />
+  <ABList Path="Assets/Prefabs/Npc/Nv_ZWY_zoulu_1.prefab" Crc="90048349" ABName="nv_zwy_zoulu_1" AssetName="Nv_ZWY_zoulu_1.prefab">
+    <DependABList>nv_zwy_zoulu_0</DependABList>
+  </ABList>
+  <ABList Path="Assets/Prefabs/Npc/Woman1_Npc.prefab" Crc="2592512989" ABName="woman1_npc" AssetName="Woman1_Npc.prefab">
+    <DependABList>man1_npc</DependABList>
+  </ABList>
+  <ABList Path="Assets/Prefabs/Npc/Woman2_Npc.prefab" Crc="3977791789" ABName="woman2_npc" AssetName="Woman2_Npc.prefab">
+    <DependABList>man1_npc</DependABList>
+    <DependABList>woman1_npc</DependABList>
+  </ABList>
+  <ABList Path="Assets/Prefabs/Npc/Woman3_Npc.prefab" Crc="1992099138" ABName="woman3_npc" AssetName="Woman3_Npc.prefab">
+    <DependABList>man1_npc</DependABList>
+    <DependABList>woman1_npc</DependABList>
+  </ABList>
+  <ABList Path="Assets/Prefabs/Npc/Woman4_Npc.prefab" Crc="36039885" ABName="woman4_npc" AssetName="Woman4_Npc.prefab">
+    <DependABList>man1_npc</DependABList>
+    <DependABList>woman1_npc</DependABList>
+  </ABList>
+  <ABList Path="Assets/Prefabs/Npc/Woman5_Npc.prefab" Crc="2575343778" ABName="woman5_npc" AssetName="Woman5_Npc.prefab">
+    <DependABList>man1_npc</DependABList>
+    <DependABList>woman1_npc</DependABList>
   </ABList>
 </AssetBundleConfig>

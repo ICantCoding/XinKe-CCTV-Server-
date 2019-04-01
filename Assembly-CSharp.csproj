@@ -193,6 +193,7 @@
      <None Include="Assets\Scripts\TDFramework\SDK\Demigiant\DemiLib\Core\DemiLib.xml" />
      <None Include="Assets\Scripts\TDFramework\SDK\Demigiant\DOTween\DOTween50.xml" />
      <None Include="Assets\Scripts\TDFramework\SDK\Demigiant\DOTween\DOTween46.xml" />
+     <None Include="Assets\Module\Npc\Character\Materials\BothSideTransparent.shader" />
      <None Include="Assets\Scripts\TDFramework\SDK\Demigiant\DOTween\readme.txt" />
      <None Include="Assets\Scripts\TDFramework\Module\UI Module\UIFramework\ReadMe.txt" />
      <None Include="Assets\Scripts\TDFramework\SDK\Demigiant\DOTween\DOTween43.xml" />

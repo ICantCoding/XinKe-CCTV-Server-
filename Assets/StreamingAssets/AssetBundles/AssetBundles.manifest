@@ -1,17 +1,60 @@
 ManifestFileVersion: 0
-CRC: 4248622992
+CRC: 1047033185
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: assetbundleconfig
       Dependencies: {}
     Info_1:
-      Name: npcman
+      Name: man1_npc
       Dependencies: {}
     Info_2:
-      Name: npcman 1
+      Name: man2_npc
       Dependencies:
-        Dependency_0: npcman
+        Dependency_0: man1_npc
     Info_3:
+      Name: man3_npc
+      Dependencies:
+        Dependency_0: man1_npc
+    Info_4:
+      Name: man4_npc
+      Dependencies:
+        Dependency_0: man1_npc
+    Info_5:
+      Name: man5_npc
+      Dependencies:
+        Dependency_0: man1_npc
+    Info_6:
+      Name: nv_zwy_zoulu_0
+      Dependencies: {}
+    Info_7:
+      Name: nv_zwy_zoulu_1
+      Dependencies:
+        Dependency_0: nv_zwy_zoulu_0
+    Info_8:
+      Name: woman1_npc
+      Dependencies:
+        Dependency_0: man1_npc
+    Info_9:
+      Name: woman2_npc
+      Dependencies:
+        Dependency_0: man1_npc
+        Dependency_1: woman1_npc
+    Info_10:
+      Name: woman3_npc
+      Dependencies:
+        Dependency_0: man1_npc
+        Dependency_1: woman1_npc
+    Info_11:
+      Name: woman4_npc
+      Dependencies:
+        Dependency_0: man1_npc
+        Dependency_1: woman1_npc
+    Info_12:
+      Name: woman5_npc
+      Dependencies:
+        Dependency_0: man1_npc
+        Dependency_1: woman1_npc
+    Info_13:
       Name: clientonlineitem
       Dependencies: {}

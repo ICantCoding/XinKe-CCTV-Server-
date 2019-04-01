@@ -116,6 +116,14 @@ public class StationEngine : Singleton<StationEngine>
     #endregion
 
     #region Npc相关
+    public void AddNpcAction(UInt16 stationIndex, NpcAction npcAction)
+    {
+        m_stationMgr.AddNpcAction(stationIndex, npcAction);
+    }
+    public void RemoveNpcAction(UInt16 stationIndex, NpcAction npcAction)
+    {
+        m_stationMgr.RemoveNpcAction(stationIndex, npcAction);
+    }
     public int GetNpcCount(UInt16 stationIndex, NpcActionStatus npcActionStatus)
     {
         return m_stationMgr.GetNpcCount(stationIndex, npcActionStatus);

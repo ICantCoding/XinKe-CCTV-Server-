@@ -188,7 +188,6 @@ public class Station
         if (npcMgr == null) return;
         if (m_npcMgrDict.ContainsKey(npcMgr.NpcActionStatus) == false)
         {
-            Debug.Log("npcMgr.NpcActionStatus: " + npcMgr.NpcActionStatus.ToString());
             m_npcMgrDict.Add(npcMgr.NpcActionStatus, npcMgr);
         }
     }
@@ -197,6 +196,13 @@ public class Station
         NpcMgr npcMgr = null;
         m_npcMgrDict.TryGetValue(npcActionStatus, out npcMgr);
         return npcMgr;
+    }
+    public void AddNpcAction(NpcAction npcAction)
+    {
+        if(System.Object.ReferenceEquals(npcAction, null)) return;
+        NpcMgr npcMgr = GetNpcMgr(npcAction.NpcActionStatus);
+        if(System.Object.ReferenceEquals(npcMgr, null)) return;
+        npcMgr.AddNpcAction(npcAction);
     }
     public void RemoveNpcAction(NpcActionStatus npcActionStatus, int npcId)
     {
@@ -212,10 +218,8 @@ public class Station
     }
     public Transform GetNpcParentTransform(NpcActionStatus npcActionStatus)
     {
-        Debug.Log("AAAAAAAAAAAAAAAAAAAAAAa");
         NpcMgr npcMgr = GetNpcMgr(npcActionStatus);
         if(npcMgr == null) return null;
-        Debug.Log("BBBBBBBBBBBBBBBBBBBBB");
         return npcMgr.NpcParentTransform;
     }
     #endregion

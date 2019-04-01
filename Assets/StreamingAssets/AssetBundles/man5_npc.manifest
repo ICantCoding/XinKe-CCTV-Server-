@@ -1,0 +1,45 @@
+ManifestFileVersion: 0
+CRC: 3573230615
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 3e8c2f3d4e212bcc79ab7170eec15ad4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a44de045fd546a7533449aa7a8743e3e
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 195
+  Script: {instanceID: 0}
+- Class: 208
+  Script: {instanceID: 0}
+Assets:
+- Assets/Module/Npc/Character/Materials/casual16_m_35_XG 4.mat
+- Assets/Module/Npc/Character/Texture/casual09_m_30_XG.jpg
+- Assets/Prefabs/Npc/Man5_Npc.prefab
+Dependencies:
+- E:/XinKeWork/Day20190219/CCTV Server/CCTV Server/Assets/StreamingAssets/AssetBundles/man1_npc

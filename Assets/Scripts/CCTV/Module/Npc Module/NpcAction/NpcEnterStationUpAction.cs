@@ -73,7 +73,7 @@ public class NpcEnterStationUpAction : NpcAction
         {
             //m_gotPoint还是为null的话, 我们就放弃这个Npc, 销毁(或回收)gameObject
             //但是只要保证NPC的个数，比对应行为的排队+休息区的个数小，则不会出现这样的情况
-            Destroy(this.gameObject);
+            DestroyNpc4ObjectManager();
             return;
         }
         #endregion
@@ -331,13 +331,27 @@ public class NpcEnterStationUpAction : NpcAction
             m_gotoPoint.IsEmpty = true;
         }
         IsDestroy = true;
-        Destroy(this.gameObject);
+        DestroyNpc4ObjectManager();   
+    }
+    private void DestroyNpc4ObjectManager()
+    {
+        ((StationModule)SingletonMgr.ModuleMgr.GetModule(StringMgr.StationModuleName)).RemoveNpcAction(StationIndex, this);
+        if (ObjectManager.Instance.IsCreatedByObjectManager(this.gameObject))
+        {
+            Debug.Log("从对象池中删除...");
+            ObjectManager.Instance.ReleaseGameObjectItem(this.gameObject);
+        }
+        else
+        {
+            Debug.Log("普通的删除.");
+            Destroy(this.gameObject);
+        }
     }
     #endregion
 
     #region 动画事件回调
     //进站检票动作播放完毕回调函数
-    public void EnterCheckTicketAnimationEndCallback()
+    public void CheckTicketAnimationEndCallback()
     {
         m_gotoPoint.m_device.Open(() =>
         {

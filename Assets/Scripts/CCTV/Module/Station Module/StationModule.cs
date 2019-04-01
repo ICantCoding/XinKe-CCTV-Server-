@@ -28,6 +28,15 @@ namespace TDFramework
         #endregion
 
         #region Npc相关
+        public void AddNpcAction(UInt16 stationIndex, NpcAction npcAction)
+        {
+            m_stationEngine.AddNpcAction(stationIndex, npcAction);
+        }
+        public void RemoveNpcAction(UInt16 stationIndex, NpcAction npcAction)
+        {
+            if(System.Object.ReferenceEquals(npcAction, null)) return;
+            m_stationEngine.RemoveNpcAction(stationIndex, npcAction);
+        }
         public int GetNpcCount(UInt16 stationIndex, NpcActionStatus npcActionStatus)
         {
             return m_stationEngine.GetNpcCount(stationIndex, npcActionStatus);

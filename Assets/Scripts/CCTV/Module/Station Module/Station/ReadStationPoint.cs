@@ -351,8 +351,8 @@ public class ReadStationPoint
             Transform npcTrans = npcActionStatusTrans.GetChild(i);
             NpcAction npcAction = npcTrans.GetComponent<NpcAction>();
             if (npcAction == null) continue;
-            int npcId = Interlocked.Increment(ref StationEngine.StartNpcId); //原子操作
-            npcAction.NpcId = npcId;
+            // int npcId = Interlocked.Increment(ref StationEngine.StartNpcId); //原子操作
+            // npcAction.NpcId = npcId;
             npcAction.StationIndex = stationIndex;
             npcMgr.AddNpcAction(npcAction);
         }

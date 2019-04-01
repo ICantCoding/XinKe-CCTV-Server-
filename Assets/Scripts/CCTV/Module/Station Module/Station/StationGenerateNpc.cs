@@ -7,9 +7,6 @@ using UnityEngine.AI;
 
 public class StationGenerateNpc : MonoBehaviour
 {
-
-    public GameObject npcPrefab;
-
     #region 字段
     public UInt16 m_stationIndex;
     private int m_enterStationUpNpcCount;
@@ -57,10 +54,6 @@ public class StationGenerateNpc : MonoBehaviour
     #endregion
 
     #region Unity生命周期
-    void Awake()
-    {
-
-    }
     void Start()
     {
         m_stationModule = (StationModule)SingletonMgr.ModuleMgr.GetModule(StringMgr.StationModuleName);
@@ -76,77 +69,77 @@ public class StationGenerateNpc : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("m_stationIno.EnterStationUpMaxNpcCount: " + m_stationInfo.EnterStationUpMaxNpcCount);
             if (EnterStationUpNpcCount < m_stationInfo.EnterStationUpMaxNpcCount)
             {
                 //应该生成一个进站上行Npc
-                // yield return new WaitForSeconds(m_stationInfo.GenerateNpcIntervalTime);
-                yield return null;
-
-                Debug.Log("生成进站上行Npc");
-                StartCoroutine(CreateNpc(NpcActionStatus.EnterStationTrainUp_NpcActionStatus, PointStatus.EnterStation));
+                yield return new WaitForSeconds(m_stationInfo.GenerateNpcIntervalTime);
+                //CreateNpc(NpcActionStatus.EnterStationTrainUp_NpcActionStatus, PointStatus.EnterStation);
             }
             if (EnterStationDownNpcCount < m_stationInfo.EnterStationDownMaxNpcCount)
             {
                 //应该生成一个进站下行Npc
-                // yield return new WaitForSeconds(m_stationInfo.GenerateNpcIntervalTime);
-                yield return null;
-                Debug.Log("生成进站下行Npc");
-                StartCoroutine(CreateNpc(NpcActionStatus.EnterStationTrainDown_NpcActionStatus, PointStatus.EnterStation));
+                yield return new WaitForSeconds(m_stationInfo.GenerateNpcIntervalTime);
+                //CreateNpc(NpcActionStatus.EnterStationTrainDown_NpcActionStatus, PointStatus.EnterStation);
             }
             if (ExitStationUpNpcCount < m_stationInfo.ExitStationUpMaxNpcCount)
             {
                 //应该生成一个出站上行Npc
                 yield return new WaitForSeconds(m_stationInfo.GenerateNpcIntervalTime);
-                // Debug.Log("生成出站上行Npc");
-                // CreateNpc(NpcActionStatus.ExitStationTrainUp_NpcActionStatus, PointStatus.Train_Up_Birth);
+                CreateNpc(NpcActionStatus.ExitStationTrainUp_NpcActionStatus, PointStatus.Train_Up_Birth);
             }
             if (ExitStationDownNpcCount < m_stationInfo.ExitStationDownMaxNpcCount)
             {
                 //应该生成一个出站下行Npc
                 yield return new WaitForSeconds(m_stationInfo.GenerateNpcIntervalTime);
-                // Debug.Log("生成出站下行Npc");
                 // CreateNpc(NpcActionStatus.ExitStationTrainDown_NpcActionStatus, PointStatus.Train_Down_Birth);
             }
             yield return null;
         }
     }
-    private IEnumerator CreateNpc(NpcActionStatus npcActionStatus, PointStatus pointStatus)
+    private void CreateNpc(NpcActionStatus npcActionStatus, PointStatus pointStatus)
     {
         GameObject npcGo = m_npcFactory.CreateNpc();
-        if (npcGo == null) yield break;
+        if (npcGo == null) return;
         Transform parentTrans = m_stationModule.GetNpcParentTransform(m_stationIndex, npcActionStatus);
-        if (parentTrans == null) yield break;
+        if (parentTrans == null) return;
         npcGo.transform.SetParent(parentTrans);
         Point point = StationEngine.Instance.GetFirstPoint2RandomPointQueue(m_stationIndex, (int)pointStatus);
         npcGo.transform.localPosition = new Vector3(point.PosX, point.PosY, point.PosZ);
         npcGo.transform.localEulerAngles = new Vector3(point.EulerAngleX, point.EulerAngleY, point.EulerAngleZ);
         npcGo.GetComponent<NavMeshAgent>().enabled = true;
 
+        NpcAction npcAction = null;
         switch (npcActionStatus)
         {
             case NpcActionStatus.EnterStationTrainUp_NpcActionStatus:
                 {
-                    NpcEnterStationUpAction x = npcGo.AddComponent<NpcEnterStationUpAction>();
+                    npcAction = npcGo.AddComponent<NpcEnterStationUpAction>();
+                    npcAction.NpcActionStatus = NpcActionStatus.EnterStationTrainUp_NpcActionStatus;
                     break;
                 }
             case NpcActionStatus.EnterStationTrainDown_NpcActionStatus:
                 {
-                    NpcEnterStationDownAction x = npcGo.AddComponent<NpcEnterStationDownAction>();
+                    npcAction = npcGo.AddComponent<NpcEnterStationDownAction>();
+                    npcAction.NpcActionStatus = NpcActionStatus.EnterStationTrainDown_NpcActionStatus;
                     break;
                 }
             case NpcActionStatus.ExitStationTrainUp_NpcActionStatus:
                 {
-                    npcGo.AddComponent<NpcExitStationUpAction>();
+                    npcAction = npcGo.AddComponent<NpcExitStationUpAction>();
                     break;
                 }
             case NpcActionStatus.ExitStationTrainDown_NpcActionStatus:
                 {
-                    npcGo.AddComponent<NpcExitStationDownAction>();
+                    npcAction = npcGo.AddComponent<NpcExitStationDownAction>();
                     break;
                 }
             default:
                 break;
+        }
+        if (System.Object.ReferenceEquals(npcAction, null) == false)
+        {
+            npcAction.StationIndex = m_stationIndex;
+            m_stationModule.AddNpcAction(m_stationIndex, npcAction);
         }
     }
     #endregion
