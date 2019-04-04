@@ -257,7 +257,12 @@ public class NpcAction : MonoBehaviour
         PointStatus status = m_stepArray[stepIndex];
         if ((status == PointStatus.EnterCheckTicketAfter ||
             status == PointStatus.ExitCheckTicketAfter ||
-            status == PointStatus.Train_Up || status == PointStatus.Train_Down) && m_gotoPoint != null)
+            status == PointStatus.Train_Up || 
+            status == PointStatus.Train_Down || 
+            status == PointStatus.Train_Up_Birth || 
+            status == PointStatus.Train_Down_Birth ||
+            status == PointStatus.DownTrain_Down ||
+            status == PointStatus.DownTrain_Up) && m_gotoPoint != null)
         {
             //下一个位置点，必须为特定位置点时, 跟该位置点当前状态没有任何关系，必须获取到该位置点
             point = StationEngine.Instance.GetFirstPoint(m_stationIndex,

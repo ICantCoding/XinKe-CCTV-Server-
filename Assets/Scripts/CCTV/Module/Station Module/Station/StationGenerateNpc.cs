@@ -125,7 +125,8 @@ public class StationGenerateNpc : MonoBehaviour
                 }
             case NpcActionStatus.ExitStationTrainUp_NpcActionStatus:
                 {
-                    npcAction = npcGo.AddComponent<NpcExitStationUpAction>();
+                    npcAction = npcGo.AddComponent<NpcExitStationUpAction_New>();
+                    ((NpcExitStationUpAction_New)npcAction).StartAction(point);
                     break;
                 }
             case NpcActionStatus.ExitStationTrainDown_NpcActionStatus:

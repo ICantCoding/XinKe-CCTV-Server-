@@ -263,6 +263,17 @@ public class ReadStationPoint
                 tempStrs = strs[1].Split('|');
                 PointBindDevice(tempStrs, stationMgr, stationIndex, deviceCom);
             }
+            else if(strs.Length == 3)
+            {
+                tempStrs = strs[0].Split('|');
+                deviceName = tempStrs[0];
+                pointType = tempStrs[1];
+                PointBindDevice(tempStrs, stationMgr, stationIndex, deviceCom);
+                tempStrs = strs[1].Split('|');
+                PointBindDevice(tempStrs, stationMgr, stationIndex, deviceCom);
+                tempStrs = strs[2].Split('|');
+                PointBindDevice(tempStrs, stationMgr, stationIndex, deviceCom);                
+            }
             #endregion
 
 

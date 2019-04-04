@@ -43,6 +43,7 @@ public class NpcExitStationUpAction : NpcAction
         };
         m_npcActionStatus = NpcActionStatus.ExitStationTrainUp_NpcActionStatus;
         m_endStepIndex = m_stepArray.Length - 1;
+        m_startStepIndex = 1;
     }
     protected override void Start()
     {
