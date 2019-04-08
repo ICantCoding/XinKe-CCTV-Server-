@@ -34,7 +34,7 @@ namespace TDFramework
         }
         public void RemoveNpcAction(UInt16 stationIndex, NpcAction npcAction)
         {
-            if(System.Object.ReferenceEquals(npcAction, null)) return;
+            if (System.Object.ReferenceEquals(npcAction, null)) return;
             m_stationEngine.RemoveNpcAction(stationIndex, npcAction);
         }
         public int GetNpcCount(UInt16 stationIndex, NpcActionStatus npcActionStatus)
@@ -51,6 +51,26 @@ namespace TDFramework
         public DeviceMgr GetDeviceMgr(UInt16 stationIndex, DeviceType deviceType)
         {
             return m_stationEngine.GetDeviceMgr(stationIndex, deviceType);
+        }
+        //站台的上行屏蔽门是否打开
+        public bool IsOpenShangXingPingBiMen(UInt16 stationIndex, DeviceType deviceType)
+        {
+            return m_stationEngine.IsOpenShangXingPingBiMen(stationIndex, deviceType);
+        }
+        //站台的上行屏蔽门状态设置为关闭
+        public void CloseShangXingPingBiMen(UInt16 stationIndex, DeviceType deviceType)
+        {
+            m_stationEngine.CloseShangXingPingBiMen(stationIndex, deviceType);
+        }
+        //站台的下行屏蔽门是否打开
+        public bool IsOpenXiaXingPingBiMen(UInt16 stationIndex, DeviceType deviceType)
+        {
+            return m_stationEngine.IsOpenXiaXingPingBiMen(stationIndex, deviceType);
+        }
+        //站台的下行屏蔽门状态设置为关闭
+        public void CloseXiaXingPingBiMen(UInt16 stationIndex, DeviceType deviceType)
+        {
+            m_stationEngine.CloseXiaXingPingBiMen(stationIndex, deviceType);
         }
         #endregion
     }

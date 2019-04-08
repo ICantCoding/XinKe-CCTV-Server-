@@ -64,6 +64,7 @@
      <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcAction\NpcEnterStationDownAction.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcAction\NpcEnterStationUpAction.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcAction\NpcExitStationDownAction.cs" />
+     <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcAction\NpcExitStationDownAction_New.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcAction\NpcExitStationUpAction.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcAction\NpcExitStationUpAction_New.cs" />
      <Compile Include="Assets\Scripts\CCTV\Module\Npc Module\NpcFactory\NpcFactory.cs" />
@@ -104,6 +105,7 @@
      <Compile Include="Assets\Scripts\TDFramework\LoadScene\SceneInfoMgr.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\Launch Module\GameGlobalInfo.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\Launch Module\LaunchModule.cs" />
+     <Compile Include="Assets\Scripts\TDFramework\Module\Launch Module\XmlInfo\DeviceAndPointInfo.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\Launch Module\XmlInfo\DeviceInfo\DeviceInfo.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\Launch Module\XmlInfo\DeviceInfo\PingBiMenDeviceInfo.cs" />
      <Compile Include="Assets\Scripts\TDFramework\Module\Launch Module\XmlInfo\DeviceInfo\ZhaJiDeviceInfo.cs" />
@@ -195,6 +197,7 @@
      <None Include="Assets\Scripts\TDFramework\SDK\Demigiant\DOTween\DOTween50.xml" />
      <None Include="Assets\Scripts\TDFramework\SDK\Demigiant\DOTween\DOTween46.xml" />
      <None Include="Assets\Module\Npc\Character\Materials\BothSideTransparent.shader" />
+     <None Include="Assets\StreamingAssets\Xml\DeviceAndPointInfo.xml" />
      <None Include="Assets\Scripts\TDFramework\SDK\Demigiant\DOTween\readme.txt" />
      <None Include="Assets\Scripts\TDFramework\Module\UI Module\UIFramework\ReadMe.txt" />
      <None Include="Assets\Scripts\TDFramework\SDK\Demigiant\DOTween\DOTween43.xml" />

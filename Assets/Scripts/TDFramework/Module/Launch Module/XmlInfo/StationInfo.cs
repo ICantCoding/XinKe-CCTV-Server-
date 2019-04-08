@@ -52,9 +52,15 @@ public class StationInfo
     //出站上行最大Npc个数
     [XmlElement("ExitStationUpMaxNpcCount")]
     public int ExitStationUpMaxNpcCount;
+    //上行出站屏蔽门打开生成一波Npc的个数
+    [XmlElement("ExitStationUpGenerateNpcCount")]
+    public int ExitStationUpGenerateNpcCount;
     //出站下行最大Npc个数
     [XmlElement("ExitStationDownMaxNpcCount")]
     public int ExitStationDownMaxNpcCount;
+    //下行出站屏蔽门打开生成一波Npc的个数
+    [XmlElement("ExitStationDownGenerateNpcCount")]
+    public int ExitStationDownGenerateNpcCount;
     //生成Npc时间间隔
     [XmlElement("GenerateNpcIntervalTime")]
     public float GenerateNpcIntervalTime;
@@ -120,7 +126,9 @@ public class StationInfoList
         station.EnterStationUpMaxNpcCount = 15;
         station.EnterStationDownMaxNpcCount = 15;
         station.ExitStationUpMaxNpcCount = 15;
+        station.ExitStationUpGenerateNpcCount = 10;
         station.ExitStationDownMaxNpcCount = 15;
+        station.ExitStationDownGenerateNpcCount = 10;
         station.GenerateNpcIntervalTime = 2.0f;
 
         list.stationInfoList.Add(station);

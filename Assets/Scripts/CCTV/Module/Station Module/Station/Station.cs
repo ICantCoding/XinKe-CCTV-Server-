@@ -172,6 +172,38 @@ public class Station
         if (mgr == null) return null;
         return mgr.GetDevice(deviceId);
     }
+    //站台的上行屏蔽门是否打开
+    public bool IsOpenShangXingPingBiMen(DeviceType deviceType)
+    {
+        DeviceMgr mgr = GetDeviceMgr(deviceType);
+        if (mgr == null) return false;
+        PingBiMenMgr pingBiMenMgr = (PingBiMenMgr)mgr;
+        return pingBiMenMgr.ShangXingPingBiMenIsOpen;
+    }
+    //站台的上行屏蔽门状态设置为关闭
+    public void CloseShangXingPingBiMen(DeviceType deviceType)
+    {
+        DeviceMgr mgr = GetDeviceMgr(deviceType);
+        if (mgr == null) return;
+        PingBiMenMgr pingBiMenMgr = (PingBiMenMgr)mgr;
+        pingBiMenMgr.ShangXingPingBiMenIsOpen = false;
+    }
+    //站台的下行屏蔽门是否打开
+    public bool IsOpenXiaXingPingBiMen(DeviceType deviceType)
+    {
+        DeviceMgr mgr = GetDeviceMgr(deviceType);
+        if (mgr == null) return false;
+        PingBiMenMgr pingBiMenMgr = (PingBiMenMgr)mgr;
+        return pingBiMenMgr.XiaXingPingBiMenIsOpen;
+    }
+    //站台的下行屏蔽门状态设置为关闭
+    public void CloseXiaXingPingBiMen(DeviceType deviceType)
+    {
+        DeviceMgr mgr = GetDeviceMgr(deviceType);
+        if (mgr == null) return;
+        PingBiMenMgr pingBiMenMgr = (PingBiMenMgr)mgr;
+        pingBiMenMgr.XiaXingPingBiMenIsOpen = false;
+    }
     #endregion
 
     #endregion
@@ -199,9 +231,9 @@ public class Station
     }
     public void AddNpcAction(NpcAction npcAction)
     {
-        if(System.Object.ReferenceEquals(npcAction, null)) return;
+        if (System.Object.ReferenceEquals(npcAction, null)) return;
         NpcMgr npcMgr = GetNpcMgr(npcAction.NpcActionStatus);
-        if(System.Object.ReferenceEquals(npcMgr, null)) return;
+        if (System.Object.ReferenceEquals(npcMgr, null)) return;
         npcMgr.AddNpcAction(npcAction);
     }
     public void RemoveNpcAction(NpcActionStatus npcActionStatus, int npcId)
@@ -213,13 +245,13 @@ public class Station
     public int GetNpcCount(NpcActionStatus npcActionStatus)
     {
         NpcMgr npcMgr = GetNpcMgr(npcActionStatus);
-        if(npcMgr == null) return 0;
+        if (npcMgr == null) return 0;
         return npcMgr.Count;
     }
     public Transform GetNpcParentTransform(NpcActionStatus npcActionStatus)
     {
         NpcMgr npcMgr = GetNpcMgr(npcActionStatus);
-        if(npcMgr == null) return null;
+        if (npcMgr == null) return null;
         return npcMgr.NpcParentTransform;
     }
     #endregion

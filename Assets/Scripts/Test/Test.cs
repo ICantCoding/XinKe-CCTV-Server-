@@ -13,6 +13,7 @@ public class Test : MonoBehaviour
         {
             StationModule module = (StationModule)SingletonMgr.ModuleMgr.GetModule(StringMgr.StationModuleName);
             PingBiMenMgr mgr = (PingBiMenMgr)module.GetDeviceMgr(0, DeviceType.PingBiMen);
+            mgr.ShangXingPingBiMenIsOpen = true;
             for (int i = 0; i < mgr.ShangXingPingBiMenList.Count; ++i)
             {
                 mgr.ShangXingPingBiMenList[i].Open(null);
@@ -22,6 +23,7 @@ public class Test : MonoBehaviour
         {
             StationModule module = (StationModule)SingletonMgr.ModuleMgr.GetModule(StringMgr.StationModuleName);
             PingBiMenMgr mgr = (PingBiMenMgr)module.GetDeviceMgr(0, DeviceType.PingBiMen);
+            mgr.ShangXingPingBiMenIsOpen = false;
             for (int i = 0; i < mgr.ShangXingPingBiMenList.Count; ++i)
             {
                 mgr.ShangXingPingBiMenList[i].Close(null);
@@ -31,6 +33,7 @@ public class Test : MonoBehaviour
         {
             StationModule module = (StationModule)SingletonMgr.ModuleMgr.GetModule(StringMgr.StationModuleName);
             PingBiMenMgr mgr = (PingBiMenMgr)module.GetDeviceMgr(0, DeviceType.PingBiMen);
+            mgr.XiaXingPingBiMenIsOpen = true;
             for (int i = 0; i < mgr.XiaXingPingBiMenList.Count; ++i)
             {
                 mgr.XiaXingPingBiMenList[i].Open(null);
@@ -40,6 +43,7 @@ public class Test : MonoBehaviour
         {
             StationModule module = (StationModule)SingletonMgr.ModuleMgr.GetModule(StringMgr.StationModuleName);
             PingBiMenMgr mgr = (PingBiMenMgr)module.GetDeviceMgr(0, DeviceType.PingBiMen);
+            mgr.XiaXingPingBiMenIsOpen = false;
             for (int i = 0; i < mgr.XiaXingPingBiMenList.Count; ++i)
             {
                 mgr.XiaXingPingBiMenList[i].Close(null);

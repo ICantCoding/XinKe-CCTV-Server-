@@ -32,4 +32,12 @@ public class NpcFactory
         if(npcGo == null) return null;
         return npcGo;
     }
+    public void ReleaseNpc(GameObject npcGo)
+    {
+        if(npcGo == null)
+        {
+            return;
+        }
+        ObjectManager.Instance.ReleaseGameObjectItem(npcGo);
+    }
 }

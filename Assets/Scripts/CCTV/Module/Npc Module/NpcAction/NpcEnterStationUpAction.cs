@@ -19,7 +19,7 @@ public class NpcEnterStationUpAction : NpcAction
 {
     #region 常量字段
     //导航到目的地位置距离差
-    private const float m_navDistance = 0.1f;
+    private const float m_navDistance = 0.15f;
     private int EnterCheckTicketAnimatorHashValue = Animator.StringToHash("OpenZhaji");
     private int WalkAnimatorHashValue = Animator.StringToHash("Walk");
     private int StandUpAnimatorHashValue = Animator.StringToHash("StandUp");
@@ -44,6 +44,10 @@ public class NpcEnterStationUpAction : NpcAction
         };
         m_npcActionStatus = NpcActionStatus.EnterStationTrainUp_NpcActionStatus;
         m_endStepIndex = m_stepArray.Length - 1;
+    }
+    protected override void Start(){
+        base.Start();
+        StartAction();
     }
     #endregion
 

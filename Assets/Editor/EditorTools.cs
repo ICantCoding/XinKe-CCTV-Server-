@@ -63,6 +63,13 @@ public class AppConfigXmlEditor
     {
         PingBiMenDeviceInfoCollection.SerializedPingBiMenDeviceInfoCollectionAtStation0();
     }
+    [MenuItem("Tools/Xml/生成Device和Point关系DeviceAndPoint.xml", false, 3)]
+    private static void CreateDeviceAndPointInfoXml()
+    {
+        DeviceAndPointInfo.SerializationDeviceAndPointInfo2Xml();
+        Debug.Log("生成Device和Point位置点关系xml成功.");
+        AssetDatabase.Refresh();
+    }
     
     [MenuItem("Tools/摆点位置/点位Position配置")]
     private static void CreatePosition()

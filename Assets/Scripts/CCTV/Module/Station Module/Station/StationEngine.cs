@@ -139,5 +139,25 @@ public class StationEngine : Singleton<StationEngine>
     {
         return m_stationMgr.GetDeviceMgr(stationIndex, deviceType);
     }
+    //站台的上行屏蔽门是否打开
+    public bool IsOpenShangXingPingBiMen(UInt16 stationIndex, DeviceType deviceType)
+    {
+        return m_stationMgr.IsOpenShangXingPingBiMen(stationIndex, deviceType);
+    }
+    //站台的上行屏蔽门状态设置为关闭
+    public void CloseShangXingPingBiMen(UInt16 stationIndex, DeviceType deviceType)
+    {
+        m_stationMgr.CloseShangXingPingBiMen(stationIndex, deviceType);
+    }
+    //站台的下行屏蔽门是否打开
+    public bool IsOpenXiaXingPingBiMen(UInt16 stationIndex, DeviceType deviceType)
+    {
+        return m_stationMgr.IsOpenXiaXingPingBiMen(stationIndex, deviceType);
+    }
+    //站台的下行屏蔽门状态设置为关闭
+    public void CloseXiaXingPingBiMen(UInt16 stationIndex, DeviceType deviceType)
+    {
+        m_stationMgr.CloseXiaXingPingBiMen(stationIndex, deviceType);
+    }
     #endregion
 }

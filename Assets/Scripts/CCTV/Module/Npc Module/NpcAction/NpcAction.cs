@@ -143,7 +143,6 @@ public class NpcAction : MonoBehaviour
     {
         //开启Npc同步
         StartCoroutine(SyncNpcPosition());
-        StartAction();
     }
     #endregion
 
@@ -230,6 +229,12 @@ public class NpcAction : MonoBehaviour
     {
         Point point = StationEngine.Instance.GetNoReservationPoint2RandomPointQueue(m_stationIndex,
             (int)m_stepArray[m_startStepIndex]);
+        return point;
+    }
+    //获得一个指定QueueIndex中未预约的点
+    public Point GetNoReservationPoint2PointQueue(int queueIndex)
+    {
+        Point point = StationEngine.Instance.GetReverseNoReservationPointByQueueIndex(m_stationIndex, (int)m_stepArray[m_startStepIndex], queueIndex);
         return point;
     }
     //获得一个当前步骤对应的休息区的位置点

@@ -17,7 +17,9 @@
     <EnterStationUpMaxNpcCount>15</EnterStationUpMaxNpcCount>
     <EnterStationDownMaxNpcCount>15</EnterStationDownMaxNpcCount>
     <ExitStationUpMaxNpcCount>15</ExitStationUpMaxNpcCount>
+    <ExitStationUpGenerateNpcCount>10</ExitStationUpGenerateNpcCount>
     <ExitStationDownMaxNpcCount>15</ExitStationDownMaxNpcCount>
+    <ExitStationDownGenerateNpcCount>10</ExitStationDownGenerateNpcCount>
     <GenerateNpcIntervalTime>2</GenerateNpcIntervalTime>
   </StationInfo>
 </StationInfoList>

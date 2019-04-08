@@ -50,5 +50,7 @@ namespace TDFramework
         //站台屏蔽门配置xml文件
         public static string Station0PingBiMenXmlPath = Application.streamingAssetsPath + "/Xml/DeviceInfo/Station0PingBiMenDeviceInfo.xml";
         public static string Station1PingBiMenXmlPath = Application.streamingAssetsPath + "/Xml/DeviceInfo/Station1PingBiMenDeviceInfo.xml";
+        //站台中设备和位置点关系绑定
+        public static string StationDeviceAndPointXmlPath = Application.streamingAssetsPath + "/Xml/DeviceAndPointInfo.xml";
     }
 }

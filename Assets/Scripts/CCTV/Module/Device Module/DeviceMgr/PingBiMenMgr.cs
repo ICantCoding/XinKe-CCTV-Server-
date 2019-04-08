@@ -9,6 +9,10 @@ public class PingBiMenMgr : DeviceMgr
     private List<Device> m_shangXingPingBiMenList;
     //下行屏蔽门列表
     private List<Device> m_xiaXingPingBiMenList;
+    //上行屏蔽门是否打开
+    private bool m_shangXingPingBiMenIsOpen = false;
+    //下行屏蔽门是否打开
+    private bool m_xiaXingPingBiMenIsOpen = false;
     #endregion
 
     #region 属性
@@ -19,6 +23,16 @@ public class PingBiMenMgr : DeviceMgr
     public List<Device> XiaXingPingBiMenList
     {
         get { return m_xiaXingPingBiMenList; }
+    }
+    public bool ShangXingPingBiMenIsOpen
+    {
+        get { return m_shangXingPingBiMenIsOpen; }
+        set { m_shangXingPingBiMenIsOpen = value; }
+    }
+    public bool XiaXingPingBiMenIsOpen
+    {
+        get { return m_xiaXingPingBiMenIsOpen; }
+        set { m_xiaXingPingBiMenIsOpen = value; }
     }
     #endregion
 

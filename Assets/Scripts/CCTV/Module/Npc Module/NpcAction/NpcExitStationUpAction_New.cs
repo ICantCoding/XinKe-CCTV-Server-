@@ -19,13 +19,15 @@ public class NpcExitStationUpAction_New : NpcAction
 {
     #region 常量字段
     //导航到目的地位置距离差
-    private const float m_navDistance = 0.05f;
+    private const float m_navDistance = 0.15f;
     private int EnterCheckTicketAnimatorHashValue = Animator.StringToHash("OpenZhaji");
     private int WalkAnimatorHashValue = Animator.StringToHash("Walk");
     private int StandUpAnimatorHashValue = Animator.StringToHash("StandUp");
     #endregion
 
     #region 条件字段
+    //是否立即开启自动寻路， 对象池生成的Npc是为false, 预先在场景中准备好的Npc是为true
+    public bool IsStartAction = false;
     private bool XXXXXXXFlag = true; //队列第一个位置点，跟设备相关时，对应设备的状态信息来表示true, false
     #endregion
 
@@ -47,9 +49,48 @@ public class NpcExitStationUpAction_New : NpcAction
     protected override void Start()
     {
         base.Start();
+        if(IsStartAction)
+        {
+            StartAction();
+        }
     }
     #endregion
+    protected override void StartAction()
+    {
+        #region 这里在获取Npc生成后，需要到达的第一个位置点
+        if (PointStatus.Train_Up_Birth == m_stepArray[m_startStepIndex])
+        {
+            //这个gotoPoint不可能为null
+            tempPoint = GetRandomEnterStationPoint();
+        }
+        else
+        {
+            //这个gotoPoint可能为null, 当所有位置点被预约完的时候
+            tempPoint = GetNoReservationPoint2RandomPointQueue();
+            if (tempPoint == null)
+            {
+                //当位置点被预约完的时候，去休息区, 那么站台中的Npc个数不能高于“排队点个数+对应休息区位置点个数”
+                tempPoint = GetRestAreaPoint();
+            }
+            if (tempPoint != null)
+            {
+                tempPoint.IsReservation = true; //该位置点被预约, 预约了的位置点，不能被其他NPC再预约了， 除非为false
+            }
+        }
+        if (tempPoint == null)
+        {
+            //m_gotPoint还是为null的话, 我们就放弃这个Npc, 销毁(或回收)gameObject
+            //但是只要保证NPC的个数，比对应行为的排队+休息区的个数小，则不会出现这样的情况
+            DestroyNpc4ObjectManager();
+            return;
+        }
+        #endregion
 
+        //Npc前往目的地位置点Point
+        GotoDestination(tempPoint);
+        //开启协程
+        StartCoroutine(ActionCoroutine());
+    }
     public void StartAction(Point gotoPoint)
     {
         #region 这里在获取Npc生成后，需要到达的第一个位置点

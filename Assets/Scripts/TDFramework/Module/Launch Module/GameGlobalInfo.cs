@@ -32,7 +32,14 @@ public class GameGlobalInfo : Singleton<GameGlobalInfo>
     }
     #endregion
 
-
+    #region 设备与位置点信息
+    private StationDeviceAndPointInfo m_stationDeviceAndPointInfo = null;
+    public StationDeviceAndPointInfo StationDeviceAndPointInfo
+    {
+        get { return m_stationDeviceAndPointInfo; }
+        set { m_stationDeviceAndPointInfo = value; }
+    }
+    #endregion
 
     #region 其他信息
 

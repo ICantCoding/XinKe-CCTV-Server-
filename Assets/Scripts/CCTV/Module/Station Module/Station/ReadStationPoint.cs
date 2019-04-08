@@ -32,6 +32,7 @@ public class ReadStationPoint
             Station station = XXX(stationTrans);
             stationMgr.AddStation2Mgr(stationIndex, station);
         }
+        go.transform.parent.gameObject.SetActive(false);
         return stationMgr;
     }
     private static Station XXX(Transform stationTrans)
@@ -224,6 +225,7 @@ public class ReadStationPoint
             {
                 deviceMgr = new PingBiMenMgr();
             }
+            //deviceTypeTrans是闸机父容器或者屏蔽门父容器
             JJJ(stationMgr, deviceMgr, deviceTypeTrans, stationIndex, deviceType);
             station.AddDeviceMgr(deviceMgr);
         }
@@ -234,66 +236,42 @@ public class ReadStationPoint
         for (int i = 0; i < deviceCount; ++i)
         {
             Transform deviceTrans = deviceTypeTrans.GetChild(i);
+            string deviceName = deviceTrans.gameObject.name;
             Device deviceCom = deviceTrans.GetComponent<Device>();
             if (deviceCom == null) continue;
             deviceCom.DeviceId = (int)deviceType + i + 1;
             deviceCom.StationIndex = stationIndex;
             deviceCom.DeviceType = deviceType;
             deviceMgr.AddDevice(deviceCom);
-
-            string name = deviceTrans.gameObject.name;
-            string[] strs = name.Split('~');
-            string[] tempStrs = null;
-            string deviceName = "";
-            string pointType = "";
-            #region 设备与位置点进行关联
-            if (strs.Length == 1)
+            OneStation station = TDFramework.SingletonMgr.GameGlobalInfo.StationDeviceAndPointInfo.GetStation(stationIndex);
+            // deviceType, deviceName
+            PointBindInfoList list = station.GetPointBindInfoList(deviceType, deviceName);
+            int pointCount = list.m_pointBindInfoList.Count;
+            for (int j = 0; j < pointCount; ++j)
             {
-                tempStrs = strs[0].Split('|');
-                deviceName = tempStrs[0];
-                pointType = tempStrs[1];
-                PointBindDevice(tempStrs, stationMgr, stationIndex, deviceCom);
+                PointBindInfo pointBindInfo = list.m_pointBindInfoList[j];
+                int pointStatus = (int)System.Enum.Parse(typeof(PointStatus), pointBindInfo.m_name);
+                int queueIndex = pointBindInfo.m_queueIndex;
+                Point point = GetFirstPoint(stationMgr, stationIndex, pointStatus, queueIndex);
+                point.m_device = deviceCom;
             }
-            else if (strs.Length == 2)
-            {
-                tempStrs = strs[0].Split('|');
-                deviceName = tempStrs[0];
-                pointType = tempStrs[1];
-                PointBindDevice(tempStrs, stationMgr, stationIndex, deviceCom);
-                tempStrs = strs[1].Split('|');
-                PointBindDevice(tempStrs, stationMgr, stationIndex, deviceCom);
-            }
-            else if(strs.Length == 3)
-            {
-                tempStrs = strs[0].Split('|');
-                deviceName = tempStrs[0];
-                pointType = tempStrs[1];
-                PointBindDevice(tempStrs, stationMgr, stationIndex, deviceCom);
-                tempStrs = strs[1].Split('|');
-                PointBindDevice(tempStrs, stationMgr, stationIndex, deviceCom);
-                tempStrs = strs[2].Split('|');
-                PointBindDevice(tempStrs, stationMgr, stationIndex, deviceCom);                
-            }
-            #endregion
-
-
             #region 设备是屏蔽门，需管理上行和下行屏蔽门
-            if (deviceName == DeviceType.PingBiMen.ToString())
+            if (deviceCom is PingBiMenDevice)
             {
                 PingBiMenMgr pingBiMenMgr = (PingBiMenMgr)deviceMgr;
-                if (pointType == "WaitTrain_Down")
+                PingBiMenDevice device = (PingBiMenDevice)deviceCom;
+                if (device.PingBiMenType == PingBiMenType.Down)
                 {
                     //下行屏蔽门
                     pingBiMenMgr.AddDevice2XiaXingPingBiMenList(deviceCom);
                 }
-                else if (pointType == "WaitTrain_Up")
+                else if (device.PingBiMenType == PingBiMenType.Up)
                 {
                     //上行屏蔽门
                     pingBiMenMgr.AddDevice2ShangXingPingBiMenList(deviceCom);
                 }
             }
             #endregion
-
         }
     }
     private static void PointBindDevice(string[] str, StationMgr stationMgr, System.UInt16 stationIndex, Device deviceCom)
@@ -368,6 +346,5 @@ public class ReadStationPoint
             npcMgr.AddNpcAction(npcAction);
         }
     }
-
     #endregion
 }
