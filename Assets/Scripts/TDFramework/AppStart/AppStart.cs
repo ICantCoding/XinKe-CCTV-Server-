@@ -11,14 +11,19 @@ namespace TDFramework
         void Awake()
         {
             DontDestroyOnLoad(this.gameObject);
+
             //加载LaunchModule模块，用于读取应用程序所需要的配置数据
             SingletonMgr.ModuleMgr.RegisterModule(StringMgr.LaunchModuleName);
+
             //加载NetworkModule模块，用于启动网络服务器，与客户端连接通信
             SingletonMgr.ModuleMgr.RegisterModule(StringMgr.NetworkModuleName);
+
             //加载ResourcesModule模块，用于加载AssetBundle打包的各种资源和对象
             SingletonMgr.ModuleMgr.RegisterModule(StringMgr.ResourcesModuleName);
+
             //加载UIModule模块
             SingletonMgr.ModuleMgr.RegisterModule(StringMgr.UIModuleName);
+            
             //加载StationModule模块
             SingletonMgr.ModuleMgr.RegisterModule(StringMgr.StationModuleName);
         }

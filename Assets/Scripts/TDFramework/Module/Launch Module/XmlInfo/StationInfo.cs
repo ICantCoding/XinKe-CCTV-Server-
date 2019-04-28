@@ -70,20 +70,21 @@ public class StationInfoList
 {
     [XmlElement("StationInfo")]
     public List<StationInfo> stationInfoList = new List<StationInfo>();
-
     
+    #region 属性
     public int Count
     {
         get { return stationInfoList.Count; }
     }
+    #endregion
 
     #region 方法
-    public StationInfo GetStationInfo(UInt16 index)
+    public StationInfo GetStationInfo(UInt16 stationIndex)
     {
         int count = stationInfoList.Count;
         for (int i = 0; i < count; ++i)
         {
-            if (stationInfoList[i].Index == index)
+            if (stationInfoList[i].Index == stationIndex)
             {
                 return stationInfoList[i];
             }
@@ -110,7 +111,7 @@ public class StationInfoList
         StationInfoList list = new StationInfoList();
 
         StationInfo station = new StationInfo();
-        station.Index = 0;
+        station.Index = 5;
         station.Name = "赵营";
         station.EngName = "ZhaoYing";
         station.BuyTicketPointCount = 48;

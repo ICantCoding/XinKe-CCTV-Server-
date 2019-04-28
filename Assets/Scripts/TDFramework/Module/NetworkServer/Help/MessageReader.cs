@@ -166,6 +166,7 @@ class MessageReader
                     break;
                 }
             }
+            
             if (m_state == READ_STATE.READ_STATE_BODY) //读取数据包真实数据部分
             {
                 if (length >= m_expectSize)

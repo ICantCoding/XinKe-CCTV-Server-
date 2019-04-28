@@ -31,7 +31,6 @@ public class PingBiMenDevice : Device
     #region 组件字段
     private Transform m_left;
     private Transform m_right;
-    private DeviceSync m_deviceSync;
     #endregion
 
     #region 状态字段
@@ -74,10 +73,9 @@ public class PingBiMenDevice : Device
     #endregion
 
     #region Unity生命周期
-    void Awake()
+    protected override void Awake()
     {
-        m_deviceSync = transform.root.GetComponent<DeviceSync>();
-
+        base.Awake();
         m_left = transform.Find("Left");
         m_right = transform.Find("Right");
         m_leftOriginLocalPosition = m_left.localPosition;
@@ -90,15 +88,17 @@ public class PingBiMenDevice : Device
     #region 方法
     public override void Open(System.Action openCallback)
     {
-        if (m_deviceSync != null)
-        {
-            m_deviceSync.SendDeviceStatus(1, StationIndex, DeviceType, DeviceId);
-        }
+        //目前不做单个设备状态信令转发
+        // if (m_deviceSync != null)
+        // {
+        //     m_deviceSync.SendDeviceStatus(1, StationIndex, DeviceType, DeviceId);
+        // }
         m_left.DOLocalMove(m_leftOpenLocalPosition, m_animationTime);
         m_right.DOLocalMove(m_rightOpenLocalPosition, m_animationTime).OnComplete(() =>
         {
-            CanUp = true;
-            CanDown = true;
+            //也不在动画播放器件做Npc可上车，可下车的状态控制
+            // CanUp = true;
+            // CanDown = true;
             if (openCallback != null)
             {
                 openCallback();
@@ -111,12 +111,14 @@ public class PingBiMenDevice : Device
     }
     public override void Close(System.Action closeCallback)
     {
-        if (m_deviceSync != null)
-        {
-            m_deviceSync.SendDeviceStatus(0, StationIndex, DeviceType, DeviceId);
-        }
-        CanUp = false;
-        CanDown = false;
+        //目前不做单个设备状态信令转发
+        // if (m_deviceSync != null)
+        // {
+        //     m_deviceSync.SendDeviceStatus(0, StationIndex, DeviceType, DeviceId);
+        // }
+        //也不在动画播放期间做Npc可上车，可下车的状态控制
+        // CanUp = false;
+        // CanDown = false;
         m_left.DOLocalMove(m_leftOriginLocalPosition, m_animationTime);
         m_right.DOLocalMove(m_rightOriginLocalPosition, m_animationTime).OnComplete(() =>
         {
@@ -129,6 +131,17 @@ public class PingBiMenDevice : Device
                 CloseDoorCallback();
             }
         });
+    }
+    //客户端重连同步屏蔽门设备状态
+    public override void SyncDeviceInfo(PlayerActor playerActor)
+    {
+        if(CanUp && m_deviceSync != null)
+        {
+            m_deviceSync.SendDeviceStatusRelink(1, StationIndex, DeviceType, DeviceId, playerActor);
+        }else if(CanUp == false && m_deviceSync != null)
+        {
+            m_deviceSync.SendDeviceStatusRelink(0, StationIndex, DeviceType, DeviceId, playerActor);
+        }
     }
     #endregion
 }

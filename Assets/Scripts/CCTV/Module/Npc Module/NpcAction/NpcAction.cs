@@ -22,6 +22,20 @@ public enum NpcAnimationType : System.UInt16
     OpenZhaJi = 3, //打开闸机
 }
 
+public enum NpcType
+{
+    Man1 = 0,           //男1
+    Man2,           //男2
+    Man3,           //男3
+    Man4,           //男4
+    Man5,           //男5
+    Woman1,         //女1
+    Woman2,         //女2
+    Woman3,         //女3
+    Woman4,         //女4
+    Woman5,         //女5
+    None,
+}
 
 //NPC人物在场景中的行为状态, 与StationClientType一一对应
 public enum NpcActionStatus : System.UInt16
@@ -30,44 +44,14 @@ public enum NpcActionStatus : System.UInt16
     EnterStationTrainDown_NpcActionStatus = 2,  //NPC 执行进站下行方向坐车
     ExitStationTrainUp_NpcActionStatus = 3,     //NPC 执行上行方向下车出站
     ExitStationTrainDown_NpcActionStatus = 4,	//NPC 执行下行方向下车出站
-
     None = 10000,
-}
-
-/*
-NPC每种具体执行行为，都对应一个顺序步骤的当前位置点状态(注意初始生成的Npc可以处于任意一个位置点状态)， 如下
-EnterStationTrainUp_NpcActionStatus(Npc进站上行方向坐车):
-生成Npc -> EnterStation -> BuyTicket -> EnterCheckTicket -> WaitTrain_Up -> TrainUp -> Npc消失
-生成Npc -> EnterStationTrainDown_NpcActionStatus(Npc进站下行方向坐车):
-EnterStation -> BuyTicket -> EnterCheckTicket -> WaitTrain_Down -> TrainDown -> Npc消失
-ExitStationTrainUp_NpcActionStatus(Npc出站上行方向下车):
-生成Npc -> TrainUp -> NpcDownTrain_Up -> ExitCheckTicket -> ExitStation -> Npc消失
-ExitStationTrainDown_NpcActionStatus(Npc出站下行方向下车):
-生成Npc -> TrainDown -> NpcDownTrain_Down -> ExitCheckTicket -> ExitStation -> Npc消失
-*/
-
-public class NpcActionStatusMap
-{
-
-    public Dictionary<NpcActionStatus, PointStatus[]> m_npcActionStatusActionDict = new Dictionary<NpcActionStatus, PointStatus[]>();
-
-    public NpcActionStatusMap()
-    {
-        PointStatus[] m_stepArray = new PointStatus[]
-        {
-            PointStatus.EnterStation,
-            PointStatus.BuyTicket,
-            PointStatus.EnterCheckTicket,
-            PointStatus.WaitTrain_Up,
-            PointStatus.Train_Up
-        };
-        m_npcActionStatusActionDict.Add(NpcActionStatus.EnterStationTrainDown_NpcActionStatus, m_stepArray);
-    }
 }
 
 public class NpcAction : MonoBehaviour
 {
     #region 状态字段
+    //Npc模型类型
+    public NpcType m_npcType = NpcType.None;
     //Npc唯一标识
     [SerializeField]
     protected int m_npcId;
@@ -91,9 +75,18 @@ public class NpcAction : MonoBehaviour
     public Vector2 m_desPosV2;  //目标位置X, Z
     //Npc是否需要销毁或回收到对象池
     public bool m_isDestroy = false;
+
+
+    //Npc信息同步给重连的客户端
+    private bool m_clientReconnectFlag = false;
     #endregion
 
     #region 状态属性
+    public NpcType NpcType
+    {
+        get { return m_npcType; }
+        set { m_npcType = value; }
+    }
     public int NpcId
     {
         get { return m_npcId; }
@@ -113,6 +106,11 @@ public class NpcAction : MonoBehaviour
     {
         get { return m_isDestroy; }
         set { m_isDestroy = value; }
+    }
+    public bool ClientReconnectFlag
+    {
+        get { return m_clientReconnectFlag; }
+        set { m_clientReconnectFlag = value; }
     }
     #endregion
 
@@ -134,7 +132,8 @@ public class NpcAction : MonoBehaviour
     #region Unity生命周期
     protected virtual void Awake()
     {
-        m_npcSync = transform.root.GetComponent<NpcSync>();
+        // m_npcSync = transform.root.GetComponent<NpcSync>();
+        m_npcSync = GameGlobalComponent.NpcSync;
         m_navMeshAgent = GetComponent<NavMeshAgent>();
         m_navMeshObstacle = GetComponent<NavMeshObstacle>();
         m_animator = GetComponent<Animator>();
@@ -153,10 +152,10 @@ public class NpcAction : MonoBehaviour
     protected IEnumerator SyncNpcPosition()
     {
         Vector3 prePos = transform.localPosition;
-        Vector3 nowPos = transform.localPosition;
         float posX, posY, posZ, angleX, angleY, angleZ = 0.0f;
         int npcId = NpcId;
-        List<PlayerActor> stationPlayerActorList = new List<PlayerActor>();
+        int npcType = (int)NpcType;
+
         //随后开始发送Npc同步信息
         while (true)
         {
@@ -167,40 +166,32 @@ public class NpcAction : MonoBehaviour
             angleY = transform.localEulerAngles.y;
             angleZ = transform.localEulerAngles.z;
 
-            if (Vector3.Distance(prePos, nowPos) > 0.2f) //NPC位置发生改变时才，去同步
+            if (Vector3.Distance(prePos, transform.localPosition) > 0.2f) //NPC位置发生改变时才，去同步
             {
                 prePos.x = posX;
                 prePos.y = posY;
                 prePos.z = posZ;
-                m_npcSync.SendNpcPosition(stationPlayerActorList,
+                m_npcSync.SendNpcPosition(
                     posX, posY, posZ,
                     angleX, angleY, angleZ,
-                    npcId, StationIndex, (UInt16)NpcActionStatus);
+                    npcId, npcType, StationIndex, (UInt16)NpcActionStatus);
             }
             else
             {
-                nowPos.x = transform.localPosition.x;
-                nowPos.y = transform.localPosition.y;
-                nowPos.z = transform.localPosition.z;
+                //静止Npc， 在有客户端重连的时候，需发送同步Npc消息
+                //给Npc设置同步开关，打开开关，Npc主动向客户端发送Npc的消息，关闭开关，则只有Npc产生位移或动画时才发送Npc消息
+                if (ClientReconnectFlag)
+                {
+                    m_npcSync.SendNpcPosition(
+                        posX, posY, posZ,
+                        angleX, angleY, angleZ,
+                        npcId, npcType, StationIndex, (UInt16)NpcActionStatus);
+                    ClientReconnectFlag = false;
+                }
             }
             yield return null;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -262,14 +253,15 @@ public class NpcAction : MonoBehaviour
         PointStatus status = m_stepArray[stepIndex];
         if ((status == PointStatus.EnterCheckTicketAfter ||
             status == PointStatus.ExitCheckTicketAfter ||
-            status == PointStatus.Train_Up || 
-            status == PointStatus.Train_Down || 
-            status == PointStatus.Train_Up_Birth || 
+            status == PointStatus.Train_Up ||
+            status == PointStatus.Train_Down ||
+            status == PointStatus.Train_Up_Birth ||
             status == PointStatus.Train_Down_Birth ||
             status == PointStatus.DownTrain_Down ||
             status == PointStatus.DownTrain_Up) && m_gotoPoint != null)
         {
             //下一个位置点，必须为特定位置点时, 跟该位置点当前状态没有任何关系，必须获取到该位置点
+            Debug.Log("StationIndex: " + m_stationIndex + "stepIndex: " + stepIndex);
             point = StationEngine.Instance.GetFirstPoint(m_stationIndex,
                 (int)m_stepArray[stepIndex],
                 m_gotoPoint.m_belongPointQueue.m_queueIndex);

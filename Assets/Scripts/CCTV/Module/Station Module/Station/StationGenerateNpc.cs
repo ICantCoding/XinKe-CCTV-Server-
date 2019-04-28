@@ -72,7 +72,6 @@ public class StationGenerateNpc : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("EnterStationUpNpcCount: " + EnterStationUpNpcCount + ", m_stationInfo.EnterStationUpMaxNpcCount" + m_stationInfo.EnterStationUpMaxNpcCount);
             if (EnterStationUpNpcCount < m_stationInfo.EnterStationUpMaxNpcCount)
             {
                 //应该生成一个进站上行Npc
@@ -103,7 +102,9 @@ public class StationGenerateNpc : MonoBehaviour
             {
                 //应该生成一个出站上行Npc
                 yield return new WaitForSeconds(m_stationInfo.GenerateNpcIntervalTime);
-                for (int i = 0; i < m_stationInfo.ExitStationUpGenerateNpcCount; i++)
+                // for (int i = 0; i < m_stationInfo.ExitStationUpGenerateNpcCount; i++)
+                int count = m_stationInfo.ExitStationUpMaxNpcCount - ExitStationUpNpcCount;
+                for (int i = 0; i < count; ++i)
                 {
                     CreateNpc(NpcActionStatus.ExitStationTrainUp_NpcActionStatus, PointStatus.Train_Up_Birth);
                     yield return new WaitForSeconds(0.05f);
@@ -120,7 +121,9 @@ public class StationGenerateNpc : MonoBehaviour
             if (m_stationModule.IsOpenXiaXingPingBiMen(m_stationIndex, DeviceType.PingBiMen) && ExitStationDownNpcCount < m_stationInfo.ExitStationDownMaxNpcCount)
             {
                 yield return new WaitForSeconds(m_stationInfo.GenerateNpcIntervalTime);
-                for (int i = 0; i < m_stationInfo.ExitStationDownGenerateNpcCount; i++)
+                int count = m_stationInfo.ExitStationDownMaxNpcCount - ExitStationDownNpcCount;
+                // for (int i = 0; i < m_stationInfo.ExitStationDownGenerateNpcCount; i++)
+                for (int i = 0; i < count; ++i)
                 {
                     CreateNpc(NpcActionStatus.ExitStationTrainDown_NpcActionStatus, PointStatus.Train_Down_Birth);
                     yield return new WaitForSeconds(0.05f);
@@ -131,20 +134,17 @@ public class StationGenerateNpc : MonoBehaviour
             yield return null;
         }
     }
-
-
-
-
     private void CreateNpc(NpcActionStatus npcActionStatus, PointStatus pointStatus)
     {
-        GameObject npcGo = m_npcFactory.CreateNpc();
+        NpcType npcType = NpcType.None;
+        GameObject npcGo = m_npcFactory.CreateNpc(ref npcType);
         if (npcGo == null) return;
         Transform parentTrans = m_stationModule.GetNpcParentTransform(m_stationIndex, npcActionStatus);
         if (parentTrans == null) return;
         npcGo.transform.SetParent(parentTrans);
         Point point = StationEngine.Instance.GetNoReservationPoint2RandomPointQueue(m_stationIndex, (int)pointStatus);
-        if(point == null) return;
-        if(pointStatus != PointStatus.EnterStation)
+        if (point == null) return;
+        if (pointStatus != PointStatus.EnterStation)
         {
             point.IsReservation = true;
         }
@@ -159,33 +159,52 @@ public class StationGenerateNpc : MonoBehaviour
                 {
                     npcAction = npcGo.AddComponent<NpcEnterStationUpAction>();
                     npcAction.NpcActionStatus = NpcActionStatus.EnterStationTrainUp_NpcActionStatus;
+                    if (System.Object.ReferenceEquals(npcAction, null) == false)
+                    {
+                        npcAction.NpcType = npcType;
+                        npcAction.StationIndex = m_stationIndex;
+                        m_stationModule.AddNpcAction(m_stationIndex, npcAction);
+                    }
                     break;
                 }
             case NpcActionStatus.EnterStationTrainDown_NpcActionStatus:
                 {
                     npcAction = npcGo.AddComponent<NpcEnterStationDownAction>();
                     npcAction.NpcActionStatus = NpcActionStatus.EnterStationTrainDown_NpcActionStatus;
+                    if (System.Object.ReferenceEquals(npcAction, null) == false)
+                    {
+                        npcAction.NpcType = npcType;
+                        npcAction.StationIndex = m_stationIndex;
+                        m_stationModule.AddNpcAction(m_stationIndex, npcAction);
+                    }
                     break;
                 }
             case NpcActionStatus.ExitStationTrainUp_NpcActionStatus:
                 {
                     npcAction = npcGo.AddComponent<NpcExitStationUpAction_New>();
+                    if (System.Object.ReferenceEquals(npcAction, null) == false)
+                    {
+                        npcAction.NpcType = npcType;
+                        npcAction.StationIndex = m_stationIndex;
+                        m_stationModule.AddNpcAction(m_stationIndex, npcAction);
+                    }
                     ((NpcExitStationUpAction_New)npcAction).StartAction(point);
                     break;
                 }
             case NpcActionStatus.ExitStationTrainDown_NpcActionStatus:
                 {
                     npcAction = npcGo.AddComponent<NpcExitStationDownAction_New>();
+                    if (System.Object.ReferenceEquals(npcAction, null) == false)
+                    {
+                        npcAction.NpcType = npcType;
+                        npcAction.StationIndex = m_stationIndex;
+                        m_stationModule.AddNpcAction(m_stationIndex, npcAction);
+                    }
                     ((NpcExitStationDownAction_New)npcAction).StartAction(point);
                     break;
                 }
             default:
                 break;
-        }
-        if (System.Object.ReferenceEquals(npcAction, null) == false)
-        {
-            npcAction.StationIndex = m_stationIndex;
-            m_stationModule.AddNpcAction(m_stationIndex, npcAction);
         }
     }
     #endregion

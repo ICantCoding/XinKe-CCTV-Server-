@@ -342,12 +342,10 @@ public class NpcEnterStationUpAction : NpcAction
         ((StationModule)SingletonMgr.ModuleMgr.GetModule(StringMgr.StationModuleName)).RemoveNpcAction(StationIndex, this);
         if (ObjectManager.Instance.IsCreatedByObjectManager(this.gameObject))
         {
-            Debug.Log("从对象池中删除...");
             ObjectManager.Instance.ReleaseGameObjectItem(this.gameObject);
         }
         else
         {
-            Debug.Log("普通的删除.");
             Destroy(this.gameObject);
         }
     }

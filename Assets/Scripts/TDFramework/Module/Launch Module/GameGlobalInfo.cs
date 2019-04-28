@@ -41,6 +41,15 @@ public class GameGlobalInfo : Singleton<GameGlobalInfo>
     }
     #endregion
 
+    #region 站台摄像头数据信息
+    private Dictionary<System.UInt16, CameraInfoList> m_cameraInfoListDict = null;
+    public Dictionary<System.UInt16, CameraInfoList> CameraInfoListDict
+    {
+        get { return m_cameraInfoListDict; }
+        set { m_cameraInfoListDict = value; }
+    }
+    #endregion
+
     #region 其他信息
 
     #endregion

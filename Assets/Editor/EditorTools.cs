@@ -70,7 +70,7 @@ public class AppConfigXmlEditor
         Debug.Log("生成Device和Point位置点关系xml成功.");
         AssetDatabase.Refresh();
     }
-    
+
     [MenuItem("Tools/摆点位置/点位Position配置")]
     private static void CreatePosition()
     {
@@ -82,6 +82,40 @@ public class AppConfigXmlEditor
     {
         BuildPingBiMenWindow window = (BuildPingBiMenWindow)EditorWindow.GetWindow(typeof(BuildPingBiMenWindow));
         window.Show();
+    }
+    [MenuItem("Tools/摆位置点/修改上下行点名称")]
+    private static void ModifyPointName()
+    {
+        ModifyPointNameWindow window = (ModifyPointNameWindow)EditorWindow.GetWindow(typeof(ModifyPointNameWindow));
+        window.Show();
+    }
+    [MenuItem("Tools/摆位置点/修改子物体坐标 %1", false, 2)]
+    private static void ModifyChildName()
+    {
+        GameObject[] xxs = Selection.gameObjects;
+        for (int k = 0; k < xxs.Length; k++)
+        {
+            GameObject go = xxs[k];
+            List<GameObject> gos = new List<GameObject>();
+            for (int i = 0; i < go.transform.childCount; i++)
+            {
+                GameObject tempGo = go.transform.GetChild(i).gameObject;
+                gos.Add(tempGo);
+            }
+            for (int i = 0; i < gos.Count; i++)
+            {
+                gos[i].transform.SetParent(go.transform.parent);
+            }
+            go.transform.localPosition = Vector3.zero;
+            go.transform.localEulerAngles = Vector3.zero;
+            go.transform.localScale = Vector3.one;
+            for (int i = 0; i < gos.Count; i++)
+            {
+                gos[i].transform.SetParent(go.transform);
+            }
+        }
+
+
     }
 }
 

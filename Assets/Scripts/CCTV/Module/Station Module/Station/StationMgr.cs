@@ -45,6 +45,27 @@ public class StationMgr
     }
     #endregion
 
+    #region U3DPlayerActor相关
+    public void AddPlayerActor(UInt16 stationIndex, PlayerActor playerActor)
+    {
+        Station station = GetStation(stationIndex);
+        if (station == null) return;
+        station.AddPlayerActor(playerActor);
+    }
+    public void RemovePlayerActor(UInt16 stationIndex, PlayerActor playerActor)
+    {
+        Station station = GetStation(stationIndex);
+        if (station == null) return;
+        station.RemovePlayerActor(playerActor);
+    }
+    public void GetU3DPlayerActor(UInt16 stationIndex, ref List<PlayerActor> list)
+    {
+        Station station = GetStation(stationIndex);
+        if (station == null) return;
+        station.GetU3DPlayerActor(ref list);
+    }
+    #endregion
+
     #region 位置点相关
     //指定站台索引, 位置点类型, PointQueue的queueIndex, 来获取未预约的位置点
     public Point GetNoReservationPoint(UInt16 stationIndex, int pointStatus, int queueIndex)
@@ -146,6 +167,30 @@ public class StationMgr
         if(station == null) return;
         station.CloseXiaXingPingBiMen(deviceType);
     }
+    //同步所有类型设备信息
+    public virtual void SyncDeviceInfo(PlayerActor playerActor)
+    {
+        var enumerator = m_stationDict.GetEnumerator();
+        while(enumerator.MoveNext())
+        {
+            Station station = enumerator.Current.Value;
+            if(station != null)
+                station.SyncDeviceInfo(playerActor);
+        }
+        enumerator.Dispose();
+    }
+    //同步指定设备类型的设备信息
+    public void SyncDeviceInfoByDeviceType(DeviceType deviceType, PlayerActor playerActor)
+    {
+        var enumerator = m_stationDict.GetEnumerator();
+        while(enumerator.MoveNext())
+        {
+            Station station = enumerator.Current.Value;
+            if(station != null)
+                station.SyncDeviceInfoByDeviceType(deviceType, playerActor);
+        }
+        enumerator.Dispose();
+    }
     #endregion
 
     #region Npc相关
@@ -172,6 +217,48 @@ public class StationMgr
         Station station = GetStation(stationIndex);
         if(station == null) return null;
         return station.GetNpcParentTransform(npcActionStatus);
+    }
+    //同步Npc信息
+    public void SyncNpcInfo(PlayerActor[] stationPlayerActor)
+    {
+        var enumerator = m_stationDict.GetEnumerator();
+        while(enumerator.MoveNext())
+        {
+            Station station = enumerator.Current.Value;
+            if(station != null)
+                station.SyncNpcInfo(stationPlayerActor);
+        }
+        enumerator.Dispose();
+    }
+    public void SyncNpcInfo()
+    {
+        var enumerator = m_stationDict.GetEnumerator();
+        while(enumerator.MoveNext())
+        {
+            Station station = enumerator.Current.Value;
+            if(station != null)
+                station.SyncNpcInfo();
+        }
+        enumerator.Dispose();
+    }
+    #endregion
+
+    #region Camera相关
+    public void AddCamera2ShowCameraIndexList (UInt16 stationIndex, UInt16 cameraIndex) {
+        Station station = GetStation(stationIndex);
+        if (station == null) return;
+        station.AddCamera2ShowCameraIndexList(cameraIndex);
+    }
+    public void RemoveCamera4ShowCameraIndexList (UInt16 stationIndex, UInt16 cameraIndex) {
+        Station station = GetStation(stationIndex);
+        if (station == null) return;
+        station.RemoveCamera4ShowCameraIndexList(cameraIndex);
+    }
+    public Camera GetCamera(UInt16 stationIndex, UInt16 cameraIndex)
+    {
+        Station station = GetStation(stationIndex);
+        if (station == null) return null;
+        return station.GetCamera(cameraIndex);
     }
     #endregion
 }

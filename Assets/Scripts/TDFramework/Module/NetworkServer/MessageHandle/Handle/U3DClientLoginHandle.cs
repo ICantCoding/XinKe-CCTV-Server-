@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TDFramework;
 
 public class U3DClientLoginHandle : BaseHandle
 {
@@ -32,10 +33,14 @@ public class U3DClientLoginHandle : BaseHandle
         {
             m_playerActor.PlayerActorType = PlayerActorType.U3DPlayerActorType;
             m_playerActor.U3DId = u3dClientLogin.m_clientId;
-            //默认登录的U3D客户端都属于站台0，CCTV视频监控都看向站台0的情况
-            m_playerActor.BelongStationIndex = 0; 
+            // //默认登录的U3D客户端都属于站台0，CCTV视频监控都看向站台0的情况
+            // m_playerActor.BelongStationIndex = 0; 
+            // //默认登录的U3D客户端都属于站台0，CCTV视频监控都看向站台0的情况
+            // m_playerActor.AddBelongStationIndex2List(0);
+            //默认登录的U3D客户端都属于站台0，CCTV视频监控都看向站台0的情况, 优化版本
+            TDFramework.SingletonMgr.ModuleMgr.StationModule.AddPlayerActor(5, m_playerActor);
             m_worldActor.AddPlayerActor2U3DDict(m_playerActor);
-            m_worldActor.AddU3DPlayerActor2BelongStationDict(m_playerActor);
+            // m_worldActor.AddU3DPlayerActor2BelongStationDict(m_playerActor);
             SendU3DClientLoginSuccessResponse();
             m_playerActor.SendNotification(EventID_Cmd.U3DClientOnLine, objs, null); //通知UI Command
         }
@@ -52,10 +57,8 @@ public class U3DClientLoginHandle : BaseHandle
         byte[] bytes = u3dClientLoginResponse.Packet2Bytes();
         UInt16 sendId = TDFramework.SingletonMgr.GameGlobalInfo.ServerInfo.Id;
         UInt16 u3dId = m_playerActor.U3DId;
-        UInt16 firstId = 0;
-        UInt16 secondId = 0;
         UInt16 msgLen = (UInt16)bytes.Length;
-        Packet responsePacket = new Packet(sendId, u3dId, firstId, secondId, msgLen, bytes);
+        Packet responsePacket = new Packet(sendId, u3dId, TDFramework.SingletonMgr.MessageIDMgr.U3DClientLoginMessageID, msgLen, bytes);
         m_agent.SendPacket(responsePacket.Packet2Bytes()); //返回U3D客户端登录成功.
     }
     private void SendU3DClientLoginFailResponse()
@@ -68,10 +71,8 @@ public class U3DClientLoginHandle : BaseHandle
         byte[] bytes = u3dClientLoginResponse.Packet2Bytes();
         UInt16 sendId = TDFramework.SingletonMgr.GameGlobalInfo.ServerInfo.Id;
         UInt16 u3dId = m_playerActor.U3DId;
-        UInt16 firstId = 0;
-        UInt16 secondId = 0;
         UInt16 msgLen = (UInt16)bytes.Length;
-        Packet responsePacket = new Packet(sendId, u3dId, firstId, secondId, msgLen, bytes);
+        Packet responsePacket = new Packet(sendId, u3dId, TDFramework.SingletonMgr.MessageIDMgr.U3DClientLoginMessageID, msgLen, bytes);
         m_agent.SendPacket(responsePacket.Packet2Bytes()); //返回登录失败，已经有对应的U3DID客户端登录.
     }
 }

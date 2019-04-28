@@ -211,7 +211,7 @@ public class NpcExitStationDownAction_New : NpcAction
                             }
                             //屏蔽门设备
                             else if (m_gotoPoint.m_device.DeviceType == DeviceType.PingBiMen &&
-                                ((PingBiMenDevice)(m_gotoPoint.m_device)).CanUp == true)
+                                ((PingBiMenDevice)(m_gotoPoint.m_device)).CanDown == true)
                             {
                                 //设备打开之后, 可通行
                                 ++m_startStepIndex;
@@ -220,7 +220,7 @@ public class NpcExitStationDownAction_New : NpcAction
                                 GotoDestination(tempPoint);
                             }
                             else if (m_gotoPoint.m_device.DeviceType == DeviceType.PingBiMen &&
-                                ((PingBiMenDevice)(m_gotoPoint.m_device)).CanUp == false)
+                                ((PingBiMenDevice)(m_gotoPoint.m_device)).CanDown == false)
                             {
                                 yield return StartCoroutine(WaitCoroutine());
                             }

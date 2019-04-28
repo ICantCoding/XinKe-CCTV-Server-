@@ -20,6 +20,7 @@ public class StationClientLoginHandle : BaseHandle
         UInt16 u3dId = stationClientLogin.m_u3dId;
         UInt16 stationIndex = stationClientLogin.m_stationIndex;
         UInt16 stationClientType = stationClientLogin.m_stationClientType;
+        
         m_playerActor.BelongU3DId = u3dId;
         m_playerActor.PlayerActorType = PlayerActorType.StationPlayerActorType;
         m_playerActor.StationIndex = stationIndex;
@@ -41,10 +42,8 @@ public class StationClientLoginHandle : BaseHandle
         byte[] bytes = response.Packet2Bytes();
         UInt16 sendId = TDFramework.SingletonMgr.GameGlobalInfo.ServerInfo.Id;
         UInt16 u3dId = m_playerActor.U3DId;
-        UInt16 firstId = 0;
-        UInt16 secondId = 1;
         UInt16 msgLen = (UInt16)bytes.Length;
-        Packet responsePacket = new Packet(sendId, u3dId, firstId, secondId, msgLen, bytes);
+        Packet responsePacket = new Packet(sendId, u3dId, TDFramework.SingletonMgr.MessageIDMgr.StationClientLoginMessageID, msgLen, bytes);
         m_agent.SendPacket(responsePacket.Packet2Bytes()); //返回U3D客户端登录成功.
     }
 }

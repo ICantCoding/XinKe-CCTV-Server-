@@ -32,15 +32,15 @@ public class UIMainPanel_Command : SimpleCommand
                     break;
                 }
             case EventID_Cmd.StationClientOnLine:
-            {
-                StationClientOnLine_Callback(notification);
-                break;
-            }
+                {
+                    StationClientOnLine_Callback(notification);
+                    break;
+                }
             case EventID_Cmd.StationClientOffLine:
-            {
-                StationClientOffLine_Callback(notification);
-                break;
-            }
+                {
+                    StationClientOffLine_Callback(notification);
+                    break;
+                }
             case EventID_Cmd.ServerStart:
                 {
                     ServerStart_Callback(notification);
@@ -49,6 +49,26 @@ public class UIMainPanel_Command : SimpleCommand
             case EventID_Cmd.ServerStop:
                 {
                     ServerStop_Callback(notification);
+                    break;
+                }
+            case EventID_Cmd.CCTVCtrlClientOnLine:
+                {
+                    CCTVCtrlClientOnLine_Callback(notification);
+                    break;
+                }
+            case EventID_Cmd.CCTVCtrlClientOffLine:
+                {
+                    CCTVCtrlClientOffLine_Callback(notification);
+                    break;
+                }
+            case EventID_Cmd.ATSClientOnLine:
+                {
+                    ATSClientOnLine_Callback(notification);
+                    break;
+                }
+            case EventID_Cmd.ATSClientOffLine:
+                {
+                    ATSClientOffLine_Callback(notification);
                     break;
                 }
             default:
@@ -84,6 +104,22 @@ public class UIMainPanel_Command : SimpleCommand
     private void ServerStop_Callback(INotification notification)
     {
         SendNotification(EventID_UI.ServerStop, null, null);
+    }
+    private void CCTVCtrlClientOnLine_Callback(INotification notification)
+    {
+        SendNotification(EventID_UI.CCTVCtrlClientOnLine, null, null);
+    }
+    private void CCTVCtrlClientOffLine_Callback(INotification notification)
+    {
+        SendNotification(EventID_UI.CCTVCtrlClientOffLine, null, null);
+    }
+    private void ATSClientOnLine_Callback(INotification notification)
+    {
+        SendNotification(EventID_UI.ATSClientOnLine, null, null);
+    }
+    private void ATSClientOffLine_Callback(INotification notification)
+    {
+        SendNotification(EventID_UI.ATSClientOffLine, null, null);
     }
     #endregion
 }

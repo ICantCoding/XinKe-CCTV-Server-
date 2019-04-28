@@ -63,5 +63,10 @@ public class EventID_UI
     public const string U3DClientOffLine = "U3DClientOffLine_UI";          //U3D客户端离线事件
     public const string StationClientOnLine = "StationClientOnLine_UI";    //Station客户端上线事件
     public const string StationClientOffLine = "StationClientOffLine_UI";  //Station客户端离线事件
+
+    public const string CCTVCtrlClientOnLine = "CCTVCtrlClientOnLine_UI";  //CCTV视频控制端上线事件
+    public const string CCTVCtrlClientOffLine = "CCTVCtrlClientOffLine_UI";//CCTV视频控制端下线事件
+    public const string ATSClientOnLine = "ATSClientOnLine_UI";            //ATS客户端上线事件
+    public const string ATSClientOffLine = "ATSClientOffLine_UI";          //ATS客户端下线事件
 }
 #endregion

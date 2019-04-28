@@ -42,6 +42,7 @@ public class StationEngine : Singleton<StationEngine>
         ReadStationPoint.BuildPointInfo(m_stationMgr);
         ReadStationPoint.BuildStationDevices(m_stationMgr);
         ReadStationPoint.BuildStationNpc(m_stationMgr);
+        ReadStationPoint.BuildStationCamera(m_stationMgr);
         sw.Stop();
         TimeSpan ts2 = sw.Elapsed;
         UnityEngine.Debug.Log("sw总共花费" + ts2.TotalMilliseconds + "ms.");
@@ -49,6 +50,21 @@ public class StationEngine : Singleton<StationEngine>
     public void Release()
     {
 
+    }
+    #endregion
+
+    #region U3DPlayerActor相关
+    public void AddPlayerActor(UInt16 stationIndex, PlayerActor playerActor)
+    {
+        m_stationMgr.AddPlayerActor(stationIndex, playerActor);
+    }
+    public void RemovePlayerActor(UInt16 stationIndex, PlayerActor playerActor)
+    {
+        m_stationMgr.RemovePlayerActor(stationIndex, playerActor);
+    }
+    public void GetU3DPlayerActor(UInt16 stationIndex, ref List<PlayerActor> list)
+    {
+        m_stationMgr.GetU3DPlayerActor(stationIndex, ref list);
     }
     #endregion
 
@@ -132,6 +148,15 @@ public class StationEngine : Singleton<StationEngine>
     {
         return m_stationMgr.GetNpcParentTransform(stationIndex, npcActionStatus);
     }
+    //客户端重连，同步Npc信息
+    public void SyncNpcInfo(PlayerActor[] stationPlayerActor)
+    {
+        m_stationMgr.SyncNpcInfo(stationPlayerActor);
+    }
+    public void SyncNpcInfo()
+    {
+        m_stationMgr.SyncNpcInfo();
+    }
     #endregion
 
     #region 设备相关
@@ -158,6 +183,29 @@ public class StationEngine : Singleton<StationEngine>
     public void CloseXiaXingPingBiMen(UInt16 stationIndex, DeviceType deviceType)
     {
         m_stationMgr.CloseXiaXingPingBiMen(stationIndex, deviceType);
+    }
+    //同步所有设备类型的设备信息
+    public virtual void SyncDeviceInfo(PlayerActor playerActor)
+    {
+        m_stationMgr.SyncDeviceInfo(playerActor);
+    }
+    //同步指定设备类型的设备信息
+    public void SyncDeviceInfoByDeviceType(DeviceType deviceType, PlayerActor playerActor)
+    {
+        m_stationMgr.SyncDeviceInfoByDeviceType(deviceType, playerActor);
+    }
+    #endregion
+
+    #region 摄像头Camera相关
+    public void AddCamera2ShowCameraIndexList (UInt16 stationIndex, UInt16 cameraIndex) {
+        m_stationMgr.AddCamera2ShowCameraIndexList(stationIndex, cameraIndex);
+    }
+    public void RemoveCamera4ShowCameraIndexList (UInt16 stationIndex, UInt16 cameraIndex) {
+        m_stationMgr.RemoveCamera4ShowCameraIndexList(stationIndex, cameraIndex);
+    }
+    public Camera GetCamera(UInt16 stationIndex, UInt16 cameraIndex)
+    {
+        return m_stationMgr.GetCamera(stationIndex, cameraIndex);
     }
     #endregion
 }

@@ -54,5 +54,17 @@ public class DeviceMgr
         m_deviceDict.TryGetValue(deviceId, out device);
         return device;
     }
+    //同步设备信息
+    public virtual void SyncDeviceInfo(PlayerActor playerActor)
+    {
+        var enumerator = m_deviceDict.GetEnumerator();
+        while(enumerator.MoveNext())
+        {
+            Device device = enumerator.Current.Value;
+            if(device != null)
+                device.SyncDeviceInfo(playerActor);
+        }
+        enumerator.Dispose();
+    }
     #endregion
 }

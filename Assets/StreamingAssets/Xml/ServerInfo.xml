@@ -4,4 +4,8 @@
   <ServerName>CCTV服务器</ServerName>
   <ServerIpAddress>192.168.0.50</ServerIpAddress>
   <ServerPort>3322</ServerPort>
+  <AtsServerIpAddress>192.168.0.50</AtsServerIpAddress>
+  <AtsServerPort>40000</AtsServerPort>
+  <CctvServerIpAddress>192.168.0.50</CctvServerIpAddress>
+  <CctvServerPort>30000</CctvServerPort>
 </ServerInfo>

@@ -22,7 +22,34 @@ namespace TDFramework
     {
         #region 字段和属性
         private Dictionary<string, IModule> m_modules = new Dictionary<string, IModule>();
+        private NetworkModule m_networkModule = null;
+        private StationModule m_stationModule = null;
         #endregion
+
+        #region 属性
+        public NetworkModule NetworkModule
+        {
+            get
+            {
+                if(m_networkModule == null)
+                {
+                    m_networkModule = (NetworkModule)GetModule(StringMgr.NetworkModuleName);
+                }
+                return m_networkModule;
+            }
+        }
+        public StationModule StationModule
+        {
+            get
+            {
+                if (m_stationModule == null)
+                {
+                    m_stationModule = (StationModule)GetModule(StringMgr.StationModuleName);
+                }
+                return m_stationModule;
+            }
+        }
+        #endregion  
 
         #region  Unity生命周期
         void Awake()

@@ -1,5 +1,4 @@
-﻿
-//////////////////////////////////////////////////////////////////
+﻿//////////////////////////////////////////////////////////////////
 //                            _ooOoo_                           //
 //                           o8888888o                          //
 //                           88" . "88                          //
@@ -32,14 +31,12 @@
 // 模块描述(Module description):
 // ***************************************************************
 
-namespace TDFramework
-{
-    using System.Collections;
+namespace TDFramework {
     using System.Collections.Generic;
+    using System.Collections;
     using UnityEngine;
 
-    public class AppConfigPath
-    {
+    public class AppConfigPath {
         //网络配置xml文件
         public static string ServerInfoXmlPath = Application.streamingAssetsPath + "/Xml/ServerInfo.xml";
         //站台配置xml文件
@@ -52,5 +49,9 @@ namespace TDFramework
         public static string Station1PingBiMenXmlPath = Application.streamingAssetsPath + "/Xml/DeviceInfo/Station1PingBiMenDeviceInfo.xml";
         //站台中设备和位置点关系绑定
         public static string StationDeviceAndPointXmlPath = Application.streamingAssetsPath + "/Xml/DeviceAndPointInfo.xml";
+
+        #region 摄像头信息
+        public static string ZhaoYingCameraInfoXmlPath = Application.streamingAssetsPath + "/Xml/ZhaoYingCameraInfo.xml";
+        #endregion
     }
 }

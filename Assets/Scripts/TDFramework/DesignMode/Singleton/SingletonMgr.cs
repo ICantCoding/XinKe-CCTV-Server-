@@ -19,5 +19,8 @@ namespace TDFramework
         public static AssetBundleManager AssetBundleManager = AssetBundleManager.Instance;
         public static ResourceMgr ResourceMgr = ResourceMgr.Instance;
         public static ObjectManager ObjectManager = ObjectManager.Instance;
+        
+        //MessageID的管理MessageIDMgr单例类
+        public static MessageIDMgr MessageIDMgr = MessageIDMgr.Instance;
     }
 }

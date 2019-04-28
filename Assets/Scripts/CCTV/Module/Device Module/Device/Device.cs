@@ -20,8 +20,6 @@ public enum DeviceType
     DianFuTi = 2000,        //电扶梯
     PingBiMen = 3000,       //屏蔽门
     SheXiangTou = 4000,     //摄像头
-
-
     None = 100000,			//无设备类型
 }
 
@@ -38,6 +36,8 @@ public class Device : MonoBehaviour
     //设备所属站台
     [SerializeField]
     protected UInt16 m_stationIndex;
+    //同步组件
+    protected DeviceSync m_deviceSync;
     #endregion
 
     #region 属性
@@ -59,7 +59,10 @@ public class Device : MonoBehaviour
     #endregion
 
     #region Unity生命周期
-
+    protected virtual void Awake()
+    {
+        m_deviceSync = GameGlobalComponent.DeviceSync;
+    }
     #endregion
 
     #region 方法
@@ -72,5 +75,11 @@ public class Device : MonoBehaviour
 
     }
     #endregion
+    
+    ////客户端重连同步设备状态
+    public virtual void SyncDeviceInfo(PlayerActor playerActor)
+    {
+
+    }
 }
 

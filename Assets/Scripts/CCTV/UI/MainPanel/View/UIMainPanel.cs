@@ -42,6 +42,16 @@ using PureMVC.Interfaces;
 
 public class UIMainPanel : UIPanel
 {
+    #region 颜色字段
+    private Color m_successLinkColor = new Color(165 / 255.0f, 221 / 255.0f, 130 / 255.0f, 1.0f);
+    private Color m_faliLinkColor = new Color(221 / 255.0f, 130 / 255.0f, 130 / 255.0f, 1.0f);
+    #endregion
+
+    #region 状态字段
+    private bool m_cctvServerIsConnected = false;
+    private bool m_atsServerIsConnected = false;
+    #endregion
+
     #region 字段
     private Transform m_clientOnLineItemContentTrans;
     private Button m_startBtn;
@@ -51,6 +61,15 @@ public class UIMainPanel : UIPanel
     private Text m_statusTxt;
     public Text m_onlineCountText;
     public Text m_linkSocketCountText;
+
+    public Image m_cctvBgImg;
+    public Text m_cctvStatusText;
+    public Button m_cctvRelinkBtn;
+    public Image m_cctvSuccessFlagImg;
+    public Image m_atsBgImg;
+    public Text m_atsStatusText;
+    public Button m_atsRelinkBtn;
+    public Image m_atsSuccessFlagImg;
     #endregion
 
     #region 数据集合
@@ -71,6 +90,10 @@ public class UIMainPanel : UIPanel
         RegisterCommand(EventID_Cmd.StationClientOffLine, command);
         RegisterCommand(EventID_Cmd.ServerStart, command);
         RegisterCommand(EventID_Cmd.ServerStop, command);
+        RegisterCommand(EventID_Cmd.CCTVCtrlClientOnLine, command);
+        RegisterCommand(EventID_Cmd.CCTVCtrlClientOffLine, command);
+        RegisterCommand(EventID_Cmd.ATSClientOnLine, command);
+        RegisterCommand(EventID_Cmd.ATSClientOffLine, command);
         RegisterMediator(new UIMainPanel_Mediator());
         RegisterMediator(this);
         RegisterProxy(new UIMainPanel_Proxy());
@@ -96,6 +119,41 @@ public class UIMainPanel : UIPanel
         m_serverIpTxt.text = "IP地址: " + SingletonMgr.GameGlobalInfo.ServerInfo.ServerIpAddress;
         m_serverPortTxt.text = "端口: " + SingletonMgr.GameGlobalInfo.ServerInfo.ServerPort.ToString();
     }
+    void Update()
+    {
+        if (m_atsServerIsConnected)
+        {
+            m_atsBgImg.color = m_successLinkColor;
+            m_atsStatusText.color = Color.green;
+            m_atsStatusText.text = "✔";
+            m_atsRelinkBtn.gameObject.SetActive(false);
+            m_atsSuccessFlagImg.gameObject.SetActive(true);
+        }
+        else
+        {
+            m_atsBgImg.color = m_faliLinkColor;
+            m_atsStatusText.color = Color.red;
+            m_atsStatusText.text = "✖";
+            m_atsRelinkBtn.gameObject.SetActive(true);
+            m_atsSuccessFlagImg.gameObject.SetActive(false);
+        }
+        if (m_cctvServerIsConnected)
+        {
+            m_cctvBgImg.color = m_successLinkColor;
+            m_cctvStatusText.color = Color.green;
+            m_cctvStatusText.text = "✔";
+            m_cctvRelinkBtn.gameObject.SetActive(false);
+            m_cctvSuccessFlagImg.gameObject.SetActive(true);
+        }
+        else
+        {
+            m_cctvBgImg.color = m_faliLinkColor;
+            m_cctvStatusText.color = Color.red;
+            m_cctvStatusText.text = "✖";
+            m_cctvRelinkBtn.gameObject.SetActive(true);
+            m_cctvSuccessFlagImg.gameObject.SetActive(false);
+        }
+    }
     protected void OnDestroy()
     {
         RemoveCommand(EventID_Cmd.U3DClientOnLine);
@@ -104,6 +162,10 @@ public class UIMainPanel : UIPanel
         RemoveCommand(EventID_Cmd.U3DClientOffLine);
         RemoveCommand(EventID_Cmd.ServerStart);
         RemoveCommand(EventID_Cmd.ServerStop);
+        RemoveCommand(EventID_Cmd.CCTVCtrlClientOnLine);
+        RemoveCommand(EventID_Cmd.CCTVCtrlClientOffLine);
+        RemoveCommand(EventID_Cmd.ATSClientOnLine);
+        RemoveCommand(EventID_Cmd.ATSClientOffLine);
         RemoveMediator(UIMainPanel_Mediator.NAME);
         RemoveMediator(this.MediatorName);
         RemoveProxy(UIMainPanel_Proxy.NAME);
@@ -124,6 +186,10 @@ public class UIMainPanel : UIPanel
             EventID_UI.U3DClientOffLine,
             EventID_UI.StationClientOnLine,
             EventID_UI.StationClientOffLine,
+            EventID_UI.CCTVCtrlClientOnLine,
+            EventID_UI.CCTVCtrlClientOffLine,
+            EventID_UI.ATSClientOnLine,
+            EventID_UI.ATSClientOffLine,
         };
     }
     public override void HandleNotification(INotification notification)
@@ -158,6 +224,26 @@ public class UIMainPanel : UIPanel
             case EventID_UI.ServerStop:
                 {
                     ServerStop_Callback(notification);
+                    break;
+                }
+            case EventID_UI.CCTVCtrlClientOnLine:
+                {
+                    CCTVCtrlClientOnLine_Callback(notification);
+                    break;
+                }
+            case EventID_UI.CCTVCtrlClientOffLine:
+                {
+                    CCTVCtrlClientOffLine_Callback(notification);
+                    break;
+                }
+            case EventID_UI.ATSClientOnLine:
+                {
+                    ATSClientOnLine_Callback(notification);
+                    break;
+                }
+            case EventID_UI.ATSClientOffLine:
+                {
+                    ATSClientOffLine_Callback(notification);
                     break;
                 }
             default:
@@ -251,6 +337,22 @@ public class UIMainPanel : UIPanel
         {
             m_statusTxt.text = "服务器关闭!";
         }
+    }
+    private void CCTVCtrlClientOnLine_Callback(INotification notification)
+    {
+        m_cctvServerIsConnected = true;
+    }
+    private void CCTVCtrlClientOffLine_Callback(INotification notification)
+    {
+        m_cctvServerIsConnected = false;
+    }
+    private void ATSClientOnLine_Callback(INotification notification)
+    {
+        m_atsServerIsConnected = true;
+    }
+    private void ATSClientOffLine_Callback(INotification notification)
+    {
+        m_atsServerIsConnected = false;
     }
     #endregion
 

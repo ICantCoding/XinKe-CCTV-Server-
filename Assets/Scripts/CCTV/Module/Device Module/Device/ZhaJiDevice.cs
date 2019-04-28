@@ -19,7 +19,6 @@ public class ZhaJiDevice : Device
     #region 组件字段
     private Transform m_left;
     private Transform m_right;
-    private DeviceSync m_deviceSync;
     #endregion
 
     #region 状态字段
@@ -50,10 +49,9 @@ public class ZhaJiDevice : Device
     #endregion
 
     #region Unity生命周期
-    void Awake()
+    protected override void Awake()
     {
-        m_deviceSync = transform.root.GetComponent<DeviceSync>();
-
+        base.Awake();
         m_left = transform.Find("Left");
         m_right = transform.Find("Right");
         m_leftOriginLocalEulerAngle = m_left.localEulerAngles;
@@ -98,6 +96,17 @@ public class ZhaJiDevice : Device
                 closeCallback();
             }
         });
+    }
+    //客户端重连同步闸机设备状态
+    public override void SyncDeviceInfo(PlayerActor playerActor)
+    {
+        if(CanOpen && m_deviceSync != null)
+        {
+            m_deviceSync.SendDeviceStatusRelink(1, StationIndex, DeviceType, DeviceId, playerActor);
+        }else if(CanOpen == false && m_deviceSync != null)
+        {
+            m_deviceSync.SendDeviceStatusRelink(0, StationIndex, DeviceType, DeviceId, playerActor);
+        }
     }
     #endregion
 }

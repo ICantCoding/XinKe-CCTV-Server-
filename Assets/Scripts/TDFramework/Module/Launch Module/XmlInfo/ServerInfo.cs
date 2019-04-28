@@ -8,13 +8,21 @@ using TDFramework;
 public class ServerInfo
 {
     [XmlElement("Id")]
-    public System.UInt16 Id;
+    public System.UInt16 Id;            //U3D服务器Id唯一标识 为 0
     [XmlElement("ServerName")]
-    public string ServerName;
+    public string ServerName;           //U3D服务器名称
     [XmlElement("ServerIpAddress")]
-    public string ServerIpAddress;
+    public string ServerIpAddress;      //U3D服务器Ip地址
     [XmlElement("ServerPort")]
-    public int ServerPort;
+    public int ServerPort;              //U3D服务器端口号
+    [XmlElement("AtsServerIpAddress")]
+    public string AtsServerIpAddress;   //ATS服务器Ip地址
+    [XmlElement("AtsServerPort")]
+    public int AtsServerPort;           //ATS服务器端口号
+    [XmlElement("CctvServerIpAddress")]
+    public string CctvServerIpAddress;  //CCTV服务器Ip地址
+    [XmlElement("CctvServerPort")]
+    public int CctvServerPort;          //CCTV服务器端口号
 
     #region 方法
     public static void SerializeServerInfo2Xml()
@@ -24,6 +32,10 @@ public class ServerInfo
         serverInfo.ServerName = "CCTV服务器";
         serverInfo.ServerIpAddress = Util.GetIpAddress();
         serverInfo.ServerPort = 3322;
+        serverInfo.AtsServerIpAddress = "192.168.0.51";
+        serverInfo.AtsServerPort = 40000;
+        serverInfo.CctvServerIpAddress = "192.168.0.51";
+        serverInfo.CctvServerPort = 30000;
 
         if (File.Exists(AppConfigPath.ServerInfoXmlPath))
         {

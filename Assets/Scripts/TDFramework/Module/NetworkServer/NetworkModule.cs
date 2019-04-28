@@ -48,16 +48,26 @@ namespace TDFramework
 
         #region 公有方法
         //获取Station当前客户端正在观看的StationPlayerActor
-        public void GetStationPlayerActorAtXXStation(UInt16 stationIndex, UInt16 stationClientType, List<PlayerActor> stationPlayerActorList)
+        public void GetStationPlayerActorAboutU3DPlayerActor(PlayerActor u3dPlayerActor, UInt16 stationIndex, List<PlayerActor> stationPlayerActorList)
         {
             if (stationPlayerActorList == null) return;
             stationPlayerActorList.Clear();
-            m_networkEngine.GetStationPlayerActorAtXXStation(stationIndex, stationClientType, stationPlayerActorList);
+            m_networkEngine.GetStationPlayerActorAboutU3DPlayerActor(u3dPlayerActor, stationIndex, stationPlayerActorList);
         }
-        //获得当前站台观察者U3DPlayerActor
-        public List<PlayerActor> GetU3DPlayerActorListAtXXStation(UInt16 stationIndex)
+        public PlayerActor GetStationPlayerActorAboutU3DPlayerActor(PlayerActor u3dPlayerActor, UInt16 stationIndex,
+            UInt16 stationClientType)
         {
-            return m_networkEngine.GetU3DPlayerActorListAtXXStation(stationIndex);
+            return m_networkEngine.GetStationPlayerActorAboutU3DPlayerActor(u3dPlayerActor, stationIndex, stationClientType);
+        }
+        //获得U3DPlayerActor
+        public PlayerActor GetPlayerActorByU3dId(UInt16 u3dId)
+        {
+            return m_networkEngine.GetPlayerActorByU3dId(u3dId);
+        }
+        //获取所有连接上的U3DPlayerActor List
+        public List<PlayerActor> GetU3DPlayerActors()
+        {
+            return m_networkEngine.GetU3DPlayerActors();
         }
         #endregion
     }

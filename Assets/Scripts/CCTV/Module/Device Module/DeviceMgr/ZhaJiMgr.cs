@@ -10,4 +10,8 @@ public class ZhaJiMgr : DeviceMgr
         DeviceType = DeviceType.ZhaJi;
     }
     #endregion
+
+    #region 方法
+    
+    #endregion
 }
