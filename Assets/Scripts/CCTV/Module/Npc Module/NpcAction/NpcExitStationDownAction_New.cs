@@ -35,6 +35,8 @@ public class NpcExitStationDownAction_New : NpcAction
     protected override void Awake()
     {
         base.Awake();
+        m_areaMark = 1 + 2 + 4 + 16;
+        m_navMeshAgent.areaMask = m_areaMark;
         m_stepArray = new PointStatus[]
         {
             PointStatus.Train_Down_Birth,

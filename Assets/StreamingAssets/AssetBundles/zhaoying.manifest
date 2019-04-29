@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+CRC: 1590000316
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f0cc75cb020f1bf3419ea5f12a196e65
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: e5c92b7a905a4fae95d9a62a20a2f5ce
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 81
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 61f2281ed7f5e9c459e4eb3d57768cec, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/Module/Camera/ZhaoYing.prefab
+- Assets/Prefabs/Camera/CCTV Camera.prefab
+Dependencies: []

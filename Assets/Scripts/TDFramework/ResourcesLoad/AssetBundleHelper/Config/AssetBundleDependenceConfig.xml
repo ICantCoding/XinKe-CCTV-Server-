@@ -1,9 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AssetBundleConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ABList Path="Assets/Module/赵营/Prefabs/A_KM.prefab" Crc="401091793" ABName="a_km" AssetName="A_KM.prefab" />
+  <ABList Path="Assets/Module/赵营/Prefabs/A_ZM.prefab" Crc="2891152099" ABName="a_zm" AssetName="A_ZM.prefab">
+    <DependABList>a_km</DependABList>
+  </ABList>
   <ABList Path="Assets/Scripts/TDFramework/ResourcesLoad/AssetBundleHelper/Config/AssetBundleConfig.asset" Crc="3459079331" ABName="assetbundleconfig" AssetName="AssetBundleConfig.asset" />
   <ABList Path="Assets/Scripts/TDFramework/ResourcesLoad/AssetBundleHelper/Config/AssetBundleDependenceConfig.bytes" Crc="2226670194" ABName="assetbundleconfig" AssetName="AssetBundleDependenceConfig.bytes" />
   <ABList Path="Assets/Scripts/TDFramework/ResourcesLoad/AssetBundleHelper/Config/AssetBundleDependenceConfig.xml" Crc="4102649066" ABName="assetbundleconfig" AssetName="AssetBundleDependenceConfig.xml" />
   <ABList Path="Assets/Prefabs/UI/ClientOnLineItem.prefab" Crc="254802911" ABName="clientonlineitem" AssetName="ClientOnLineItem.prefab" />
+  <ABList Path="Packages/com.unity.analytics/DataPrivacy/DataPrivacyButton.prefab" Crc="2793722965" ABName="dataprivacybutton" AssetName="DataPrivacyButton.prefab" />
+  <ABList Path="Assets/Module/赵营/Prefabs/Device.prefab" Crc="3286420162" ABName="device" AssetName="Device.prefab">
+    <DependABList>a_km</DependABList>
+    <DependABList>a_zm</DependABList>
+  </ABList>
   <ABList Path="Assets/Prefabs/Npc/Man1_Npc.prefab" Crc="3796099011" ABName="man1_npc" AssetName="Man1_Npc.prefab" />
   <ABList Path="Assets/Prefabs/Npc/Man2_Npc.prefab" Crc="2514292019" ABName="man2_npc" AssetName="Man2_Npc.prefab">
     <DependABList>man1_npc</DependABList>
@@ -21,6 +30,7 @@
   <ABList Path="Assets/Prefabs/Npc/Nv_ZWY_zoulu_1.prefab" Crc="90048349" ABName="nv_zwy_zoulu_1" AssetName="Nv_ZWY_zoulu_1.prefab">
     <DependABList>nv_zwy_zoulu_0</DependABList>
   </ABList>
+  <ABList Path="Assets/Module/Train/Prefabs/Train.prefab" Crc="112485712" ABName="train" AssetName="Train.prefab" />
   <ABList Path="Assets/Prefabs/Npc/Woman1_Npc.prefab" Crc="2592512989" ABName="woman1_npc" AssetName="Woman1_Npc.prefab">
     <DependABList>man1_npc</DependABList>
   </ABList>
@@ -40,4 +50,6 @@
     <DependABList>man1_npc</DependABList>
     <DependABList>woman1_npc</DependABList>
   </ABList>
+  <ABList Path="Assets/Module/Camera/ZhaoYing.prefab" Crc="683065139" ABName="zhaoying" AssetName="ZhaoYing.prefab" />
+  <ABList Path="Assets/Prefabs/Camera/CCTV Camera.prefab" Crc="1979149703" ABName="zhaoying" AssetName="CCTV Camera.prefab" />
 </AssetBundleConfig>

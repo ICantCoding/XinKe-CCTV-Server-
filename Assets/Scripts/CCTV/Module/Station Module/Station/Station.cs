@@ -127,6 +127,12 @@ public class Station {
         if (pointQueueHash == null) return null;
         return pointQueueHash.GetNoReservationPoint2RandomPointQueue ();
     }
+    //指定位置点类型，来获取随机PointQueue(指定队列的索引范围)中的顺序未预约位置点
+    public Point GetNoReservationPoint2RandomPointQueue (int pointStatus, int minQueueIndex, int maxQueueIndex) {
+        PointQueueHash pointQueueHash = GetPointQueueHash (pointStatus);
+        if (pointQueueHash == null) return null;
+        return pointQueueHash.GetNoReservationPoint2RandomPointQueue (minQueueIndex, maxQueueIndex);
+    }
     //指定位置点类型，指定特定的queueIndex, 来获取空位置点
     public Point GetEmptyPointByQueueIndex (int pointStatus, int queueIndex) {
         PointQueueHash pointQueueHash = GetPointQueueHash (pointStatus);

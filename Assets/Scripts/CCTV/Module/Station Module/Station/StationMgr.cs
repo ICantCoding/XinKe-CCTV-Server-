@@ -109,6 +109,13 @@ public class StationMgr
         if (station == null) return null;
         return station.GetNoReservationPoint2RandomPointQueue(pointStatus);
     }
+     //随机获取一个PointQueue队列(指定队列索引的范围), 并取出首个NoReservation的位置点
+    public Point GetNoReservationPoint2RandomPointQueue(UInt16 stationIndex, int pointStatus, int minQueueIndex, int maxQueueIndex)
+    {
+        Station station = GetStation(stationIndex);
+        if (station == null) return null;
+        return station.GetNoReservationPoint2RandomPointQueue(pointStatus, minQueueIndex, maxQueueIndex);
+    }
     //随机获取一个位置点, 针对休息区
     public Point GetRandomNoReservationPointAtRestArea(UInt16 stationIndex, int pointStatus)
     {

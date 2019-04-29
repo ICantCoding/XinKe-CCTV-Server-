@@ -114,8 +114,12 @@ public class AppConfigXmlEditor
                 gos[i].transform.SetParent(go.transform);
             }
         }
-
-
+    }
+    [MenuItem("Tools/摆位置点/修改PointQueueIndex顺序", false, 3)]
+    private static void ModifyPointQueueIndex()
+    {
+        ModifyPointQueueIndexWindow window = (ModifyPointQueueIndexWindow)EditorWindow.GetWindow(typeof(ModifyPointQueueIndexWindow));
+        window.Show();
     }
 }
 

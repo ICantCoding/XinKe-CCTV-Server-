@@ -927,19 +927,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 47;
+        pointBindInfo.m_queueIndex = 0;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 46;
+        pointBindInfo.m_queueIndex = 1;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 23;
+        pointBindInfo.m_queueIndex = 0;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 23;
+        pointBindInfo.m_queueIndex = 0;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门26
@@ -951,19 +951,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 45;
+        pointBindInfo.m_queueIndex = 2;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 44;
+        pointBindInfo.m_queueIndex = 3;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 22;
+        pointBindInfo.m_queueIndex = 1;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 22;
+        pointBindInfo.m_queueIndex = 1;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门27
@@ -975,19 +975,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 43;
+        pointBindInfo.m_queueIndex = 4;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 42;
+        pointBindInfo.m_queueIndex = 5;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 21;
+        pointBindInfo.m_queueIndex = 2;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 21;
+        pointBindInfo.m_queueIndex = 2;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门28
@@ -999,19 +999,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 41;
+        pointBindInfo.m_queueIndex = 6;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 40;
+        pointBindInfo.m_queueIndex = 7;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 20;
+        pointBindInfo.m_queueIndex = 3;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 20;
+        pointBindInfo.m_queueIndex = 3;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门29
@@ -1023,19 +1023,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 39;
+        pointBindInfo.m_queueIndex = 8;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 38;
+        pointBindInfo.m_queueIndex = 9;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 19;
+        pointBindInfo.m_queueIndex = 4;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 19;
+        pointBindInfo.m_queueIndex = 4;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门30
@@ -1047,19 +1047,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 37;
+        pointBindInfo.m_queueIndex = 10;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 36;
+        pointBindInfo.m_queueIndex = 11;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 18;
+        pointBindInfo.m_queueIndex = 5;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 18;
+        pointBindInfo.m_queueIndex = 5;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门31
@@ -1071,19 +1071,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 35;
+        pointBindInfo.m_queueIndex = 12;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 34;
+        pointBindInfo.m_queueIndex = 13;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 17;
+        pointBindInfo.m_queueIndex = 6;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 17;
+        pointBindInfo.m_queueIndex = 6;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门32
@@ -1095,19 +1095,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 33;
+        pointBindInfo.m_queueIndex = 14;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 32;
+        pointBindInfo.m_queueIndex = 15;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 16;
+        pointBindInfo.m_queueIndex = 7;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 16;
+        pointBindInfo.m_queueIndex = 7;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门33
@@ -1119,19 +1119,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 31;
+        pointBindInfo.m_queueIndex = 16;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 30;
+        pointBindInfo.m_queueIndex = 17;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 15;
+        pointBindInfo.m_queueIndex = 8;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 15;
+        pointBindInfo.m_queueIndex = 8;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门34
@@ -1143,19 +1143,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 29;
+        pointBindInfo.m_queueIndex = 18;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 28;
+        pointBindInfo.m_queueIndex = 19;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 14;
+        pointBindInfo.m_queueIndex = 9;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 14;
+        pointBindInfo.m_queueIndex = 9;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门35
@@ -1167,19 +1167,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 27;
+        pointBindInfo.m_queueIndex = 20;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 26;
+        pointBindInfo.m_queueIndex = 21;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 13;
+        pointBindInfo.m_queueIndex = 10;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 13;
+        pointBindInfo.m_queueIndex = 10;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门36
@@ -1191,19 +1191,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 25;
+        pointBindInfo.m_queueIndex = 22;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 24;
+        pointBindInfo.m_queueIndex = 23;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 12;
+        pointBindInfo.m_queueIndex = 11;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 12;
+        pointBindInfo.m_queueIndex = 11;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门37
@@ -1215,19 +1215,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 23;
+        pointBindInfo.m_queueIndex = 24;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 22;
+        pointBindInfo.m_queueIndex = 25;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 11;
+        pointBindInfo.m_queueIndex = 12;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 11;
+        pointBindInfo.m_queueIndex = 12;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门38
@@ -1239,19 +1239,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 21;
+        pointBindInfo.m_queueIndex = 26;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 20;
+        pointBindInfo.m_queueIndex = 27;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 10;
+        pointBindInfo.m_queueIndex = 13;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 10;
+        pointBindInfo.m_queueIndex = 13;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门39
@@ -1263,19 +1263,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 19;
+        pointBindInfo.m_queueIndex = 28;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 18;
+        pointBindInfo.m_queueIndex = 29;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 9;
+        pointBindInfo.m_queueIndex = 14;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 9;
+        pointBindInfo.m_queueIndex = 14;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门40
@@ -1287,19 +1287,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 17;
+        pointBindInfo.m_queueIndex = 30;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 16;
+        pointBindInfo.m_queueIndex = 31;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 8;
+        pointBindInfo.m_queueIndex = 15;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 8;
+        pointBindInfo.m_queueIndex = 15;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门41
@@ -1311,19 +1311,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 15;
+        pointBindInfo.m_queueIndex = 32;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 14;
+        pointBindInfo.m_queueIndex = 33;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 7;
+        pointBindInfo.m_queueIndex = 16;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 7;
+        pointBindInfo.m_queueIndex = 16;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门42
@@ -1335,19 +1335,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 13;
+        pointBindInfo.m_queueIndex = 34;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 12;
+        pointBindInfo.m_queueIndex = 35;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 6;
+        pointBindInfo.m_queueIndex = 17;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 6;
+        pointBindInfo.m_queueIndex = 17;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门43
@@ -1359,19 +1359,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 11;
+        pointBindInfo.m_queueIndex = 36;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 10;
+        pointBindInfo.m_queueIndex = 37;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 5;
+        pointBindInfo.m_queueIndex = 18;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 5;
+        pointBindInfo.m_queueIndex = 18;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门44
@@ -1383,19 +1383,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 9;
+        pointBindInfo.m_queueIndex = 38;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 8;
+        pointBindInfo.m_queueIndex = 39;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 4;
+        pointBindInfo.m_queueIndex = 19;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 4;
+        pointBindInfo.m_queueIndex = 19;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门45
@@ -1407,19 +1407,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 7;
+        pointBindInfo.m_queueIndex = 40;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 6;
+        pointBindInfo.m_queueIndex = 41;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 3;
+        pointBindInfo.m_queueIndex = 20;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 3;
+        pointBindInfo.m_queueIndex = 20;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门46
@@ -1431,19 +1431,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 5;
+        pointBindInfo.m_queueIndex = 42;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 4;
+        pointBindInfo.m_queueIndex = 43;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 2;
+        pointBindInfo.m_queueIndex = 21;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 2;
+        pointBindInfo.m_queueIndex = 21;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         #endregion
         #region 屏蔽门47
@@ -1455,19 +1455,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 3;
+        pointBindInfo.m_queueIndex = 44;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 2;
+        pointBindInfo.m_queueIndex = 45;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 1;
+        pointBindInfo.m_queueIndex = 22;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 1;
+        pointBindInfo.m_queueIndex = 22;
         #endregion
         #region 屏蔽门48
         pingBiMen = new PingBiMen();
@@ -1478,19 +1478,19 @@ public class DeviceAndPointInfo
         pingBiMenList.m_pingBiMenList.Add(pingBiMen);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 1;
+        pointBindInfo.m_queueIndex = 46;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "WaitTrain_Up";
-        pointBindInfo.m_queueIndex = 0;
+        pointBindInfo.m_queueIndex = 47;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "DownTrain_Up";
-        pointBindInfo.m_queueIndex = 0;
+        pointBindInfo.m_queueIndex = 23;
         pointBindInfoList.m_pointBindInfoList.Add(pointBindInfo);
         pointBindInfo = new PointBindInfo();
         pointBindInfo.m_name = "Train_Up_Birth";
-        pointBindInfo.m_queueIndex = 0;
+        pointBindInfo.m_queueIndex = 23;
         #endregion
         #endregion
         #endregion 

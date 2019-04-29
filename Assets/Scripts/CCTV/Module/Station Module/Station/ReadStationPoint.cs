@@ -40,15 +40,23 @@ public class ReadStationPoint {
         for (int i = 0; i < pointStatusCount; i++) {
             Transform pointStatusTrans = stationTrans.GetChild (i);
             int pointStatus = (int) System.Enum.Parse (typeof (PointStatus), pointStatusTrans.gameObject.name);
-            PointQueueHash pointQueueHash = YYY (pointStatusTrans);
+            PointQueueHash pointQueueHash = YYY (pointStatusTrans, pointStatus);
             station.AddPointQueueHash2Station (pointStatus, pointQueueHash);
         }
         return station;
     }
-    private static PointQueueHash YYY (Transform pointStatusTrans) {
+    private static PointQueueHash YYY (Transform pointStatusTrans, int pointStatus) {
         if (pointStatusTrans == null) return null;
         PointQueueHash pointQueueHash = new PointQueueHash ();
         int queueCount = pointStatusTrans.childCount;
+        // if (pointStatus == (int) PointStatus.WaitTrain_Up || pointStatus == (int) PointStatus.Train_Up ||
+        //     pointStatus == (int) PointStatus.WaitTrain_Down || pointStatus == (int) PointStatus.Train_Down) {
+        //     queueCount = 32; //因为列车只有16扇门
+        // }
+        // if (pointStatus == (int) PointStatus.Train_Up_Birth || pointStatus == (int) PointStatus.DownTrain_Up ||
+        //     pointStatus == (int) PointStatus.Train_Down_Birth || pointStatus == (int) PointStatus.DownTrain_Down) {
+        //     queueCount = 16; //因为列车只有16扇门
+        // }
         for (int i = 0; i < queueCount; i++) {
             Transform queueTrans = pointStatusTrans.GetChild (i);
             int queueIndex = int.Parse (queueTrans.gameObject.name);
@@ -310,14 +318,14 @@ public class ReadStationPoint {
             System.UInt16 stationIndex = (System.UInt16) System.Enum.Parse (typeof (StationType), tempTrans.gameObject.name);
             Station station = stationMgr.GetStation (stationIndex);
             if (station == null) return;
-            Dictionary<UInt16, Camera> tempDict = new Dictionary<UInt16, Camera>();
-            RRR(station, tempTrans, stationIndex,tempDict);
+            Dictionary<UInt16, Camera> tempDict = new Dictionary<UInt16, Camera> ();
+            RRR (station, tempTrans, stationIndex, tempDict);
         }
     }
     private static void RRR (Station station, Transform stationTrans, UInt16 stationIndex, Dictionary<UInt16, Camera> tempDict) {
         int cameraCount = stationTrans.childCount;
         for (UInt16 j = 0; j < cameraCount; ++j) {
-            station.AllCameraDict.Add(j, stationTrans.GetChild (j).GetComponent<Camera>());
+            station.AllCameraDict.Add (j, stationTrans.GetChild (j).GetComponent<Camera> ());
         }
     }
     #endregion

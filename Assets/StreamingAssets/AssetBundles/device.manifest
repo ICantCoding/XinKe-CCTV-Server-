@@ -1,0 +1,100 @@
+ManifestFileVersion: 0
+CRC: 1324173651
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a1e2256e6ea3792c39d5efeefc70818d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5458a40b5d944247aa131bef64c244c9
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 594d3dc2e2337ad4d9971a543a750a4c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 16b83a2511bab404fb52338c075a2302, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- "Assets/Module/\u8D75\u8425/Textures/boli_ding.png"
+- "Assets/Module/\u8D75\u8425/Textures/zhant_men.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/zhaji01.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/dianshi.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/chuanghu.png"
+- "Assets/Module/\u8D75\u8425/Textures/futi.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/kongxingzhu.png"
+- "Assets/Module/\u8D75\u8425/Textures/boli_2.png"
+- "Assets/Module/\u8D75\u8425/Prefabs/Device.prefab"
+- "Assets/Module/\u8D75\u8425/Textures/dingpeng.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/dimian_2.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/jiankongqi.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/jinshu_1.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/zhannei.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/boli_1.png"
+- "Assets/Module/\u8D75\u8425/Textures/diantijiegou.png"
+- "Assets/Module/\u8D75\u8425/Textures/louti_1.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/pingbimenboli1_humen.png"
+- "Assets/Module/\u8D75\u8425/Textures/spj.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/shuini.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/zhannei_2.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/shengjiangti.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/qiangti_z.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/zhaji02.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/xiatingzhuzi.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/dimian.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/Hongtu01.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/fanghuaci.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/shuini_am.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/ZX_JZ.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/zhaji.jpg"
+- "Assets/Module/\u8D75\u8425/zyz.fbx"
+- "Assets/Module/\u8D75\u8425/Textures/ZYZ_zhishipai.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/qiangti_am.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/ZYdimian_xia.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/ZhiShiPai01.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/futi001.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/spj1.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/boli.png"
+- "Assets/Module/\u8D75\u8425/Textures/guanggao2.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/qiangti.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/lgc1.png"
+- "Assets/Module/\u8D75\u8425/Textures/zhantaidi.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/ding.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/bxg_01.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/tianhuaban01.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/XGft.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/qxshexiangtou.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/menboli.png"
+- "Assets/Module/\u8D75\u8425/Textures/guanggao.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/futikou.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/zhuan_1.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/ZYZ_zhishipai2.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/tingchebiao2.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/louti_3.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/louti.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/dimian1.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/zhuan_2.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/dingban.jpg"
+- "Assets/Module/\u8D75\u8425/Textures/futitu.tga"
+- "Assets/Module/\u8D75\u8425/Textures/chuanghu_am.png"
+- "Assets/Module/\u8D75\u8425/Textures/tianchuang.png"
+- "Assets/Module/\u8D75\u8425/Textures/zhu..JPG"
+Dependencies:
+- E:/XinKeWork/Day20190219/CCTV Server/CCTV Server/Assets/StreamingAssets/AssetBundles/a_km
+- E:/XinKeWork/Day20190219/CCTV Server/CCTV Server/Assets/StreamingAssets/AssetBundles/a_zm

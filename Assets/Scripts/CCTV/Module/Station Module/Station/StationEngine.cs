@@ -114,6 +114,11 @@ public class StationEngine : Singleton<StationEngine>
     {
         return m_stationMgr.GetNoReservationPoint2RandomPointQueue(stationIndex, pointStatus);
     }
+    //随机获取一个PointQueue队列，指定队列索引范围, 并取出首个NoReservation的位置点
+    public Point GetNoReservationPoint2RandomPointQueue(UInt16 stationIndex, int pointStatus, int minQueueIndex, int maxQueueIndex)
+    {
+        return m_stationMgr.GetNoReservationPoint2RandomPointQueue(stationIndex, pointStatus, minQueueIndex, maxQueueIndex);
+    }
     //随机获取一个位置点, 针对休息区
     public Point GetRandomNoReservationPointAtRestArea(UInt16 stationIndex, int pointStatus)
     {

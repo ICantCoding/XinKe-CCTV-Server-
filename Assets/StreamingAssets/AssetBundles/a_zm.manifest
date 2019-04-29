@@ -1,0 +1,32 @@
+ManifestFileVersion: 0
+CRC: 672419471
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9f7f9b1d287016073a731f231adf6df5
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: cb5cff3a1350143ce413b676b0fb473f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- "Assets/Module/\u8D75\u8425/Prefabs/A_ZM.prefab"
+- "Assets/Module/\u8D75\u8425/A_ZM.fbx"
+Dependencies:
+- E:/XinKeWork/Day20190219/CCTV Server/CCTV Server/Assets/StreamingAssets/AssetBundles/a_km

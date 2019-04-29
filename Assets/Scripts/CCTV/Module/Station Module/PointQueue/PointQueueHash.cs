@@ -28,7 +28,7 @@ public class PointQueueHash
     #region 属性
     public int Count
     {
-        get { return m_pointQueueDict.Count; }
+        get { return PointQueueDict.Count; }
     }
     public Dictionary<int, PointQueue> PointQueueDict
     {
@@ -53,20 +53,20 @@ public class PointQueueHash
     public PointQueue GetPointQueueByQueueIndex(int queueIndex)
     {
         PointQueue pointQueue = null;
-        m_pointQueueDict.TryGetValue(queueIndex, out pointQueue);
+        PointQueueDict.TryGetValue(queueIndex, out pointQueue);
         return pointQueue;
     }
     //获取PointQueue，随机
     public PointQueue GetRandomPointQueue()
     {
         int queueIndex = UnityEngine.Random.Range(0, Count);
-        return m_pointQueueDict[queueIndex];
+        return PointQueueDict[queueIndex];
     }
     //获取未被预约的PointQueue, 顺序
     public PointQueue GetNoReservationPointQueue()
     {
         if (IsReservation) return null;
-        var enumerator = m_pointQueueDict.GetEnumerator();
+        var enumerator = PointQueueDict.GetEnumerator();
         while (enumerator.MoveNext())
         {
             PointQueue pointQueue = enumerator.Current.Value;
@@ -91,7 +91,29 @@ public class PointQueueHash
         while ((pointQueue == null || pointQueue.IsReservation == true) && tempList.Count > 0)
         {
             int queueIndex = UnityEngine.Random.Range(0, tempList.Count);
-            pointQueue = m_pointQueueDict[tempList[queueIndex]];
+            pointQueue = PointQueueDict[tempList[queueIndex]];
+            tempList.RemoveAt(queueIndex);
+        }
+        if(pointQueue != null && pointQueue.m_isReservation)
+        {
+            return null;
+        }
+        return pointQueue;
+    }
+    //获取未被预约的PointQueue，随机，在一个指定的队列索引范围中来获取
+    public PointQueue GetNoReservationPointQueue4Random(int minQueueIndex, int maxQueueIndex)
+    {
+        if (IsReservation) return null;
+        List<int> tempList = new List<int>();
+        for (int i = minQueueIndex; i < maxQueueIndex; ++i)
+        {
+            tempList.Add(i);
+        }
+        PointQueue pointQueue = null;
+        while ((pointQueue == null || pointQueue.IsReservation == true) && tempList.Count > 0)
+        {
+            int queueIndex = UnityEngine.Random.Range(0, tempList.Count);
+            pointQueue = PointQueueDict[tempList[queueIndex]];
             tempList.RemoveAt(queueIndex);
         }
         if(pointQueue != null && pointQueue.m_isReservation)
@@ -104,7 +126,7 @@ public class PointQueueHash
     public PointQueue GetEmptyPointQueue()
     {
         if (IsEmpty == false) return null;
-        var enumerator = m_pointQueueDict.GetEnumerator();
+        var enumerator = PointQueueDict.GetEnumerator();
         while (enumerator.MoveNext())
         {
             PointQueue pointQueue = enumerator.Current.Value;
@@ -129,7 +151,7 @@ public class PointQueueHash
         while ((pointQueue == null || pointQueue.IsEmpty == false) && tempList.Count > 0)
         {
             int queueIndex = UnityEngine.Random.Range(0, tempList.Count);
-            pointQueue = m_pointQueueDict[tempList[queueIndex]];
+            pointQueue = PointQueueDict[tempList[queueIndex]];
             tempList.RemoveAt(queueIndex);
         }
         if(pointQueue != null && pointQueue.m_isEmpty == false)
@@ -187,6 +209,20 @@ public class PointQueueHash
         }
         return pointQueue.GetNoReservationPoint();
     }
+    //随机获取一个PointQueue队列(从一个QueueIndex指定范围中)，取出顺序NoReservationPoint
+    public Point GetNoReservationPoint2RandomPointQueue(int minQueueIndex, int maxQueueIndex)
+    {
+        if (IsReservation)
+        {
+            return null;
+        }
+        PointQueue pointQueue = GetNoReservationPointQueue4Random(minQueueIndex, maxQueueIndex);
+        if (pointQueue == null) 
+        {
+            return null;
+        }
+        return pointQueue.GetNoReservationPoint();
+    }
     //随机获取一个PointQueue队列，并取出该PointQueue中的第一个位置点
     public Point GetFirstPoint2RandomPointQueue()
     {
@@ -228,9 +264,9 @@ public class PointQueueHash
     public void AddPointQueue2Hash(int index, PointQueue pointQueue)
     {
         if (pointQueue == null) return;
-        if (m_pointQueueDict.ContainsKey(index) == false)
+        if (PointQueueDict.ContainsKey(index) == false)
         {
-            m_pointQueueDict.Add(index, pointQueue);
+            PointQueueDict.Add(index, pointQueue);
         }
     }
     #endregion

@@ -1,0 +1,107 @@
+ManifestFileVersion: 0
+CRC: 1047999006
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: af963afb2817d242fba677f92f38bc27
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: cb5cff3a1350143ce413b676b0fb473f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Module/Train/Textures/taizidibu.jpg
+- Assets/Module/Train/Textures/sjsdr.jpg
+- Assets/Module/Train/Textures/xianluzhishi.jpg
+- Assets/Module/Train/Textures/sijishi_dianqigui.jpg
+- Assets/Module/Train/Textures/guizi_2.jpg
+- Assets/Module/Train/Textures/kongkai_1.jpg
+- Assets/Module/Train/Textures/guodu.jpg
+- Assets/Module/Train/Textures/jinan.jpg
+- Assets/Module/Train/Textures/czt_zi.png
+- Assets/Module/Train/Textures/lv_an.jpg
+- Assets/Module/Train/Textures/hua.jpg
+- Assets/Module/Train/Textures/sjs10.png
+- Assets/Module/Train/Textures/tou_4.png
+- Assets/Module/Train/Textures/hong_an.jpg
+- Assets/Module/Train/Textures/yichegui.jpg
+- Assets/Module/Train/Textures/yaoshi_1.jpg
+- Assets/Module/Train/Textures/yiche_pdg.jpg
+- Assets/Module/Train/Prefabs/Train.prefab
+- Assets/Module/Train/Textures/mangrenqu.jpg
+- Assets/Module/Train/Textures/pc_jiazi_1.jpg
+- Assets/Module/Train/Textures/guizi1.jpg
+- Assets/Module/Train/Textures/guizineibu.jpg
+- Assets/Module/Train/Textures/sijishiwenziD.png
+- Assets/Module/Train/Textures/huang1_an.jpg
+- Assets/Module/Train/Textures/chewaik.jpg
+- Assets/Module/Train/Textures/chemen.jpg
+- Assets/Module/Train/Textures/yanse.jpg
+- Assets/Module/Train/Textures/neice1.jpg
+- Assets/Module/Train/Textures/neibu_01.png
+- Assets/Module/Train/Textures/sijishimen.jpg
+- Assets/Module/Train/Textures/chedishebei.jpg
+- Assets/Module/Train/Textures/jinan_taizi3.jpg
+- Assets/Module/Train/Textures/sjishixiangzi.jpg
+- Assets/Module/Train/Textures/sjs3.png
+- Assets/Module/Train/Textures/sjs6.png
+- Assets/Module/Train/Textures/fangai.jpg
+- Assets/Module/Train/Textures/zhizheng_01.jpg
+- Assets/Module/Train/Textures/fmq.jpg
+- Assets/Module/Train/Textures/jinan_taizi2.jpg
+- Assets/Module/Train/Textures/cheding_1.jpg
+- Assets/Module/Train/Textures/tianhuaban1.jpg
+- Assets/Module/Train/Textures/yiziVRay.bmp
+- Assets/Module/Train/Textures/pc_lunzi.jpg
+- Assets/Module/Train/Textures/sjs8.png
+- Assets/Module/Train/Textures/sjs7.png
+- Assets/Module/Train/Textures/chedishebei2.jpg
+- Assets/Module/Train/Textures/kongkai.jpg
+- Assets/Module/Train/Textures/ann.jpg
+- Assets/Module/Train/Textures/sjs1.png
+- Assets/Module/Train/Textures/zhuanxiangjia2.jpg
+- Assets/Module/Train/Textures/chetoudeng.png
+- Assets/Module/Train/Textures/sjs2.png
+- Assets/Module/Train/Textures/dimian.jpg
+- Assets/Module/Train/Textures/taimian.jpg
+- Assets/Module/Train/Textures/zhizheng_02.jpg
+- Assets/Module/Train/Textures/zhuanxiangjia.jpg
+- Assets/Module/Train/Textures/ding.jpg
+- Assets/Module/Train/Textures/sjs4.png
+- Assets/Module/Train/Textures/fengyuanxitong.jpg
+- Assets/Module/Train/Textures/bashou.png
+- Assets/Module/Train/Textures/chegou_1.jpg
+- Assets/Module/Train/Textures/sjs5.png
+- Assets/Module/Train/Textures/anniu.jpg
+- Assets/Module/Train/guzhangchuli.fbx
+- Assets/Module/Train/Textures/sijineizhi.jpg
+- Assets/Module/Train/Textures/hongpei_01.jpg
+- Assets/Module/Train/Textures/jiaopi.jpg
+- Assets/Module/Train/Textures/jinan_taizi1.jpg
+- Assets/Module/Train/Textures/boli.png
+- Assets/Module/Train/Textures/sijishiwenzi_d1.png
+- Assets/Module/Train/Textures/sjs9.png
+- Assets/Module/Train/Textures/guizi_1.jpg
+- Assets/Module/Train/Textures/sdg.jpg
+- Assets/Module/Train/Textures/mingzi.png
+- Assets/Module/Train/Textures/wenzi_sc.jpg
+- Assets/Module/Train/Textures/yizi_1.jpg
+- Assets/Module/Train/Textures/huang_an.jpg
+- Assets/Module/Train/Textures/mingzi1.png
+Dependencies: []

@@ -116,6 +116,7 @@ public class NpcAction : MonoBehaviour
 
     #region 组件字段
     protected NavMeshAgent m_navMeshAgent;
+    protected int m_areaMark;
     protected NavMeshObstacle m_navMeshObstacle;
     protected Animator m_animator;
     #endregion
@@ -142,6 +143,23 @@ public class NpcAction : MonoBehaviour
     {
         //开启Npc同步
         StartCoroutine(SyncNpcPosition());
+    }
+    protected virtual void OnTriggerEnter(Collider collider)
+    {
+        if(collider.tag == GameTagMgr.EscalatorUpStart_Tag || collider.tag == GameTagMgr.EscalatorDownStart_Tag)
+        {
+            // m_animator.enabled = false;
+            NpcSync.SendNpcAnimation((UInt16)NpcAnimationType.StandUp, NpcId, StationIndex, (UInt16)NpcActionStatus);
+            m_animator.SetBool("StandUp", true);
+            m_animator.SetBool("Walk", false);
+        }
+        else if(collider.tag == GameTagMgr.EscalatorUpEnd_Tag || collider.tag == GameTagMgr.EscalatorDownEnd_Tag)
+        {
+            // m_animator.enabled = true;
+            NpcSync.SendNpcAnimation((UInt16)NpcAnimationType.Walk, NpcId, StationIndex, (UInt16)NpcActionStatus);
+            m_animator.SetBool("Walk", true);
+            m_animator.SetBool("StandUp", false);
+        }
     }
     #endregion
 
@@ -222,6 +240,13 @@ public class NpcAction : MonoBehaviour
             (int)m_stepArray[m_startStepIndex]);
         return point;
     }
+    //获得一个当前步骤的没有预约的位置点
+    public Point GetNoReservationPoint2RandomPointQueue(int minQueueIndex, int maxQueueIndex)
+    {
+        Point point = StationEngine.Instance.GetNoReservationPoint2RandomPointQueue(m_stationIndex,
+            (int)m_stepArray[m_startStepIndex], minQueueIndex, maxQueueIndex);
+        return point;
+    }
     //获得一个指定QueueIndex中未预约的点
     public Point GetNoReservationPoint2PointQueue(int queueIndex)
     {
@@ -261,7 +286,6 @@ public class NpcAction : MonoBehaviour
             status == PointStatus.DownTrain_Up) && m_gotoPoint != null)
         {
             //下一个位置点，必须为特定位置点时, 跟该位置点当前状态没有任何关系，必须获取到该位置点
-            Debug.Log("StationIndex: " + m_stationIndex + "stepIndex: " + stepIndex);
             point = StationEngine.Instance.GetFirstPoint(m_stationIndex,
                 (int)m_stepArray[stepIndex],
                 m_gotoPoint.m_belongPointQueue.m_queueIndex);
